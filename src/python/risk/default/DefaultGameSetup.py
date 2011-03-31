@@ -9,6 +9,7 @@ from risk.Territory import Territory
 from risk.Continent import Continent
 from risk.Card import Card
 from risk.Game import Game
+from risk.cmd.CmdPlayer import CmdPlayer
 
 
 
@@ -29,34 +30,34 @@ class DefaultGameSetup(object):
         '''North America'''
         alaska = Territory("Alaska")
         alberta = Territory("Alberta")
-        centralAmerica = Territory("Central America")
-        easternUnitedStates = Territory("Eastern United States")
+        centralAmerica = Territory("CentralAmerica")
+        easternUnitedStates = Territory("EasternUnitedStates")
         greenland = Territory("Greenland")
-        northwestTerritory = Territory("Northewst Territory")
+        northwestTerritory = Territory("NorthewstTerritory")
         ontario = Territory("Ontario")
         quebec = Territory("Quebec")
-        westernUnitedStates = Territory("Western United States")
+        westernUnitedStates = Territory("WesternUnitedStates")
         '''South America'''
         argentina = Territory("Argentina")
         brazil = Territory("Brazil")
         peru = Territory("Peru")
         venezuela = Territory("Venezuela")
         '''Europe'''
-        greatBritain = Territory("Great Britain")
+        greatBritain = Territory("GreatBritain")
         iceland = Territory("Iceland")
-        northernEurope = Territory("Northern Europe")
+        northernEurope = Territory("NorthernEurope")
         scandinavia = Territory("Scandinavia")
-        southernEurope = Territory("Southern Europe")
+        southernEurope = Territory("SouthernEurope")
         ukraine = Territory("Ukraine")
-        westernEurope = Territory("Western Europe")
+        westernEurope = Territory("WesternEurope")
         
         '''Africa'''
         congo = Territory("Congo")
-        eastAfrica = Territory("East Africa")
+        eastAfrica = Territory("EastAfrica")
         egypt = Territory("Egypt")
         madagascar = Territory("Madagascar")
-        northAfrica = Territory("North Africa")
-        southAfrica = Territory("South Africa")
+        northAfrica = Territory("NorthAfrica")
+        southAfrica = Territory("SouthAfrica")
 
         '''Asia'''
         kazakhstan = Territory("Kazakhstan")
@@ -65,7 +66,7 @@ class DefaultGameSetup(object):
         irkutsk = Territory("Irkutsk")
         japan = Territory("Japan")
         kamchatka = Territory("Kamchatka")
-        middleEast = Territory("Middle East")
+        middleEast = Territory("MiddleEast")
         mongolia = Territory("Mongolia")
         siam = Territory("Siam")
         siberia = Territory("Siberia")
@@ -73,10 +74,10 @@ class DefaultGameSetup(object):
         yakutsk = Territory("Yakutsk")
 
         '''Australia'''
-        easternAustralia = Territory("Eastern Australia")
+        easternAustralia = Territory("EasternAustralia")
         indonesia = Territory("Indonesia")
-        newGuinea = Territory("New Guinea")
-        westernAustralia = Territory("Western Australia")
+        newGuinea = Territory("NewGuinea")
+        westernAustralia = Territory("WesternAustralia")
         
         '''Continents'''
         northAmerica = Continent("North America", [alaska, alberta, centralAmerica, easternUnitedStates, greenland, northwestTerritory, ontario, quebec, westernUnitedStates], 5)
@@ -366,6 +367,12 @@ class DefaultGameSetup(object):
         goals.append(GoalFactory.createConquerContinent([asia, africa]))
         goals.append(GoalFactory.createConquerContinent([asia, southAmerica]))
     
+        players = []
+        players.append(CmdPlayer(Player.COLOR_BLACK))
+        players.append(CmdPlayer(Player.COLOR_BLUE))
+        players.append(CmdPlayer(Player.COLOR_GRAY))
+        players.append(CmdPlayer(Player.COLOR_GREEN))
+        players.append(CmdPlayer(Player.COLOR_RED))
+        players.append(CmdPlayer(Player.COLOR_YELLOW))
         
-        
-        return Game(continents, goals, cards);
+        return Game(continents, goals, cards, players);

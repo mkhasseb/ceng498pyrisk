@@ -16,6 +16,8 @@ class Territory(object):
         '''
         self.name = name
         self.neighbours = []
+        self.occupant = None
+        self.num_army = 0
         
     def addNeighbour(self, neighbour):
         self.neighbours.append(neighbour)

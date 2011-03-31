@@ -1,0 +1,1 @@
+PYTHONPATH should contain root directory or main class needs to be moved to root directory
