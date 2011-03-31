@@ -3,7 +3,7 @@ Created on 2011 3 31
 
 @author: cihancimen
 '''
-from risk.DefaultGameSetup import DefaultGameSetup
+from risk.default.DefaultGameSetup import DefaultGameSetup
 
 
 
