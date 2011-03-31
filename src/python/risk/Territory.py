@@ -10,8 +10,13 @@ class Territory(object):
     '''
 
 
-    def __init__(self):
+    def __init__(self, name):
         '''
         Constructor
         '''
+        self.name = name
+        self.neighbour = []
         
+    def __addNeighbour(self, neighbour):
+        self.neighbour.append(neighbour)
+    
