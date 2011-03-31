@@ -19,5 +19,4 @@ if __name__ == '__main__':
             i = i + 1
             print i, ter.name
             for n in ter.neighbours:
-                print '\t', n.name   
-    game.setup()         
+                print '\t', n.name            
