@@ -15,8 +15,8 @@ class Territory(object):
         Constructor
         '''
         self.name = name
-        self.neighbour = []
+        self.neighbours = []
         
-    def __addNeighbour(self, neighbour):
-        self.neighbour.append(neighbour)
+    def addNeighbour(self, neighbour):
+        self.neighbours.append(neighbour)
     

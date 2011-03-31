@@ -10,11 +10,11 @@ class Card(object):
     '''
     classdocs
     '''
-    type_infantry = "infantry"
-    type_cavalry = "cavalry"
-    type_artillery = "artillery"
-    type_wild = "wild"
-    type_tip = "tip"
+    TYPE_INFANTRY = "infantry"
+    TYPE_CAVALRY = "cavalry"
+    TYPE_ARTILLERY = "artillery"
+    TYPE_WILD = "wild"
+    TYPE_TIP = "tip"
 
     def __init__(self, type, territory=None, tip=None):
         '''
