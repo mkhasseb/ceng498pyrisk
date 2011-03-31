@@ -10,8 +10,9 @@ class Continent(object):
     ''' 
 
 
-    def __init__(self):
+    def __init__(self, territories, bonus):
         '''
         Constructor
         '''
-        
+        self.territories = territories
+        self.bonus = bonus

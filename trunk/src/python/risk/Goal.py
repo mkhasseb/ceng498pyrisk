@@ -5,28 +5,28 @@ Created on 2011 3 31
 '''
 
 class GoalFactory(object):
-    verbose_occupy= "Occupy 24 Territories of your choice."
-    verbose_conquer = "Conquer 18 Territories of your choice and Occupy each with at least 2 Armies."
-    verbose_continent = "Conquer the Continents of"
-    verbose_eliminate = "Destroy all"
+    VERBOSE_OCCUPY= "Occupy 24 Territories of your choice."
+    VERBOSE_CONQUER = "Conquer 18 Territories of your choice and Occupy each with at least 2 Armies."
+    VERBOSE_CONTINENT = "Conquer the Continents of"
+    VERBOSE_ELIMINATE = "Destroy all"
     def __init__(self):
         pass
     @staticmethod
     def createOccupy():
-        return Goal(Goal.type_occupy, GoalFactory.verbose_occupy)
+        return Goal(Goal.TYPE_OCCUPY, GoalFactory.VERBOSE_OCCUPY)
     @staticmethod
     def createConquer():
-        return Goal(Goal.type_conquer, GoalFactory.verbose_conquer)
+        return Goal(Goal.TYPE_CONQUER, GoalFactory.VERBOSE_CONQUER)
     @staticmethod
     def createConquerContinent(continents):
-        verbose = GoalFactory.verbose_conquer+" " + continents[0].name
+        verbose = GoalFactory.VERBOSE_CONQUER+" " + continents[0].name
         verbose += " and " + continents[2].name
-        return Goal(Goal.type_continent, verbose, continents=continents)
+        return Goal(Goal.TYPE_CONTINENT, verbose, continents=continents)
     @staticmethod
     def createEliminate(color):
         alternate = GoalFactory.createOccupy()
-        verbose = GoalFactory.verbose_continent + " " + color + " troops." + alternate.verbose  
-        return Goal(Goal.type_eliminate, verbose, color=color, alternate=alternate)
+        verbose = GoalFactory.VERBOSE_CONTINENT + " " + color + " troops. If yours are the " + color + " Troops, then: "+ alternate.verbose  
+        return Goal(Goal.TYPE_ELIMINATE, verbose, color=color, alternate=alternate)
     
 class Goal(object):
     '''
@@ -45,11 +45,12 @@ class Goal(object):
     Destroy all Blue troops. If yours are the Blue Troops, then: Occupy 24 Territories of your choice.
     Conquer 18 Territories of your choice and Occupy each with at least 2 Armies.
     '''
-    type_eliminate = "eliminate"
-    type_continent = "continent"
-    type_occupy="occupy" #24 Territories
-    type_conquer ="conquer" #18 Territory at least two armies
+    TYPE_ELIMINATE = "eliminate"
+    TYPE_CONTINENT = "continent"
+    TYPE_OCCUPY="occupy" #24 Territories
+    TYPE_CONQUER ="conquer" #18 Territory at least two armies
 
+    #FIXME For different maps, number of territories and minimum number of armies on each territory may change
     def __init__(self, type, verbose, continents=None, color =None, alternate = None):
         '''
         Generic Constructor
