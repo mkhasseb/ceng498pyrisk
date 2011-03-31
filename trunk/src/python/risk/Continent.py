@@ -10,9 +10,12 @@ class Continent(object):
     ''' 
 
 
-    def __init__(self, territories, bonus):
+    def __init__(self, name, territories, bonus):
         '''
         Constructor
         '''
+        self.name = name
         self.territories = territories
+        for territory in territories:
+            territory.continent = self
         self.bonus = bonus

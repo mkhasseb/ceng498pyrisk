@@ -5,7 +5,7 @@ Created on 2011 3 31
 '''
 
 class GoalFactory(object):
-    VERBOSE_OCCUPY= "Occupy 24 Territories of your choice."
+    VERBOSE_OCCUPY = "Occupy 24 Territories of your choice."
     VERBOSE_CONQUER = "Conquer 18 Territories of your choice and Occupy each with at least 2 Armies."
     VERBOSE_CONTINENT = "Conquer the Continents of"
     VERBOSE_ELIMINATE = "Destroy all"
@@ -19,13 +19,13 @@ class GoalFactory(object):
         return Goal(Goal.TYPE_CONQUER, GoalFactory.VERBOSE_CONQUER)
     @staticmethod
     def createConquerContinent(continents):
-        verbose = GoalFactory.VERBOSE_CONQUER+" " + continents[0].name
-        verbose += " and " + continents[2].name
+        verbose = GoalFactory.VERBOSE_CONQUER + " " + continents[0].name
+        verbose += " and " + continents[1].name
         return Goal(Goal.TYPE_CONTINENT, verbose, continents=continents)
     @staticmethod
     def createEliminate(color):
         alternate = GoalFactory.createOccupy()
-        verbose = GoalFactory.VERBOSE_CONTINENT + " " + color + " troops. If yours are the " + color + " Troops, then: "+ alternate.verbose  
+        verbose = GoalFactory.VERBOSE_CONTINENT + " " + color + " troops. If yours are the " + color + " Troops, then: " + alternate.verbose  
         return Goal(Goal.TYPE_ELIMINATE, verbose, color=color, alternate=alternate)
     
 class Goal(object):
@@ -47,11 +47,11 @@ class Goal(object):
     '''
     TYPE_ELIMINATE = "eliminate"
     TYPE_CONTINENT = "continent"
-    TYPE_OCCUPY="occupy" #24 Territories
-    TYPE_CONQUER ="conquer" #18 Territory at least two armies
+    TYPE_OCCUPY = "occupy" #24 Territories
+    TYPE_CONQUER = "conquer" #18 Territory at least two armies
 
     #FIXME For different maps, number of territories and minimum number of armies on each territory may change
-    def __init__(self, type, verbose, continents=None, color =None, alternate = None):
+    def __init__(self, type, verbose, continents=None, color=None, alternate=None):
         '''
         Generic Constructor
         
