@@ -254,6 +254,7 @@ class DefaultGameSetup(object):
         kamchatka.addNeighbour(asia.territories[3])
         kamchatka.addNeighbour(asia.territories[7])
         kamchatka.addNeighbour(asia.territories[4])
+        kamchatka.addNeighbour(northAmerica.territories[0])
 
         middleEast.addNeighbour(asia.territories[2])
         middleEast.addNeighbour(asia.territories[0])
