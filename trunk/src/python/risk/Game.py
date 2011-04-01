@@ -62,14 +62,14 @@ class TurnIterator(object):
         self.roundFlag = False;
         self.completed = False;
     def next(self):
-        player = self.players[self.index]
+        self.player = self.players[self.index]
         self.index += 1
         self.turncount  +=1
         if(self.index == len(self.players)):
             if(self.roundFlag):
                 self.completed = True
             self.index = 0
-        return player
+        return self.player
     
     def reset(self):
         self.index = 0
