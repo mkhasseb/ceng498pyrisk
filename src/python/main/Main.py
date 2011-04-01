@@ -18,4 +18,6 @@ if __name__ == '__main__':
             i = i + 1
             print ter.name
 
-    game.setup()         
+    game.setup()
+    victor = game.play()
+    print 'victor is ', victor.color, ', with mission ', victor.mission        
