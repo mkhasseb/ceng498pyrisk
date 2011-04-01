@@ -56,9 +56,9 @@ class Game(object):
             while(True):
                 while(not self.turner.roundCompleted()):
                     player = self.turner.next()
-                    player.placeIncome(self)
+                    player.tradeIn(self)
                     self.goalChecker.check()
-                    player.tradeId(self)
+                    player.placeIncome(self)
                     self.goalChecker.check()
                     player.attack(self)
                     self.goalChecker.check()
