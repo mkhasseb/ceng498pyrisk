@@ -5,6 +5,7 @@ Created on 2011 3 31
 '''
 import random
 from risk.command.CommandParser import CommandParser
+from risk.GoalChecker import VictorFound, GoalChecker
 
 class Game(object):
     '''
@@ -16,6 +17,7 @@ class Game(object):
         '''
         Constructor
         '''
+        self.goalChecker = GoalChecker(self)
         self.parser = CommandParser(self)
         self.continents = {}
         self.territories = {}
@@ -47,6 +49,25 @@ class Game(object):
         while(not self.turner.roundCompleted()):
             self.turner.next().placeArmies(self)
         self.turner.reset()
+    def play(self):
+        self.turner.reset()
+        victor = None
+        try:
+            while(True):
+                while(not self.turner.roundCompleted()):
+                    player = self.turner.next()
+                    player.placeIncome(self)
+                    self.goalChecker.check()
+                    player.tradeId(self)
+                    self.goalChecker.check()
+                    player.attack(self)
+                    self.goalChecker.check()
+                    player.move(self)
+                    self.goalChecker.check()
+                self.turner.reset()
+        except(VictorFound):
+            return victor
+            
     def __countUnoccupied(self):
         i = 0;
         for ter in self.territories.values():
@@ -54,6 +75,7 @@ class Game(object):
                 i += 1
         return i
     
+#FIXME what happens if someone eliminated
 class TurnIterator(object):
     def __init__(self, players):
         self.index = 0

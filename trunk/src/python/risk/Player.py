@@ -31,3 +31,12 @@ class Player(object):
     def placeArmies(self, game):
         print "I am %s have %d armies. I am placing arbitrary" % (self.color, self.armies) 
         pass
+    #TODO implement here
+    def placeIncome(self, game):
+        pass
+    def tradeIn(self, game):
+        pass
+    def attack(self, game):
+        pass
+    def move(self, game):
+        pass
