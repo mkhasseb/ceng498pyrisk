@@ -31,18 +31,18 @@ class Game(object):
         random.shuffle(self.goals)
         random.shuffle(self.cards)
         random.shuffle(self.players)
-        self.turner= TurnIterator(players)
+        self.turner = TurnIterator(players)
         for player in players:
             player.game = self
     def setup(self):
-        num_armies = 40 - (len(self.players) -2) * 5
+        num_armies = 40 - (len(self.players) - 2) * 5
         while(not self.turner.roundCompleted()):
-            player =self.turner.next()
+            player = self.turner.next()
             player.armies = num_armies
             player.mission = self.goals.pop()
             print 'current player %s' % (player.color)
         self.turner.reset()
-        while(self.__countUnoccupied()> 0):
+        while(self.__countUnoccupied() > 0):
             player = self.turner.next()
             player.placeSingle(self)
         self.turner.reset()
@@ -86,7 +86,7 @@ class TurnIterator(object):
     def next(self):
         self.player = self.players[self.index]
         self.index += 1
-        self.turncount  +=1
+        self.turncount += 1
         if(self.index == len(self.players)):
             if(self.roundFlag):
                 self.completed = True
