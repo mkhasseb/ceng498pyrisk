@@ -12,5 +12,5 @@ class PlaceCommand(object):
         '''
         Constructor
         '''
-        self.territory =territory
+        self.territory = territory
         self.number = number
