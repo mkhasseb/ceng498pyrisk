@@ -38,10 +38,10 @@ class CommandParser(object):
             if(words[i] == ""):
                 del words[i]
         if(len(words) < 1):
-            raise ParseException()
+            raise ParseException('Enter something other than whitespaces')
         cmd = words[0].lower()
         if(not (cmd in CommandParser.AVAILABLE_COMMANDS)):
-            raise ParseException()
+            raise ParseException('Unkown command: %s' % (cmd))
         
         if(cmd == CommandParser.COMMAND_PLACE):
             try:
@@ -51,12 +51,14 @@ class CommandParser(object):
                 else:
                     num = 1
                 return PlaceCommand(ter, num)
-            except(Exception):
-                raise ParseException()
+            except KeyError as e:
+                raise ParseException('Unknown Territory: %s' %  (str(e)))
+            except Exception as e:
+                raise ParseException(str(e))
             
         elif(cmd == CommandParser.COMMAND_LIST):
             try:
-                if(words[1] == "myterritories"):
+                if(words[1] == "my"):
                     terrs = ""
                     i = 1
                     terrs += self.game.turner.player.color + "\n"
@@ -84,9 +86,10 @@ class CommandParser(object):
                             for ne in terr.neighbours:
                                 n += "\t" + ne.name +"(" + ne.continent.name +" "+   (ne.occupant.color if(ne.occupant) else 'unoccupied') +"- " + str(ne.armies) +" armies):\n"
                             return ListCommand(n)
+                        except KeyError as e:
+                            raise ParseException('Unknown Territory: %s' % (str(e)))
                         except Exception as ex:
-                            print ex
-                            raise ParseException()  
+                            raise ParseException(str(ex))  
                     else:
                         player= self.game.turner.player
                         n = "Neighbours:\n"
@@ -105,47 +108,44 @@ class CommandParser(object):
                     return ListCommand(all)
                 elif(words[1] == 'mission'):
                     return ListCommand(self.game.turner.player.mission.verbose)
-            except Exception as ex:
-                print ex
-                raise ParseException()
+            except Exception as e:
+                raise ParseException(str(e))
                 
         elif(cmd == CommandParser.COMMAND_MOVE):
             try:
                 if(len(words) != 4):
-                    #incorrect usage
-                    raise ParseException()
+                    raise ParseException('Usage: Move <from territory name> <to territory name> <number of armies>')
                 fromTerr = self.game.territories[words[1]]
                 toTerr = self.game.territories[words[2]]
                 num = int(words[3])
                 return MoveCommand(fromTerr, toTerr, num)
-            except(Exception):
-                raise ParseException()
+            except KeyError as e:
+                raise ParseException('Unknown Territory: %s' %  (str(e)))
+            except Exception as e:
+                raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_ATTACK):
             try:
                 if(len(words) != 4):
-                    #incorrect usage
-                    raise ParseException()
+                    raise ParseException('Usage: Attack <from territory name> <to territory name> <number of dice>')
                 fromTerr = self.game.territories[words[1]]
                 toTerr = self.game.territories[words[2]]
                 num = int(words[3])
                 return AttackCommand(fromTerr, toTerr, num)
-            except(Exception):
-                raise ParseException()
+            except KeyError as e:
+                raise ParseException('Unknown Territory: %s' % (str(e)))
+            except Exception as e:
+                raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_PASS):
             return PassCommand()
         else:
-            raise ParseException()
+            raise ParseException('Unknown command: %s' % (cmd))
 
-        '''elif(cmd == CommandParser.COMMAND_MOVE):
-            try:
-                num = int(words[1])
-                fromTer = self.game.territories[words[3].strip()]
-                toTer = self.game.territories[words[5].strip()]'''
 
 class PassCommand(object):
     def __init__(self):
         pass
 
 class ParseException(Exception):
-    def __init__(self):
+    def __init__(self, message):
         Exception.__init__(self)
+        self.mess = message

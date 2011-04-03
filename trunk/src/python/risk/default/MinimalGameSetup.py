@@ -9,7 +9,7 @@ from risk.Continent import Continent
 from risk.Card import Card
 from risk.Goal import GoalFactory
 from risk.Player import Player
-from risk.cmd.CmdPlayer import CmdPlayer
+from risk.cmd.CmdConnector import CmdConnector
 
 class MinimalGameSetup(object):
     def __init__(self):
@@ -56,7 +56,7 @@ class MinimalGameSetup(object):
         goals.append( GoalFactory.createEliminate(Player.COLOR_BLUE, 5))
         
         players = []
-        players.append(CmdPlayer(Player.COLOR_BLACK))
-        players.append(CmdPlayer(Player.COLOR_BLUE))
+        players.append(Player(Player.COLOR_BLACK, CmdConnector()))
+        players.append(Player(Player.COLOR_BLUE, CmdConnector()))
         
         return Game(continents, goals, cards, players)
