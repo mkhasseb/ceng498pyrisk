@@ -82,6 +82,8 @@ class Player(object):
                             card = _checkTerrBehindCard(command.cards)
                             if(card):
                                 self.connector.send('%s has %s territory in traded cards and get 2 extra armies.' % (self.color, card.territory.name))
+                            for c in command.cards:
+                                self.cards.remove(c)
                         else:
                             self.connector.send('Cards cannot be traded in, please enter card numbers correctly')
                     elif(isinstance(command, ListCommand)):
@@ -366,7 +368,38 @@ class Player(object):
             self.connector.send('%s eliminated by %s')
             attacker.eliminates.append(defender.color)
             attacker.cards.extend(defender.cards)
-            #FIXME handle card limit here
+            if(len(defender.cards) >= 6):
+                self.connector.send('%s has taken %d risk cards of eliminated player and must trade in until 2, 3 or 4 cards remain.(Usage: Trade <first card number> <second card number> <third card number>)' % (attacker.color, len(defender.cards)))
+                done = False
+                while(not done):
+                    try:
+                        command = game.parser.parse(self.connector.receive())
+                        if(isinstance(command, TradeCommand)):
+                            cardTypes = []
+                            for c in command.cards:
+                                cardTypes.append(c.type)
+                            if(_checkTradeIn(cardTypes)):
+                                armyNum = _evaluateArmyNum(game)
+                                game.gameSet += 1
+                                self.connector.send('%s has traded in and get %s armies. Game set has increased to %s' % (attacker.color, armyNum, game.gameSet))
+                                attacker.armies += armyNum
+                                if(len(attacker.cards) <= 4):
+                                    done = True
+
+                                '''getting armies by the territory behind traded cards'''
+                                card = _checkTerrBehindCard(command.cards)
+                                if(card):
+                                    self.connector.send('%s has %s territory in traded cards and get 2 extra armies.' % (self.color, card.territory.name))
+                                for c in command.cards:
+                                    attacker.cards.remove(c)
+                            else:
+                                self.connector.send('Cards cannot be traded in, please enter card numbers correctly')
+                        elif(isinstance(command, ListCommand)):
+                            self.connector.send(command.verbose)
+                        else:
+                            self.connector.send('Command not allowed here')
+                    except ParseException as e:
+                        self.connector.send(e.mess)
             game.players.remove(defender)
         
     def _checkTradeIn(self, cardTypes=None):
