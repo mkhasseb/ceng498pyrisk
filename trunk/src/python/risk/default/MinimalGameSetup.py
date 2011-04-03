@@ -34,8 +34,10 @@ class MinimalGameSetup(object):
         c.addNeighbour(e)
         
         d.addNeighbour(c)
+        d.addNeighbour(e)
         
         e.addNeighbour(c)
+        e.addNeighbour(d)
         
         abc = Continent("ABC", [a, b, c], 5)
         de = Continent("DE", [d, e], 3)
@@ -44,11 +46,20 @@ class MinimalGameSetup(object):
 
         cards = []
         cards.append(Card(Card.TYPE_INFANTRY, territory=a))
+        cards.append(Card(Card.TYPE_INFANTRY, territory=b))
+        cards.append(Card(Card.TYPE_INFANTRY, territory=c))
+        cards.append(Card(Card.TYPE_INFANTRY, territory=d))
+        cards.append(Card(Card.TYPE_INFANTRY, territory=e))
+        cards.append(Card(Card.TYPE_CAVALRY, territory=a))
         cards.append(Card(Card.TYPE_CAVALRY, territory=b))
         cards.append(Card(Card.TYPE_CAVALRY, territory=c))
-        cards.append(Card(Card.TYPE_INFANTRY, territory=c))
         cards.append(Card(Card.TYPE_CAVALRY, territory=d))
-        cards.append(Card(Card.TYPE_INFANTRY, territory=e))
+        cards.append(Card(Card.TYPE_CAVALRY, territory=e))
+        cards.append(Card(Card.TYPE_ARTILLERY, territory=a))
+        cards.append(Card(Card.TYPE_ARTILLERY, territory=b))
+        cards.append(Card(Card.TYPE_ARTILLERY, territory=c))
+        cards.append(Card(Card.TYPE_ARTILLERY, territory=d))
+        cards.append(Card(Card.TYPE_ARTILLERY, territory=e))
         cards.append(Card(Card.TYPE_WILD))
 
         goals = []
