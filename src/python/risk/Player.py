@@ -175,7 +175,7 @@ class Player(object):
         while(True):
             try:
                 dice = int(self.connector.receive())
-                if(dice > command.toTerr.armies):
+                if(dice > command.toTerr.armies or dice > 2):
                     self.connector.send( 'self.connector.send( at most 2 or equal to territory\' army number')
                 else:
                     return dice
