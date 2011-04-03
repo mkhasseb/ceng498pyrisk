@@ -16,14 +16,14 @@ class GoalFactory(object):
         return Goal(Goal.TYPE_OCCUPY, (GoalFactory.VERBOSE_OCCUPY % (num)), num=num)
     @staticmethod
     def createConquer(num, numArmy):
-        return Goal(Goal.TYPE_CONQUER,( GoalFactory.VERBOSE_CONQUER % (num, numArmy)), num=num, numArmy=numArmy)
+        return Goal(Goal.TYPE_CONQUER, (GoalFactory.VERBOSE_CONQUER % (num, numArmy)), num=num, numArmy=numArmy)
     @staticmethod
     def createConquerContinent(continents):
         verbose = GoalFactory.VERBOSE_CONQUER + " " + continents[0].name
         verbose += " and " + continents[1].name
         return Goal(Goal.TYPE_CONTINENT, verbose, continents=continents)
     @staticmethod
-    def createEliminate(color,num):
+    def createEliminate(color, num):
         alternate = GoalFactory.createOccupy(num)
         verbose = GoalFactory.VERBOSE_CONTINENT + " " + color + " troops. If yours are the " + color + " Troops, then: " + alternate.verbose  
         return Goal(Goal.TYPE_ELIMINATE, verbose, color=color, alternate=alternate)
