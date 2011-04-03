@@ -16,13 +16,16 @@ class CommandParser(object):
     COMMAND_PLACE = "place"
     '''Move <FromTerritory> <ToTerritory> <ArmyNumber>'''
     COMMAND_MOVE = "move"
-    '''List (myterritories|unoccupied)'''
+
     COMMAND_LIST = "list"
     '''Pass'''
     COMMAND_PASS = "pass"
     '''Attack <fromTerr> <toTerr> <dic number>'''
     COMMAND_ATTACK = "attack"
-    AVAILABLE_COMMANDS = [COMMAND_PLACE, COMMAND_LIST, COMMAND_MOVE, COMMAND_PASS, COMMAND_ATTACK]
+    '''Trade <first card number> <second card number> <third card number>'''
+    '''Card numbers are starting from 1'''
+    COMMAND_TRADE = "trade"
+    AVAILABLE_COMMANDS = [COMMAND_PLACE, COMMAND_LIST, COMMAND_MOVE, COMMAND_PASS, COMMAND_ATTACK, COMMAND_TRADE]
 
     def __init__(self, game):
         '''
@@ -66,6 +69,7 @@ class CommandParser(object):
                         if(ter.occupant == self.game.turner.player):
                             terrs += str(i) + " " + ter.name + " - Army Number:" + str(ter.armies) + "\n"
                             i += 1
+                    terrs += "Free Armies:" + str(self.game.turner.player.armies)
                     return ListCommand(terrs)
                 elif(words[1] == "unoccupied"):
                     terrs = ""
@@ -133,6 +137,27 @@ class CommandParser(object):
                 return AttackCommand(fromTerr, toTerr, num)
             except KeyError as e:
                 raise ParseException('Unknown Territory: %s' % (str(e)))
+            except Exception as e:
+                raise ParseException(str(e))
+        elif(cmd == CommandParser.COMMAND_TRADE):
+            try:
+                if(len(words) != 4):
+                    raise ParseException('Usage: Trade <first card number> <second card number> <third card number>')
+                cardNum1 = int(words[1])
+                if(cardNum1 > len(self.game.turner.player.cards) or cardNum1 < 0):
+                    raise ParseException('First card number is not legal please enter between 0 and %s' %(len(self.game.turner.player.cards)))
+                cardNum2 = int(words[2])
+                if(cardNum2 > len(self.game.turner.player.cards) or cardNum2 < 0):
+                    raise ParseException('Second card number is not legal please enter between 0 and %s' %(len(self.game.turner.player.cards)))
+                cardNum3 = int(words[3])
+                if(cardNum3 > len(self.game.turner.player.cards) or cardNum3 < 0):
+                    raise ParseException('Third card number is not legal please enter between 0 and %s' %(len(self.game.turner.player.cards)))
+
+                cards = []
+                cards.append(self.game.turner.player.cards[cardNum1])
+                cards.append(self.game.turner.player.cards[cardNum2])
+                cards.append(self.game.turner.player.cards[cardNum3])
+                return TradeCommand(cards)
             except Exception as e:
                 raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_PASS):

@@ -34,6 +34,7 @@ class Game(object):
         self.turner = TurnIterator(players)
         for player in players:
             player.game = self
+        self.gameSet = 1
     def setup(self):
         num_armies = 40 - (len(self.players) - 2) * 5
         while(not self.turner.roundCompleted()):
