@@ -37,8 +37,8 @@ class MinimalGameSetup(object):
         
         e.addNeighbour(c)
         
-        abc = Continent("ABC", [a,b,c], 5)
-        de = Continent("DE", [d,e], 3)
+        abc = Continent("ABC", [a, b, c], 5)
+        de = Continent("DE", [d, e], 3)
         
         continents = [abc, de]
         cards = []
@@ -50,10 +50,10 @@ class MinimalGameSetup(object):
         cards.append(Card(Card.TYPE_INFANTRY, territory=e))
         cards.append(Card(Card.TYPE_WILD))
         goals = []
-        goals.append( GoalFactory.createConquer(4, 5))
-        goals.append( GoalFactory.createConquer(5, 2))
-        goals.append( GoalFactory.createEliminate(Player.COLOR_BLACK, 5))
-        goals.append( GoalFactory.createEliminate(Player.COLOR_BLUE, 5))
+        goals.append(GoalFactory.createConquer(4, 5))
+        goals.append(GoalFactory.createConquer(5, 2))
+        goals.append(GoalFactory.createEliminate(Player.COLOR_BLACK, 5))
+        goals.append(GoalFactory.createEliminate(Player.COLOR_BLUE, 5))
         
         players = []
         players.append(Player(Player.COLOR_BLACK, CmdConnector()))

@@ -50,7 +50,7 @@ class GoalChecker(object):
             if(mission.num <= len(player.occupied)):
                 victor = True
                 for ter in player.occupied:
-                    if(ter.armies < mission.armNum ):
+                    if(ter.armies < mission.armNum):
                         victor = False
                         break
                 if(victor):

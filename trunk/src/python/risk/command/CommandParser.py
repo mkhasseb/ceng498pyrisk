@@ -52,7 +52,7 @@ class CommandParser(object):
                     num = 1
                 return PlaceCommand(ter, num)
             except KeyError as e:
-                raise ParseException('Unknown Territory: %s' %  (str(e)))
+                raise ParseException('Unknown Territory: %s' % (str(e)))
             except Exception as e:
                 raise ParseException(str(e))
             
@@ -74,37 +74,37 @@ class CommandParser(object):
                             terrs += ter.name + "  "
                     return ListCommand(terrs)
                 elif(words[1] == "cards"):
-                    cards = 'Cards('+str(len(self.game.turner.player.cards))+'):\n'
-                    for index,card in enumerate(self.game.turner.player.cards):
-                        cards += "\t" + str(index) +" - "+card.type +" "+ (card.territory.name if(card.territory) else "" )  + "\n"
+                    cards = 'Cards(' + str(len(self.game.turner.player.cards)) + '):\n'
+                    for index, card in enumerate(self.game.turner.player.cards):
+                        cards += "\t" + str(index) + " - " + card.type + " " + (card.territory.name if(card.territory) else "") + "\n"
                     return ListCommand(cards)
                 elif(words[1] == 'neighbours'):
                     if(len(words) > 2):
                         try:
-                            n = "Neighbours of "+words[2]+" :\n"
-                            terr  = self.game.territories[words[2]]
+                            n = "Neighbours of " + words[2] + " :\n"
+                            terr = self.game.territories[words[2]]
                             for ne in terr.neighbours:
-                                n += "\t" + ne.name +"(" + ne.continent.name +" "+   (ne.occupant.color if(ne.occupant) else 'unoccupied') +"- " + str(ne.armies) +" armies):\n"
+                                n += "\t" + ne.name + "(" + ne.continent.name + " " + (ne.occupant.color if(ne.occupant) else 'unoccupied') + "- " + str(ne.armies) + " armies):\n"
                             return ListCommand(n)
                         except KeyError as e:
                             raise ParseException('Unknown Territory: %s' % (str(e)))
                         except Exception as ex:
                             raise ParseException(str(ex))  
                     else:
-                        player= self.game.turner.player
+                        player = self.game.turner.player
                         n = "Neighbours:\n"
                         for terr in player.occupied:
-                            n += terr.name +"(" + terr.continent.name +"- " + str(terr.armies) +" armies):\n"
+                            n += terr.name + "(" + terr.continent.name + "- " + str(terr.armies) + " armies):\n"
                             for ne in terr.neighbours:
                                 if(not (ne.occupant == player)):
-                                    n += "\t" + ne.name +"( " + ne.continent.name +" "+  (ne.occupant.color if(ne.occupant) else 'unoccupied') +"- " + str(ne.armies) +" armies):\n"
+                                    n += "\t" + ne.name + "( " + ne.continent.name + " " + (ne.occupant.color if(ne.occupant) else 'unoccupied') + "- " + str(ne.armies) + " armies):\n"
                         return ListCommand(n)
                 elif(words[1] == 'all'):
-                    all ="World State:\n"
+                    all = "World State:\n"
                     for con in self.game.continents.values():
-                        all += con.name +":\n"
+                        all += con.name + ":\n"
                         for terr in con.territories:
-                            all +="\t" + terr.name + " " + (terr.occupant.color if(terr.occupant) else ' unoccupied ') + " " + str(terr.armies) +"\n"
+                            all += "\t" + terr.name + " " + (terr.occupant.color if(terr.occupant) else ' unoccupied ') + " " + str(terr.armies) + "\n"
                     return ListCommand(all)
                 elif(words[1] == 'mission'):
                     return ListCommand(self.game.turner.player.mission.verbose)
@@ -120,7 +120,7 @@ class CommandParser(object):
                 num = int(words[3])
                 return MoveCommand(fromTerr, toTerr, num)
             except KeyError as e:
-                raise ParseException('Unknown Territory: %s' %  (str(e)))
+                raise ParseException('Unknown Territory: %s' % (str(e)))
             except Exception as e:
                 raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_ATTACK):
