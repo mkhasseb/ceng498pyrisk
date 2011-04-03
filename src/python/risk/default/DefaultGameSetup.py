@@ -9,7 +9,7 @@ from risk.Territory import Territory
 from risk.Continent import Continent
 from risk.Card import Card
 from risk.Game import Game
-from risk.cmd.CmdPlayer import CmdPlayer
+from risk.cmd.CmdConnector import CmdConnector
 
 
 
@@ -369,11 +369,11 @@ class DefaultGameSetup(object):
         goals.append(GoalFactory.createConquerContinent([asia, southAmerica]))
     
         players = []
-        players.append(CmdPlayer(Player.COLOR_BLACK))
-        players.append(CmdPlayer(Player.COLOR_BLUE))
-        players.append(CmdPlayer(Player.COLOR_GRAY))
-        players.append(CmdPlayer(Player.COLOR_GREEN))
-        players.append(CmdPlayer(Player.COLOR_RED))
-        players.append(CmdPlayer(Player.COLOR_YELLOW))
+        players.append(Player(Player.COLOR_BLACK, CmdConnector()))
+        players.append(Player(Player.COLOR_BLUE, CmdConnector()))
+        players.append(Player(Player.COLOR_GRAY, CmdConnector()))
+        players.append(Player(Player.COLOR_GREEN, CmdConnector()))
+        players.append(Player(Player.COLOR_RED, CmdConnector()))
+        players.append(Player(Player.COLOR_YELLOW, CmdConnector()))
         
         return Game(continents, goals, cards, players);
