@@ -351,7 +351,9 @@ class DefaultGameSetup(object):
         cards.append(Card(Card.TYPE_INFANTRY, territory=westernEurope))
         cards.append(Card(Card.TYPE_INFANTRY, territory=westernUnitedStates))
         cards.append(Card(Card.TYPE_CAVALRY, territory=yakutsk))
-        
+        cards.append(Card(Card.TYPE_WILD))
+        cards.append(Card(Card.TYPE_WILD))
+
         '''Goals'''
         goals = []
         

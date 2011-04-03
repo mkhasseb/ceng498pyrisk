@@ -41,6 +41,7 @@ class MinimalGameSetup(object):
         de = Continent("DE", [d, e], 3)
         
         continents = [abc, de]
+
         cards = []
         cards.append(Card(Card.TYPE_INFANTRY, territory=a))
         cards.append(Card(Card.TYPE_CAVALRY, territory=b))
@@ -49,6 +50,7 @@ class MinimalGameSetup(object):
         cards.append(Card(Card.TYPE_CAVALRY, territory=d))
         cards.append(Card(Card.TYPE_INFANTRY, territory=e))
         cards.append(Card(Card.TYPE_WILD))
+
         goals = []
         goals.append(GoalFactory.createConquer(4, 5))
         goals.append(GoalFactory.createConquer(5, 2))
