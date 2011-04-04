@@ -3,12 +3,12 @@ Created on 2011 3 31
 
 @author: cihancimen
 '''
+from risk.Card import Card
+from risk.Continent import Continent
+from risk.Game import Game
 from risk.Goal import GoalFactory
 from risk.Player import Player
 from risk.Territory import Territory
-from risk.Continent import Continent
-from risk.Card import Card
-from risk.Game import Game
 from risk.cmd.CmdConnector import CmdConnector
 
 
@@ -87,7 +87,7 @@ class DefaultGameSetup(object):
         asia = Continent("Asia", [kazakhstan, china, india, irkutsk, japan, kamchatka, middleEast, mongolia, siam, siberia, ural, yakutsk], 7)
         australia = Continent("Australia", [easternAustralia, indonesia, newGuinea, westernAustralia], 2)
         
-        continents = [ northAmerica, europe, southAmerica, africa, asia, australia]
+        continents = [northAmerica, europe, southAmerica, africa, asia, australia]
         '''Neighbours'''
         '''North America'''
         alaska.addNeighbour(northAmerica.territories[1])
@@ -321,7 +321,7 @@ class DefaultGameSetup(object):
         cards.append(Card(Card.TYPE_ARTILLERY, territory=easternUnitedStates))
         cards.append(Card(Card.TYPE_INFANTRY, territory=egypt))
         cards.append(Card(Card.TYPE_CAVALRY, territory=greatBritain))
-        cards.append(Card(Card.TYPE_CAVALRY , territory=greenland))
+        cards.append(Card(Card.TYPE_CAVALRY, territory=greenland))
         cards.append(Card(Card.TYPE_INFANTRY, territory=iceland))
         cards.append(Card(Card.TYPE_INFANTRY, territory=india))
         cards.append(Card(Card.TYPE_CAVALRY, territory=indonesia))
@@ -354,28 +354,37 @@ class DefaultGameSetup(object):
         cards.append(Card(Card.TYPE_WILD))
         cards.append(Card(Card.TYPE_WILD))
 
+        connector = CmdConnector()
+        connector.send('Enter the number of players between 2 and 6')
+        plNum = 6 #default
+        while(True):
+            try:
+                plNum = int(connector.receive())
+                if(not (plNum) > 0):
+                    connector.send('OMG Enter something bigger than zero')
+                elif(plNum < 2 or plNum > 6):
+                    connector.send('Incorrect value. Please enter the number of players between 2 and 6')
+                else:
+                    break
+            except(Exception):
+                connector.send('enter a valid integer')
+                
         '''Goals'''
+        colors = [Player.COLOR_BLACK, Player.COLOR_BLUE, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
         goals = []
         
         goals.append(GoalFactory.createConquer(18, 2))
         goals.append(GoalFactory.createOccupy(24))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_BLACK, 24))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_BLUE, 24))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_GRAY, 24))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_GREEN, 24))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_RED, 24))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_YELLOW, 24))
+        for i in range(plNum):
+            goals.append(GoalFactory.createEliminate(colors[i], 24))
         goals.append(GoalFactory.createConquerContinent([northAmerica, africa]))
         goals.append(GoalFactory.createConquerContinent([northAmerica, australia]))
         goals.append(GoalFactory.createConquerContinent([asia, africa]))
         goals.append(GoalFactory.createConquerContinent([asia, southAmerica]))
-    
+
+        '''Players'''
         players = []
-        players.append(Player(Player.COLOR_BLACK, CmdConnector()))
-        players.append(Player(Player.COLOR_BLUE, CmdConnector()))
-        players.append(Player(Player.COLOR_GRAY, CmdConnector()))
-        players.append(Player(Player.COLOR_GREEN, CmdConnector()))
-        players.append(Player(Player.COLOR_RED, CmdConnector()))
-        players.append(Player(Player.COLOR_YELLOW, CmdConnector()))
+        for i in range(plNum):
+            players.append(Player(colors[i], CmdConnector()))
         
         return Game(continents, goals, cards, players);

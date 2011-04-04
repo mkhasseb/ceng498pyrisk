@@ -12,7 +12,6 @@ class Game(object):
     classdocs
     '''
 
-    #fixme players
     def __init__(self, continents, goals, cards, players):
         '''
         Constructor
@@ -76,7 +75,6 @@ class Game(object):
                 i += 1
         return i
     
-#FIXME what happens if someone eliminated
 class TurnIterator(object):
     def __init__(self, players):
         self.index = 0
