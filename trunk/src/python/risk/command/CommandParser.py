@@ -23,7 +23,6 @@ class CommandParser(object):
     '''Attack <fromTerr> <toTerr> <dic number>'''
     COMMAND_ATTACK = "attack"
     '''Trade <first card number> <second card number> <third card number>'''
-    '''Card numbers are starting from 1'''
     COMMAND_TRADE = "trade"
     AVAILABLE_COMMANDS = [COMMAND_PLACE, COMMAND_LIST, COMMAND_MOVE, COMMAND_PASS, COMMAND_ATTACK, COMMAND_TRADE]
 
