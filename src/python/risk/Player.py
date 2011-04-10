@@ -12,6 +12,7 @@ from risk.command.CommandParser import PassCommand
 from risk.command.ListCommand import ListCommand
 from risk.command.MoveCommand import MoveCommand
 from risk.command.PlaceCommand import PlaceCommand
+from risk.command.TradeCommand import TradeCommand
 
 class Player(object):
     '''
@@ -71,15 +72,15 @@ class Player(object):
                         cardTypes = []
                         for c in command.cards:
                             cardTypes.append(c.type)
-                        if(_checkTradeIn(cardTypes)):
-                            armyNum = _evaluateArmyNum(game)
+                        if(self._checkTradeIn(cardTypes)):
+                            armyNum = self._evaluateArmyNum(game)
                             game.gameSet += 1
                             self.connector.send('%s has traded in and get %s armies. Game set has increased to %s' % (self.color, armyNum, game.gameSet))
                             self.armies += armyNum
                             done = True
 
                             '''4 - getting armies by the territory behind traded cards'''
-                            card = _checkTerrBehindCard(command.cards)
+                            card = self._checkTerrBehindCard(command.cards)
                             if(card):
                                 self.connector.send('%s has %s territory in traded cards and get 2 extra armies.' % (self.color, card.territory.name))
                             for c in command.cards:
@@ -105,15 +106,15 @@ class Player(object):
                         cardTypes = []
                         for c in command.cards:
                             cardTypes.append(c.type)
-                        if(_checkTradeIn(cardTypes)):
-                            armyNum = _evaluateArmyNum(game)
+                        if(self._checkTradeIn(cardTypes)):
+                            armyNum = self._evaluateArmyNum(game)
                             game.gameSet += 1
                             self.connector.send('%s has traded in and get %s armies. Game set has increased to %s' % (self.color, armyNum, game.gameSet))
                             self.armies += armyNum
                             done = True
 
                             '''4 - getting armies by the territory behind traded cards'''
-                            card = _checkTerrBehindCard(command.cards)
+                            card = self._checkTerrBehindCard(command.cards)
                             if(card):
                                 self.connector.send('%s has %s territory in traded cards and get 2 extra armies.' % (self.color, card.territory.name))
                         else:
@@ -378,8 +379,8 @@ class Player(object):
                             cardTypes = []
                             for c in command.cards:
                                 cardTypes.append(c.type)
-                            if(_checkTradeIn(cardTypes)):
-                                armyNum = _evaluateArmyNum(game)
+                            if(self._checkTradeIn(cardTypes)):
+                                armyNum = self._evaluateArmyNum(game)
                                 game.gameSet += 1
                                 self.connector.send('%s has traded in and get %s armies. Game set has increased to %s' % (attacker.color, armyNum, game.gameSet))
                                 attacker.armies += armyNum
@@ -387,7 +388,7 @@ class Player(object):
                                     done = True
 
                                 '''getting armies by the territory behind traded cards'''
-                                card = _checkTerrBehindCard(command.cards)
+                                card = self._checkTerrBehindCard(command.cards)
                                 if(card):
                                     self.connector.send('%s has %s territory in traded cards and get 2 extra armies.' % (self.color, card.territory.name))
                                 for c in command.cards:

@@ -7,6 +7,7 @@ from risk.command.ListCommand import ListCommand
 from risk.command.PlaceCommand import PlaceCommand
 from risk.command.MoveCommand import MoveCommand
 from risk.command.AttackCommand import AttackCommand
+from risk.command.TradeCommand import TradeCommand
 
 class CommandParser(object):
     '''
