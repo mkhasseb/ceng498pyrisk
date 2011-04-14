@@ -9,9 +9,10 @@ from risk.Continent import Continent
 from risk.Card import Card
 from risk.Goal import GoalFactory
 from risk.Player import Player
-from risk.connector.CmdConnector import CmdConnector
+from risk.connector.SocketConnector import SocketConnector
+import socket
 
-class MinimalGameSetup(object):
+class MinimalGameSetupSocket(object):
     def __init__(self):
         pass
     def init(self):
@@ -68,8 +69,20 @@ class MinimalGameSetup(object):
         goals.append(GoalFactory.createEliminate(Player.COLOR_BLACK, 5))
         goals.append(GoalFactory.createEliminate(Player.COLOR_BLUE, 5))
         
+        
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print socket.gethostname()
+        server.bind(("localhost", 8081))
+        server.listen(5)
+        ss = []
+        
+        for i in range(2):
+            cs  = server.accept()
+            ss.append(cs[0])
+            
+        
         players = []
-        players.append(Player(Player.COLOR_BLACK, CmdConnector()))
-        players.append(Player(Player.COLOR_BLUE, CmdConnector()))
+        players.append(Player(Player.COLOR_BLACK, SocketConnector(ss[0])))
+        players.append(Player(Player.COLOR_BLUE, SocketConnector(ss[1])))
         
         return Game(continents, goals, cards, players)

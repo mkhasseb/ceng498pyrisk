@@ -32,7 +32,7 @@ class Game(object):
         random.shuffle(self.players)
         self.turner = TurnIterator(players)
         for player in players:
-            player.game = self
+            player.set_game(self)
         self.gameSet = 1
     def setup(self):
         num_armies = 40 - (len(self.players) - 2) * 5
@@ -74,6 +74,10 @@ class Game(object):
             if(not ter.occupant):
                 i += 1
         return i
+    
+    def broadcast(self, message):
+        for p in self.players:
+            p.connector.send(message)
     
 class TurnIterator(object):
     def __init__(self, players):

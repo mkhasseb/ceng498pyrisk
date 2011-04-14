@@ -8,6 +8,8 @@ from risk.command.PlaceCommand import PlaceCommand
 from risk.command.MoveCommand import MoveCommand
 from risk.command.AttackCommand import AttackCommand
 from risk.command.TradeCommand import TradeCommand
+from copy import copy
+from risk.command.AbstractCommand import AbstractCommand
 
 class CommandParser(object):
     '''
@@ -33,6 +35,7 @@ class CommandParser(object):
         '''
         self.game = game
     def parse(self, command_str):
+        orig = copy(command_str)
         words = command_str.strip().split(" ")
       
         for i in range(len(words)):
@@ -53,7 +56,7 @@ class CommandParser(object):
                     num = int(words[2])
                 else:
                     num = 1
-                return PlaceCommand(ter, num)
+                return PlaceCommand(orig, ter, num)
             except KeyError as e:
                 raise ParseException('Unknown Territory: %s' % (str(e)))
             except Exception as e:
@@ -70,18 +73,18 @@ class CommandParser(object):
                             terrs += str(i) + " " + ter.name + " - Army Number:" + str(ter.armies) + "\n"
                             i += 1
                     terrs += "Free Armies:" + str(self.game.turner.player.armies)
-                    return ListCommand(terrs)
+                    return ListCommand(orig, terrs)
                 elif(words[1] == "unoccupied"):
                     terrs = ""
                     for ter in self.game.territories.values():
                         if(not(ter.occupant)):
                             terrs += ter.name + "  "
-                    return ListCommand(terrs)
+                    return ListCommand(orig, terrs)
                 elif(words[1] == "cards"):
                     cards = 'Cards(' + str(len(self.game.turner.player.cards)) + '):\n'
                     for index, card in enumerate(self.game.turner.player.cards):
                         cards += "\t" + str(index) + " - " + card.type + " " + (card.territory.name if(card.territory) else "") + "\n"
-                    return ListCommand(cards)
+                    return ListCommand(orig, cards)
                 elif(words[1] == 'neighbours'):
                     if(len(words) > 2):
                         try:
@@ -102,16 +105,18 @@ class CommandParser(object):
                             for ne in terr.neighbours:
                                 if(not (ne.occupant == player)):
                                     n += "\t" + ne.name + "( " + ne.continent.name + " " + (ne.occupant.color if(ne.occupant) else 'unoccupied') + "- " + str(ne.armies) + " armies):\n"
-                        return ListCommand(n)
+                        return ListCommand(orig, n)
                 elif(words[1] == 'all'):
                     all = "World State:\n"
                     for con in self.game.continents.values():
                         all += con.name + ":\n"
                         for terr in con.territories:
                             all += "\t" + terr.name + " " + (terr.occupant.color if(terr.occupant) else ' unoccupied ') + " " + str(terr.armies) + "\n"
-                    return ListCommand(all)
+                    return ListCommand(orig, all)
                 elif(words[1] == 'mission'):
-                    return ListCommand(self.game.turner.player.mission.verbose)
+                    return ListCommand(orig, self.game.turner.player.mission.verbose)
+                else:
+                    raise ParseException('Not Valid Command')
             except Exception as e:
                 raise ParseException(str(e))
                 
@@ -122,7 +127,7 @@ class CommandParser(object):
                 fromTerr = self.game.territories[words[1]]
                 toTerr = self.game.territories[words[2]]
                 num = int(words[3])
-                return MoveCommand(fromTerr, toTerr, num)
+                return MoveCommand(orig, fromTerr, toTerr, num)
             except KeyError as e:
                 raise ParseException('Unknown Territory: %s' % (str(e)))
             except Exception as e:
@@ -134,7 +139,7 @@ class CommandParser(object):
                 fromTerr = self.game.territories[words[1]]
                 toTerr = self.game.territories[words[2]]
                 num = int(words[3])
-                return AttackCommand(fromTerr, toTerr, num)
+                return AttackCommand(orig, fromTerr, toTerr, num)
             except KeyError as e:
                 raise ParseException('Unknown Territory: %s' % (str(e)))
             except Exception as e:
@@ -157,17 +162,18 @@ class CommandParser(object):
                 cards.append(self.game.turner.player.cards[cardNum1])
                 cards.append(self.game.turner.player.cards[cardNum2])
                 cards.append(self.game.turner.player.cards[cardNum3])
-                return TradeCommand(cards)
+                return TradeCommand(orig, cards)
             except Exception as e:
                 raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_PASS):
-            return PassCommand()
+            return PassCommand(orig)
         else:
             raise ParseException('Unknown command: %s' % (cmd))
 
 
-class PassCommand(object):
-    def __init__(self):
+class PassCommand(AbstractCommand):
+    def __init__(self, orig):
+        AbstractCommand.__init__(self, orig)
         pass
 
 class ParseException(Exception):

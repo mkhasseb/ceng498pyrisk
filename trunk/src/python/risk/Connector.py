@@ -21,4 +21,5 @@ class Connector(object):
     def receive(self):
         '''Blocking receive function'''
         pass
-    
+    def listen(self, message):
+        '''Non-Blocking receive function'''
