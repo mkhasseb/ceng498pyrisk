@@ -34,7 +34,7 @@ class CommandParser(object):
         Constructor
         '''
         self.game = game
-    def parse(self, command_str):
+    def parse(self, player, command_str):
         orig = copy(command_str)
         words = command_str.strip().split(" ")
       
@@ -67,12 +67,12 @@ class CommandParser(object):
                 if(words[1] == "my"):
                     terrs = ""
                     i = 1
-                    terrs += self.game.turner.player.color + "\n"
+                    terrs += player.color + "\n"
                     for ter in self.game.territories.values():
-                        if(ter.occupant == self.game.turner.player):
+                        if(ter.occupant == player):
                             terrs += str(i) + " " + ter.name + " - Army Number:" + str(ter.armies) + "\n"
                             i += 1
-                    terrs += "Free Armies:" + str(self.game.turner.player.armies)
+                    terrs += "Free Armies:" + str(player.armies)
                     return ListCommand(orig, terrs)
                 elif(words[1] == "unoccupied"):
                     terrs = ""
@@ -81,8 +81,8 @@ class CommandParser(object):
                             terrs += ter.name + "  "
                     return ListCommand(orig, terrs)
                 elif(words[1] == "cards"):
-                    cards = 'Cards(' + str(len(self.game.turner.player.cards)) + '):\n'
-                    for index, card in enumerate(self.game.turner.player.cards):
+                    cards = 'Cards(' + str(len(player.cards)) + '):\n'
+                    for index, card in enumerate(player.cards):
                         cards += "\t" + str(index) + " - " + card.type + " " + (card.territory.name if(card.territory) else "") + "\n"
                     return ListCommand(orig, cards)
                 elif(words[1] == 'neighbours'):
@@ -98,7 +98,6 @@ class CommandParser(object):
                         except Exception as ex:
                             raise ParseException(str(ex))  
                     else:
-                        player = self.game.turner.player
                         n = "Neighbours:\n"
                         for terr in player.occupied:
                             n += terr.name + "(" + terr.continent.name + "- " + str(terr.armies) + " armies):\n"
@@ -114,7 +113,7 @@ class CommandParser(object):
                             all += "\t" + terr.name + " " + (terr.occupant.color if(terr.occupant) else ' unoccupied ') + " " + str(terr.armies) + "\n"
                     return ListCommand(orig, all)
                 elif(words[1] == 'mission'):
-                    return ListCommand(orig, self.game.turner.player.mission.verbose)
+                    return ListCommand(orig, player.mission.verbose)
                 else:
                     raise ParseException('Not Valid Command')
             except Exception as e:

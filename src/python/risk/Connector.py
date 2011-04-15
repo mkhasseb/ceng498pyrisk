@@ -23,6 +23,6 @@ class Connector(object):
         pass
     def listen(self, message):
         '''Non-Blocking receive function'''
-    def set_game(self, game):
+    def set_env(self, game = None, player = None):
         '''If connectors needs access to game override this function'''
         pass

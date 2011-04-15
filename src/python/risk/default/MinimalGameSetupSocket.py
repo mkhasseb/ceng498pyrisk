@@ -71,8 +71,7 @@ class MinimalGameSetupSocket(object):
         
         
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print socket.gethostname()
-        server.bind(("localhost", 8080))
+        server.bind(("localhost", 8081))
         server.listen(5)
         ss = []
         
