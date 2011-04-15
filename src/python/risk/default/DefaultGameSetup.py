@@ -3,14 +3,13 @@ Created on 2011 3 31
 
 @author: cihancimen
 '''
+from risk.connector.CmdConnector import CmdConnector
 from risk.Card import Card
 from risk.Continent import Continent
 from risk.Game import Game
 from risk.Goal import GoalFactory
 from risk.Player import Player
 from risk.Territory import Territory
-from risk.cmd.CmdConnector import CmdConnector
-
 
 
 class DefaultGameSetup(object):
