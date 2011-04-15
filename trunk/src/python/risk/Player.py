@@ -38,10 +38,12 @@ class Player(object):
         self.eliminates = []
         self.cards = []
         self.connector = connector
+        
  
     def set_game(self, game):
         self.game = game
-        self.connector.set_game(self.game)
+        self.connector.set_env(game = self.game, player = self)
+       
  
     def tradeIn(self, game):
         '''1 - getting armies according to territory number'''
@@ -71,7 +73,7 @@ class Player(object):
             done = False
             while(not done):
                 try:
-                    command = game.parser.parse(self.connector.receive())
+                    command = game.parser.parse(self, self.connector.receive())
                     if(isinstance(command, TradeCommand)):
                         cardTypes = []
                         for c in command.cards:
@@ -103,7 +105,7 @@ class Player(object):
             done = False
             while(not done):
                 try:
-                    command = game.parser.parse(self.connector.receive())
+                    command = game.parser.parse(self, self.connector.receive())
                     if(isinstance(command, PassCommand)):
                         return
                     elif(isinstance(command, TradeCommand)):
@@ -135,7 +137,7 @@ class Player(object):
         done = False
         while(not done):
             try:
-                command = game.parser.parse(self.connector.receive())
+                command = game.parser.parse(self, self.connector.receive())
                 if(isinstance(command, PassCommand)):
                     return
                 elif(isinstance(command, PlaceCommand)):
@@ -165,7 +167,7 @@ class Player(object):
         done = False
         while(not done):
             try:
-                command = game.parser.parse(self.connector.receive())
+                command = game.parser.parse(self, self.connector.receive())
                 if(isinstance(command, PlaceCommand)):
                     terr = command.territory
                     if(terr.occupant):
@@ -191,7 +193,7 @@ class Player(object):
         done = False
         while(not done):
             try:
-                command = game.parser.parse(self.connector.receive())
+                command = game.parser.parse(self, self.connector.receive())
                 if(isinstance(command, PlaceCommand)):
                     terr = command.territory
                     num = command.number
@@ -218,7 +220,7 @@ class Player(object):
             self.game.broadcast('Turn of %s. (Move or Pass)')
             self.connector.send('Turn of %s. Move or Pass (Usage: Move <from territory> <to territory> <army number> | Pass)' % (self.color))
             try:
-                command = game.parser.parse(self.connector.receive())
+                command = game.parser.parse(self, self.connector.receive())
                 if(isinstance(command, PassCommand)):
                     self.game.broadcast('Player %s passed.' % (self.color))
                     return
@@ -244,7 +246,7 @@ class Player(object):
             self.game.broadcast("Turn of %s (Attack or Pass)"  % (self.color))
             self.connector.send('(Usage: Attack <from territory> <to territory> <army number> | Pass)')
             try:
-                command = game.parser.parse(self.connector.receive())
+                command = game.parser.parse(self, self.connector.receive())
                 if(isinstance(command, PassCommand)):
                     if(occupied):
                         self.connector.send('you conquered somewhere, draw a card...\nDrawed')
@@ -384,7 +386,7 @@ class Player(object):
                 done = False
                 while(not done):
                     try:
-                        command = game.parser.parse(self.connector.receive())
+                        command = game.parser.parse(self, self.connector.receive())
                         if(isinstance(command, TradeCommand)):
                             cardTypes = []
                             for c in command.cards:

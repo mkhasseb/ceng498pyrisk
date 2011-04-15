@@ -24,9 +24,10 @@ class SocketConnector(Connector):
         self.cmds = Queue()
         self.game = None
         
-    def set_game(self, game):
+    def set_env(self, game = None, player = None):
         self.game = game
-        self.listener = Listener(self.socket, self.cmds, game)
+        self.player = player
+        self.listener = Listener(self.socket, self.cmds, game, player)
         self.listener.start()
         
     def send(self, mess):
@@ -35,16 +36,17 @@ class SocketConnector(Connector):
         return self.cmds.get(True)
         
 class Listener(Thread):
-    def __init__(self, socket, queue, game):
+    def __init__(self, socket, queue, game, player):
         Thread.__init__(self)
         self.socket = socket
         self.game = game
+        self.player = player
         self.queue = queue
     def run(self):
         while(True):
             str = self.socket.recv(100)
             try:
-                command = self.game.parser.parse(str)
+                command = self.game.parser.parse(self.player, str)
                 if(isinstance(command, ListCommand)):
                     self.socket.send(command.verbose+"\n")
                 else:
