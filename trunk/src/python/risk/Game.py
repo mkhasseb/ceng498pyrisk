@@ -3,6 +3,7 @@ Created on 2011 3 31
 
 @author: cihancimen
 '''
+from risk.connector.CmdConnector import CmdConnector
 import random
 from risk.command.CommandParser import CommandParser
 from risk.GoalChecker import VictorFound, GoalChecker
@@ -76,8 +77,11 @@ class Game(object):
         return i
     
     def broadcast(self, message):
-        for p in self.players:
-            p.connector.send(message)
+        if(isinstance(self.turner.player.connector, CmdConnector)):
+            self.turner.player.connector.send(message)
+        else:
+            for p in self.players:
+                p.connector.send(message)
     
 class TurnIterator(object):
     def __init__(self, players):
