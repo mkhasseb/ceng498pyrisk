@@ -3,13 +3,15 @@ Created on 2011 3 31
 
 @author: cihancimen
 '''
-from risk.connector.CmdConnector import CmdConnector
 from risk.Card import Card
 from risk.Continent import Continent
 from risk.Game import Game
 from risk.Goal import GoalFactory
 from risk.Player import Player
 from risk.Territory import Territory
+from risk.connector.CmdConnector import CmdConnector
+from risk.connector.SocketConnector import SocketConnector
+import socket
 
 
 class DefaultGameSetup(object):
@@ -18,10 +20,11 @@ class DefaultGameSetup(object):
     '''
     
     
-    def __init__(self):
+    def __init__(self, gametype=1):
         '''
         Constructor
         '''
+        self.gametype = int(gametype)
     def init(self):
         '''Territories
             generated from image http://en.wikipedia.org/wiki/File:Risk_game_map_fixed.png
@@ -381,9 +384,23 @@ class DefaultGameSetup(object):
         goals.append(GoalFactory.createConquerContinent([asia, africa]))
         goals.append(GoalFactory.createConquerContinent([asia, southAmerica]))
 
-        '''Players'''
         players = []
-        for i in range(plNum):
-            players.append(Player(colors[i], CmdConnector()))
-        
+        if(self.gametype == 1):
+            '''Players'''
+            for i in range(plNum):
+                players.append(Player(colors[i], CmdConnector()))
+        elif(self.gametype == 2):
+            server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            server.bind(("144.122.128.196", 8082))
+            server.listen(5)
+            ss = []
+
+            for i in range(plNum):
+                cs  = server.accept()
+                ss.append(cs[0])
+
+            '''Players'''
+            for i in range(plNum):
+                players.append(Player(colors[i], SocketConnector(ss[i])))
+
         return Game(continents, goals, cards, players);

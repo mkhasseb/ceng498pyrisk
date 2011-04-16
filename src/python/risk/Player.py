@@ -69,7 +69,8 @@ class Player(object):
 
         '''3 - getting armies by trade cards'''
         if(len(self.cards) > 5):
-            self.game.broadcast('%s has %d risk cards and must trade in.(Usage: Trade <first card number> <second card number> <third card number>)' % (self.color, len(self.cards)))
+            self.game.broadcast('%s has %d risk cards and must trade in.' % (self.color, len(self.cards)))
+            self.connector.send('(Usage: Trade <first card number> <second card number> <third card number>)')
             done = False
             while(not done):
                 try:
@@ -101,7 +102,8 @@ class Player(object):
                     self.connector.send(e.mess)
 
         elif(len(self.cards) >= 3):
-            self.game.broadcast('%s has %d risk cards and may trade in or not.(Usage: Trade <first card number> <second card number> <third card number> | Pass)' % (self.color, len(self.cards)))
+            self.game.broadcast('%s has %d risk cards and may trade in or not.' % (self.color, len(self.cards)))
+            self.connector.send('(Usage: Trade <first card number> <second card number> <third card number> | Pass)')
             done = False
             while(not done):
                 try:
@@ -133,7 +135,8 @@ class Player(object):
                     self.connector.send(e.mess)
                     
     def placeIncome(self, game):
-        self.game.broadcast('Turn of %s has %d free armies. Place them or pass (Usage: Place <territory name> <army number> | Pass)' % (self.color, self.armies))
+        self.game.broadcast('Turn of %s has %d free armies.' % (self.color, self.armies))
+        self.connector.send('Place them or pass (Usage: Place <territory name> <army number> | Pass)')
         done = False
         while(not done):
             try:
@@ -144,14 +147,15 @@ class Player(object):
                     terr = command.territory
                     num = command.number
                     if (not (terr.occupant == self)):
-                        self.game.broadcast('Territory %s occupied by %s' % (terr.name, terr.occupant.color))
+                        self.connector.send('Territory %s occupied by %s' % (terr.name, terr.occupant.color))
                     elif (num > self.armies):
-                        self.connector.send('%s only has %s armies' % (self.color, self.armies))
+                        self.connector.send('You(%s) have only %s armies' % (self.color, self.armies))
                     else:
                         terr.armies += num
                         self.armies -= num
                         if(self.armies == 0):
                             done = True
+                        self.game.broadcast('%s placed %s armies in territory %s' % (terr.occupant.color, num, terr.name))
                         self.game.broadcast('Territory %s has %s armies by %s' % (terr.name, terr.armies, terr.occupant.color))
 
                 elif(isinstance(command, ListCommand)):
@@ -171,7 +175,7 @@ class Player(object):
                 if(isinstance(command, PlaceCommand)):
                     terr = command.territory
                     if(terr.occupant):
-                        self.game.broadcast('Territory %s occupied by %s' % (terr.name, terr.occupant.color))
+                        self.connector.send('Territory %s occupied by %s' % (terr.name, terr.occupant.color))
                     else:
                         terr.occupant = self
                         terr.armies += 1
@@ -189,7 +193,7 @@ class Player(object):
         
     def placeArmies(self, game):
         self.game.broadcast('Turn of %s has %d armies' % (self.color, self.armies))
-        self.connector.send('Place remaining armies (Usage: Place <territory name> <army number>)' )
+        self.connector.send('Place remaining armies (Usage: Place <territory name> <army number>)')
         done = False
         while(not done):
             try:
@@ -198,15 +202,16 @@ class Player(object):
                     terr = command.territory
                     num = command.number
                     if (not (terr.occupant == self)):
-                        self.game.broadcast('Territory %s occupied by %s' % (terr.name, terr.occupant.color))
+                        self.connector.send('Territory %s occupied by %s' % (terr.name, terr.occupant.color))
                     elif (num > self.armies):
-                        self.connector.send('%s only has %s armies' % (self.color, self.armies))
+                        self.connector.send('You(%s) have only %s armies' % (self.color, self.armies))
                     else:
                         terr.armies += num
                         self.armies -= num
                         if(self.armies == 0):
                             done = True
-                        self.connector.send('Territory %s has %s armies by %s' % (terr.name, terr.armies, terr.occupant.color))
+                        self.game.broadcast('%s placed %s armies in territory %s' % (terr.occupant.color, num, terr.name))
+                        self.game.broadcast('Territory %s has %s armies by %s' % (terr.name, terr.armies, terr.occupant.color))
                         
                 elif(isinstance(command, ListCommand)):
                     self.connector.send(command.verbose)
@@ -217,8 +222,8 @@ class Player(object):
 
     def move(self, game):
         while(True):
-            self.game.broadcast('Turn of %s. (Move or Pass)')
-            self.connector.send('Turn of %s. Move or Pass (Usage: Move <from territory> <to territory> <army number> | Pass)' % (self.color))
+            self.game.broadcast('Turn of %s.' % (self.color))
+            self.connector.send('Move or Pass (Usage: Move <from territory> <to territory> <army number> | Pass)')
             try:
                 command = game.parser.parse(self, self.connector.receive())
                 if(isinstance(command, PassCommand)):
@@ -229,11 +234,11 @@ class Player(object):
                     if(validity[0]):
                         command.fromTerr.armies -= command.num
                         command.toTerr.armies += command.num
-#                        self.connector.send('successful')
+                        self.connector.send('Successful')
                         self.game.broadcast('Player %s moved %d armies from %s to %s' % (self.color, command.num, command.fromTerr.name, command.toTerr.name))
                         return
                     else:
-                        self.connector.send("Invalid Move:" + validity[1])
+                        self.connector.send('Invalid Move:' + validity[1])
                 elif(isinstance(command, ListCommand)):
                     self.connector.send(command.verbose)
                 else:
@@ -243,7 +248,7 @@ class Player(object):
     def attack(self, game):
         occupied = False
         while(True):
-            self.game.broadcast("Turn of %s (Attack or Pass)"  % (self.color))
+            self.game.broadcast('Turn of %s (Attack or Pass)'  % (self.color))
             self.connector.send('(Usage: Attack <from territory> <to territory> <army number> | Pass)')
             try:
                 command = game.parser.parse(self, self.connector.receive())
