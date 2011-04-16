@@ -44,10 +44,10 @@ class CommandParser(object):
             if(words[i] == ""):
                 del words[i]
         if(len(words) < 1):
-            raise ParseException('Enter something other than whitespaces')
+            raise ParseException('Enter something other than whitespaces\n')
         cmd = words[0].lower()
         if(not (cmd in CommandParser.AVAILABLE_COMMANDS)):
-            raise ParseException('Unkown command: %s' % (cmd))
+            raise ParseException('Unkown command: %s\n' % (cmd))
         
         if(cmd == CommandParser.COMMAND_PLACE):
             try:
@@ -58,7 +58,7 @@ class CommandParser(object):
                     num = 1
                 return PlaceCommand(orig, ter, num)
             except KeyError as e:
-                raise ParseException('Unknown Territory: %s' % (str(e)))
+                raise ParseException('Unknown Territory: %s\n' % (str(e)))
             except Exception as e:
                 raise ParseException(str(e))
             
@@ -94,7 +94,7 @@ class CommandParser(object):
                                 n += "\t" + ne.name + "(" + ne.continent.name + " " + (ne.occupant.color if(ne.occupant) else 'unoccupied') + "- " + str(ne.armies) + " armies):\n"
                             return ListCommand(n)
                         except KeyError as e:
-                            raise ParseException('Unknown Territory: %s' % (str(e)))
+                            raise ParseException('Unknown Territory: %s\n' % (str(e)))
                         except Exception as ex:
                             raise ParseException(str(ex))  
                     else:
@@ -115,47 +115,47 @@ class CommandParser(object):
                 elif(words[1] == 'mission'):
                     return ListCommand(orig, player.mission.verbose)
                 else:
-                    raise ParseException('Not Valid Command')
+                    raise ParseException('Not Valid Command\n')
             except Exception as e:
                 raise ParseException(str(e))
                 
         elif(cmd == CommandParser.COMMAND_MOVE):
             try:
                 if(len(words) != 4):
-                    raise ParseException('Usage: Move <from territory name> <to territory name> <number of armies>')
+                    raise ParseException('Usage: Move <from territory name> <to territory name> <number of armies>\n')
                 fromTerr = self.game.territories[words[1]]
                 toTerr = self.game.territories[words[2]]
                 num = int(words[3])
                 return MoveCommand(orig, fromTerr, toTerr, num)
             except KeyError as e:
-                raise ParseException('Unknown Territory: %s' % (str(e)))
+                raise ParseException('Unknown Territory: %s\n' % (str(e)))
             except Exception as e:
                 raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_ATTACK):
             try:
                 if(len(words) != 4):
-                    raise ParseException('Usage: Attack <from territory name> <to territory name> <number of dice>')
+                    raise ParseException('Usage: Attack <from territory name> <to territory name> <number of dice>\n')
                 fromTerr = self.game.territories[words[1]]
                 toTerr = self.game.territories[words[2]]
                 num = int(words[3])
                 return AttackCommand(orig, fromTerr, toTerr, num)
             except KeyError as e:
-                raise ParseException('Unknown Territory: %s' % (str(e)))
+                raise ParseException('Unknown Territory: %s\n' % (str(e)))
             except Exception as e:
                 raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_TRADE):
             try:
                 if(len(words) != 4):
-                    raise ParseException('Usage: Trade <first card number> <second card number> <third card number>')
+                    raise ParseException('Usage: Trade <first card number> <second card number> <third card number>\n')
                 cardNum1 = int(words[1])
                 if(cardNum1 > len(self.game.turner.player.cards) or cardNum1 < 0):
-                    raise ParseException('First card number is not legal please enter between 0 and %s' %(len(self.game.turner.player.cards)))
+                    raise ParseException('First card number is not legal please enter between 0 and %s\n' %(len(self.game.turner.player.cards)))
                 cardNum2 = int(words[2])
                 if(cardNum2 > len(self.game.turner.player.cards) or cardNum2 < 0):
-                    raise ParseException('Second card number is not legal please enter between 0 and %s' %(len(self.game.turner.player.cards)))
+                    raise ParseException('Second card number is not legal please enter between 0 and %s\n' %(len(self.game.turner.player.cards)))
                 cardNum3 = int(words[3])
                 if(cardNum3 > len(self.game.turner.player.cards) or cardNum3 < 0):
-                    raise ParseException('Third card number is not legal please enter between 0 and %s' %(len(self.game.turner.player.cards)))
+                    raise ParseException('Third card number is not legal please enter between 0 and %s\n' %(len(self.game.turner.player.cards)))
 
                 cards = []
                 cards.append(self.game.turner.player.cards[cardNum1])
@@ -167,7 +167,7 @@ class CommandParser(object):
         elif(cmd == CommandParser.COMMAND_PASS):
             return PassCommand(orig)
         else:
-            raise ParseException('Unknown command: %s' % (cmd))
+            raise ParseException('Unknown command: %s\n' % (cmd))
 
 
 class PassCommand(AbstractCommand):
