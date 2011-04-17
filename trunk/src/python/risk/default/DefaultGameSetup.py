@@ -402,10 +402,16 @@ class DefaultGameSetup(object):
                 cs  = server.accept()
                 ss.append(cs[0])
                 connector.send("Player %s connected to server." % (colors[i]))
+                for j in range(i):
+                    ss[j].send("Player %s connected to server.\n" % (colors[i]))
                 if(not (plNum - 1 - i == 0)):
                     connector.send("Waiting %s players to start game." % (plNum - 1 - i))
+                    for j in range(i):
+                        ss[j].send("Waiting %s players to start game.\n" % (plNum - 1 - i))
 
             connector.send("Game starting...")
+            for j in range(plNum):
+                ss[j].send("Game starting...\n")
             '''Players'''
             for i in range(plNum):
                 players.append(Player(colors[i], SocketConnector(ss[i])))
