@@ -82,7 +82,7 @@ class Game(object):
         else:
             for p in self.players:
                 p.connector.send(message)
-    
+
 class TurnIterator(object):
     def __init__(self, players):
         self.index = 0

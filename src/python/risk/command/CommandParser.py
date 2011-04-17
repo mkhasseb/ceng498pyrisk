@@ -27,7 +27,8 @@ class CommandParser(object):
     COMMAND_ATTACK = "attack"
     '''Trade <first card number> <second card number> <third card number>'''
     COMMAND_TRADE = "trade"
-    AVAILABLE_COMMANDS = [COMMAND_PLACE, COMMAND_LIST, COMMAND_MOVE, COMMAND_PASS, COMMAND_ATTACK, COMMAND_TRADE]
+    COMMAND_EXIT = "exit"
+    AVAILABLE_COMMANDS = [COMMAND_PLACE, COMMAND_LIST, COMMAND_MOVE, COMMAND_PASS, COMMAND_ATTACK, COMMAND_TRADE, COMMAND_EXIT]
 
     def __init__(self, game):
         '''
@@ -114,6 +115,27 @@ class CommandParser(object):
                     return ListCommand(orig, all)
                 elif(words[1] == 'mission'):
                     return ListCommand(orig, player.mission.verbose)
+                elif(words[1] == 'commands'):
+                    commands = ""
+                    commands += "----------\n"
+                    commands += "list my                            :   list the player's territories, placed and free armies\n"
+                    commands += "list unoccupied                    :   list the unoccupied territories\n"
+                    commands += "list cards                         :   list the player's risk cards\n"
+                    commands += "list mission                       :   shows the player's mission\n"
+                    commands += "list neighbours                    :   list the player's occupied territories' neighbours\n"
+                    commands += "list neighbours <territory>        :   list the given territory's neighbours\n"
+                    commands += "list all                           :   list each continent and its territories with occupants\n"
+                    commands += "----------\n"
+                    commands += "place <territory> <army number>    :   place entered number of army in given territory\n"
+                    commands += "----------\n"
+                    commands += "move <from territory> <to territory> <army number>    :   move armies from one territory to another territory\n"
+                    commands += "----------\n"
+                    commands += "attack <from territory> <to territory> <dice number>    :   attack from one territory to another territory with entered number of dice\n"
+                    commands += "----------\n"
+                    commands += "trade <first card number> <second card number> <third card number>    :   trade in with given cards\n"
+                    commands += "----------\n"
+                    commands += "exit\n"
+                    return ListCommand(orig, commands)
                 else:
                     raise ParseException('Not Valid Command\n')
             except Exception as e:
@@ -166,11 +188,18 @@ class CommandParser(object):
                 raise ParseException(str(e))
         elif(cmd == CommandParser.COMMAND_PASS):
             return PassCommand(orig)
+        elif(cmd == CommandParser.COMMAND_EXIT):
+            return ExitCommand(orig)
         else:
             raise ParseException('Unknown command: %s\n' % (cmd))
 
 
 class PassCommand(AbstractCommand):
+    def __init__(self, orig):
+        AbstractCommand.__init__(self, orig)
+        pass
+
+class ExitCommand(AbstractCommand):
     def __init__(self, orig):
         AbstractCommand.__init__(self, orig)
         pass
