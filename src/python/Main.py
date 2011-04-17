@@ -10,7 +10,18 @@ from risk.default.DefaultGameSetup import DefaultGameSetup
 
 
 if __name__ == '__main__':
-    df = DefaultGameSetup(sys.argv[1])
+    argc = len(sys.argv)
+    
+        
+    if(argc == 2):
+        df = DefaultGameSetup(sys.argv[1])
+    elif(argc == 3):
+        df = DefaultGameSetup(sys.argv[1], host = sys.argv[2])
+    elif(argc == 4):
+        df = DefaultGameSetup(sys.argv[1], host = sys.argv[2], port = int(sys.argv[3]))
+    else:
+        print 'Usage game mode 1 or 2, optional arguments <host> <port>'
+        sys.exit(0)
     game = df.init()
 
     game.setup()
