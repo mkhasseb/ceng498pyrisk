@@ -6,6 +6,7 @@ Created on 2011 3 31
 import sys
 
 from risk.default.DefaultGameSetup import DefaultGameSetup
+import time
 
 
 
@@ -24,9 +25,16 @@ if __name__ == '__main__':
         sys.exit(0)
     game = df.init()
 
-    game.setup()
-    victor = game.play()
-    print 'victor is ', victor.color, ', with mission ', victor.mission        
+    
+    game.start()
+    while(not game.ended):
+        time.sleep(1)
+    if(game.victor):
+        print 'victor is ', game.victor.color, ', with mission ', game.victor.mission
+    else:
+        print 'There was a quiter noob newbie in the game'
+    time.sleep(5)
+    sys.exit(0)     
 
 '''from risk.default.MinimalGameSetup import MinimalGameSetup
 

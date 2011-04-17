@@ -6,17 +6,48 @@ Created on 2011 4 17
 import sys
 from threading import Thread
 import socket
+import time
 
-class ClientReader(Thread):
+class SocketReader(Thread):
     def __init__(self, socket):
         Thread.__init__(self)
         self.socket = socket;
         self.end = False;
+        self.setDaemon(True)
     def run(self):
         while(not self.end):
             str = self.socket.recv(10000)
-            print str
-            print '-------------------------'
+            str = str.strip()
+            if(str != ""):
+                print str
+                if(str == "Game is ending..."):
+                    #f = open('<stdin>', 'w')
+#                    sys.stdin.write('exit\n')
+                    #f.write('\nexit\n')
+                    #f.flush()
+                    self.socket.send("exit")
+                    self.end = True
+                    return
+                print '-------------------------'
+        return
+            
+    def send(self, message):
+        self.socket.send(message)
+
+class ClientReader(Thread):
+    def __init__(self, reader):
+        Thread.__init__(self)
+        self.end = False;
+        self.reader = reader
+        self.setDaemon(True)
+    def run(self):
+        while(not self.end):
+            str = raw_input()
+            str = str.strip()
+            reader.send(str)
+            if(str == 'exit'):
+                reader.end = True;
+        return
             
     def send(self, message):
         self.socket.send(message)
@@ -33,11 +64,16 @@ if __name__ == '__main__':
     s.connect((host, port))
     
     
-    reader = ClientReader(s)
+    reader = SocketReader(s)
+    client = ClientReader(reader)
+    client.start()
     reader.start()
-    while(True):
-        str = raw_input()
-        reader.send(str)
+    while(not (client.end or reader.end)):
+        time.sleep(1)
+    client.end = True;
+    reader.end = True;
+    sys.exit()
+        
         
         
 

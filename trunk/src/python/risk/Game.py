@@ -7,8 +7,10 @@ from risk.connector.CmdConnector import CmdConnector
 import random
 from risk.command.CommandParser import CommandParser
 from risk.GoalChecker import VictorFound, GoalChecker
+import sys
+from threading import Thread
 
-class Game(object):
+class Game(Thread):
     '''
     classdocs
     '''
@@ -17,6 +19,9 @@ class Game(object):
         '''
         Constructor
         '''
+        Thread.__init__(self)
+        self.victorFound = False
+        self.victor = None
         self.goalChecker = GoalChecker(self)
         self.parser = CommandParser(self)
         self.continents = {}
@@ -35,6 +40,7 @@ class Game(object):
         for player in players:
             player.set_game(self)
         self.gameSet = 1
+        self.ended= False
     def setup(self):
         num_armies = 40 - (len(self.players) - 2) * 5
         while(not self.turner.roundCompleted()):
@@ -50,12 +56,13 @@ class Game(object):
         while(not self.turner.roundCompleted()):
             self.turner.next().placeArmies(self)
         self.turner.reset()
-    def play(self):
+    def run(self):
+        self.setup()
         self.turner.reset()
         victor = None
         try:
-            while(True):
-                while(not self.turner.roundCompleted()):
+            while(not self.victorFound):
+                while(not self.turner.roundCompleted() and (not self.victorFound)):
                     player = self.turner.next()
                     player.tradeIn(self)
                     self.goalChecker.check()
@@ -66,8 +73,9 @@ class Game(object):
                     player.move(self)
                     self.goalChecker.check()
                 self.turner.reset()
-        except(VictorFound):
-            return victor
+        except VictorFound as e:
+            self.ended = True
+            self.victor = e.victor
             
     def __countUnoccupied(self):
         i = 0;
@@ -81,7 +89,22 @@ class Game(object):
             self.turner.player.connector.send(message)
         else:
             for p in self.players:
-                p.connector.send(message)
+                try:
+                    p.connector.send(message)
+                except Exception as e:
+                    print 'exception at send message '
+                    print e
+    def exit(self):
+        
+        self.broadcast("Game is ending...")
+#        for player in self.players:
+#            try:
+#                player.connector.close()
+#            except Exception as e:
+#                print 'exception at closing a connector '
+#                print e
+        self.ended = True
+        
 
 class TurnIterator(object):
     def __init__(self, players):
@@ -112,5 +135,6 @@ class TurnIterator(object):
         if(self.completed):
             self.completed = False
             self.roundFlag = False
-            return True    
+            return True
+    
         

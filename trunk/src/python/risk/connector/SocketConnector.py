@@ -10,6 +10,7 @@ from threading import Thread
 from Queue import Queue
 from risk.command.CommandParser import ParseException
 from risk.command.ListCommand import ListCommand
+import socket
 
 class SocketConnector(Connector):
     '''
@@ -36,6 +37,10 @@ class SocketConnector(Connector):
         self.socket.send(mess+"\n")
     def receive(self):
         return self.cmds.get(True)
+    def close(self):
+        self.listener.socket.shutdown(socket.SHUT_RDWR)
+        self.listener.socket.close()
+        self.listener.live = False;
         
 class Listener(Thread):
     def __init__(self, socket, queue, game, player):
@@ -44,24 +49,29 @@ class Listener(Thread):
         self.game = game
         self.player = player
         self.queue = queue
+        self.live = True;
+        self.daemon = True
+        self.setDaemon(True)
     def run(self):
-        while(True):
-            str = self.socket.recv(100)
+        while(self.live):
             try:
-                command = self.game.parser.parse(self.player, str)
-                if(isinstance(command, ListCommand)):
-                    self.socket.send(command.verbose+"\n")
-                if(isinstance(command, ExitCommand)):
-                    #FIX exitting
-                    self.game.broadcast("%s has left the game" % (self.player.color))
-                    self.game.broadcast("Game is ending...")
-                    self.socket.close()
-                    sys.exit(0)
-                else:
-                    self.queue.put(command.orig)
-            except ParseException as e:
-                self.socket.send(e.mess)
-            except Exception:
-                self.socket.send('Some undesired condition occured, ressetting client buffers...')
-                self.queue.empty()
-        
+                str = self.socket.recv(100)
+                try:
+                    command = self.game.parser.parse(self.player, str)
+                    if(isinstance(command, ListCommand)):
+                        self.socket.send(command.verbose+"\n")
+                    if(isinstance(command, ExitCommand)):
+                        #FIX exitting
+                        self.game.broadcast("%s has left the game" % (self.player.color))
+                        self.game.exit()
+                    else:
+                        self.queue.put(command.orig)
+                except ParseException as e:
+                    self.socket.send(e.mess)
+                except Exception as e:
+                    self.socket.send('Some undesired condition occured, ressetting client buffers...')
+                    print e
+                    self.queue.empty()
+            except Exception as e:
+                print 'Connector for player %s is terminated: %s' % (self.player.color, e)
+                return
