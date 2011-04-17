@@ -3,6 +3,8 @@ Created on 2011 4 14
 
 @author: cihancimen
 '''
+import sys
+from risk.command.CommandParser import ExitCommand
 from risk.Connector import Connector
 from threading import Thread
 from Queue import Queue
@@ -49,6 +51,12 @@ class Listener(Thread):
                 command = self.game.parser.parse(self.player, str)
                 if(isinstance(command, ListCommand)):
                     self.socket.send(command.verbose+"\n")
+                if(isinstance(command, ExitCommand)):
+                    #FIX exitting
+                    self.game.broadcast("%s has left the game" % (self.player.color))
+                    self.game.broadcast("Game is ending...")
+                    self.socket.close()
+                    sys.exit(0)
                 else:
                     self.queue.put(command.orig)
             except ParseException as e:

@@ -3,6 +3,8 @@ Created on 2011 3 31
 
 @author: cihancimen
 '''
+import socket
+
 from risk.Card import Card
 from risk.Continent import Continent
 from risk.Game import Game
@@ -11,7 +13,6 @@ from risk.Player import Player
 from risk.Territory import Territory
 from risk.connector.CmdConnector import CmdConnector
 from risk.connector.SocketConnector import SocketConnector
-import socket
 
 
 class DefaultGameSetup(object):
@@ -400,7 +401,11 @@ class DefaultGameSetup(object):
             for i in range(plNum):
                 cs  = server.accept()
                 ss.append(cs[0])
+                connector.send("Player %s connected to server." % (colors[i]))
+                if(not (plNum - 1 - i == 0)):
+                    connector.send("Waiting %s players to start game." % (plNum - 1 - i))
 
+            connector.send("Game starting...")
             '''Players'''
             for i in range(plNum):
                 players.append(Player(colors[i], SocketConnector(ss[i])))
