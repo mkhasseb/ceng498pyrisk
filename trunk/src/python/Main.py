@@ -23,18 +23,28 @@ if __name__ == '__main__':
     else:
         print 'Usage game mode 1 or 2, optional arguments <host> <port>'
         sys.exit(0)
-    game = df.init()
-
     
-    game.start()
-    while(not game.ended):
-        time.sleep(1)
-    if(game.victor):
-        print 'victor is ', game.victor.color, ', with mission ', game.victor.mission
-    else:
-        print 'There was a quiter noob newbie in the game'
-    time.sleep(5)
-    sys.exit(0)     
+    while(True):
+        game = df.init() 
+        game.start()
+        while(not game.ended):
+            time.sleep(1)
+        if(game.victor):
+            print 'victor is ', game.victor.color, ', with mission ', game.victor.mission
+        else:
+            print 'There was a quiter noob newbie in the game'
+        time.sleep(3)
+        print 'Do you like to continue? (yes/no)'
+        str = raw_input()
+        if(str =='yes'):
+            pass
+        elif(str == 'no'):
+            sys.exit();
+        else:
+            print 'interpreted as no :P'
+            sys.exit();
+    
+   
 
 '''from risk.default.MinimalGameSetup import MinimalGameSetup
 
