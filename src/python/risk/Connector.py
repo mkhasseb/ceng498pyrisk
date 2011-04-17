@@ -26,3 +26,6 @@ class Connector(object):
     def set_env(self, game = None, player = None):
         '''If connectors needs access to game override this function'''
         pass
+    def close(self):
+        '''Release any resources, prepare for shutdown'''
+        pass
