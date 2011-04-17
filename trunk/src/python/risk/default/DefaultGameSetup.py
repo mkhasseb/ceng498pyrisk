@@ -20,10 +20,12 @@ class DefaultGameSetup(object):
     '''
     
     
-    def __init__(self, gametype=1):
+    def __init__(self, gametype=1, host="localhost", port=8080):
         '''
         Constructor
         '''
+        self.host = host
+        self.port = port
         self.gametype = int(gametype)
     def init(self):
         '''Territories
@@ -391,7 +393,7 @@ class DefaultGameSetup(object):
                 players.append(Player(colors[i], CmdConnector()))
         elif(self.gametype == 2):
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            server.bind(("144.122.128.196", 8082))
+            server.bind((self.host, self.port))
             server.listen(5)
             ss = []
 
