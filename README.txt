@@ -4,8 +4,11 @@ Ismet Ozgur Colpankan    1560671
 Cihan Cimen		 1560689
 
 
-All Commands
+Run Main.py at src/python with two arguments <host> <port>
+Run ClientMain.py at src/python/mains for socket client
 
+All Commands
+List commands
 List my
 List unoccupied
 List cards
