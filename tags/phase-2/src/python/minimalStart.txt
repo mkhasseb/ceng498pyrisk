@@ -1,8 +1,0 @@
-place b
-place a
-place c
-place e
-place d
-place b 37
-place a 19
-place e 19
