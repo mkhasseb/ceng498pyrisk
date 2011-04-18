@@ -4,7 +4,10 @@ Ismet Ozgur Colpankan    1560671
 Cihan Cimen		 1560689
 
 
-Run Main.py at src/python with two arguments <host> <port>
+Run Main.py at src/python with two arguments <gamemode> <host> <port>
+gamemode:
+	1= CommandLine
+	2= Socket
 Run ClientMain.py at src/python/mains for socket client
 
 All Commands
