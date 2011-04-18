@@ -402,6 +402,7 @@ class DefaultGameSetup(object):
                 cs  = server.accept()
                 ss.append(cs[0])
                 connector.send("Player %s connected to server." % (colors[i]))
+                cs[0].send("Welcome Player %s. Gl Hf." % (colors[i]))
                 for j in range(i):
                     ss[j].send("Player %s connected to server.\n" % (colors[i]))
                 if(not (plNum - 1 - i == 0)):

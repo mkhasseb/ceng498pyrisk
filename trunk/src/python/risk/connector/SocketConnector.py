@@ -74,4 +74,5 @@ class Listener(Thread):
                     self.queue.empty()
             except Exception as e:
                 print 'Connector for player %s is terminated: %s' % (self.player.color, e)
+                self.game.exit()
                 return
