@@ -23,7 +23,7 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>50</x>
       <y>0</y>
       <width>1471</width>
       <height>701</height>
@@ -46,9 +46,9 @@
       <property name="geometry">
        <rect>
         <x>1040</x>
-        <y>290</y>
+        <y>400</y>
         <width>411</width>
-        <height>321</height>
+        <height>211</height>
        </rect>
       </property>
      </widget>
@@ -86,7 +86,7 @@
        <rect>
         <x>1170</x>
         <y>10</y>
-        <width>236</width>
+        <width>240</width>
         <height>152</height>
        </rect>
       </property>
@@ -225,11 +225,87 @@
        </item>
       </layout>
      </widget>
+     <widget class="QListWidget" name="regionList">
+      <property name="geometry">
+       <rect>
+        <x>1040</x>
+        <y>180</y>
+        <width>411</width>
+        <height>191</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
+     <widget class="QGraphicsView" name="mapView_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1001</width>
+        <height>611</height>
+       </rect>
+      </property>
+      <property name="cursor" stdset="0">
+       <cursorShape>CrossCursor</cursorShape>
+      </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="logText_2">
+      <property name="geometry">
+       <rect>
+        <x>1020</x>
+        <y>300</y>
+        <width>411</width>
+        <height>211</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>1130</x>
+        <y>50</y>
+        <width>151</width>
+        <height>128</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QPushButton" name="startLinkButton">
+         <property name="text">
+          <string>Start Linking</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="endLinkButton">
+         <property name="text">
+          <string>End Linking</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="startRemoveButton">
+         <property name="text">
+          <string>Start Removing</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="endRemoveButton">
+         <property name="text">
+          <string>End Removing</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -239,7 +315,7 @@
      <x>0</x>
      <y>0</y>
      <width>1521</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -281,8 +357,8 @@
    <slot>beginRegion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1096</x>
-     <y>137</y>
+     <x>1224</x>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
      <x>653</x>
@@ -297,8 +373,8 @@
    <slot>endRegion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1225</x>
-     <y>137</y>
+     <x>1390</x>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
      <x>653</x>
@@ -313,8 +389,8 @@
    <slot>clearRegion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1238</x>
-     <y>176</y>
+     <x>1418</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>653</x>
@@ -361,8 +437,88 @@
    <slot>link()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1373</x>
-     <y>205</y>
+     <x>1459</x>
+     <y>224</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>tabChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>745</x>
+     <y>386</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>startLinkButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>startLinking()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1239</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>endLinkButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>endLinking()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1239</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>startRemoveButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>startRemoving()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1257</x>
+     <y>197</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>endRemoveButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>endRemoving()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1257</x>
+     <y>230</y>
     </hint>
     <hint type="destinationlabel">
      <x>760</x>
@@ -379,5 +535,10 @@
   <slot>actionOpen()</slot>
   <slot>actionSave()</slot>
   <slot>link()</slot>
+  <slot>tabChange()</slot>
+  <slot>startLinking()</slot>
+  <slot>endLinking()</slot>
+  <slot>startRemoving()</slot>
+  <slot>endRemoving()</slot>
  </slots>
 </ui>
