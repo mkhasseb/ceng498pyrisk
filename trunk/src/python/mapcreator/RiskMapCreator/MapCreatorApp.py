@@ -70,6 +70,16 @@ class MapCreatorApp(QtGui.QMainWindow):
         for name in self.regions.keys():
             self.ui.regionList.addItem(name)
 
+    def refreshNeighbourList(self):
+        self.ui.neighbourList.clear()
+        for reg in self.regions.values():
+            item = ""
+            item += reg.name + " : "
+            for n in reg.neighbours:
+                item += n + " "
+            self.ui.neighbourList.addItem(item)
+        #self.ui.neighbourList.addItem(reg.name + " : ")
+
     def startLinking(self):
         self.log("Clicked start linking button")
         if(self.currentRegion is None):
@@ -206,18 +216,23 @@ class MapCreatorApp(QtGui.QMainWindow):
                     return
 
     def addNeighbour(self, r):
-        if(not (r.name in self.currentRegion.neighbours)):
-            self.currentRegion.neighbours.append(r.name)
-            r.neighbours.append(self.currentRegion.name)
-            self.log("%s has been added to neighbours of %s" %(r.name, self.currentRegion.name))
+        if(r.name == self.currentRegion.name):
+            self.log("%s cannot be added its own neighbours" %(r.name))
         else:
-            self.log("%s has already been a neighbour of %s" %(r.name, self.currentRegion.name))
+            if(not (r.name in self.currentRegion.neighbours)):
+                self.currentRegion.neighbours.append(r.name)
+                r.neighbours.append(self.currentRegion.name)
+                self.log("%s has been added to neighbours of %s" %(r.name, self.currentRegion.name))
+                self.refreshNeighbourList()
+            else:
+                self.log("%s has already been a neighbour of %s" %(r.name, self.currentRegion.name))
 
     def removeNeighbour(self, r):
         if(r.name in self.currentRegion.neighbours):
             self.currentRegion.neighbours.remove(r.name)
             r.neighbours.remove(self.currentRegion.name)
             self.log("%s has been removed from neighbours of %s" %(r.name, self.currentRegion.name))
+            self.refreshNeighbourList()
         else:
             self.log("%s is not a neighbour of %s" %(r.name, self.currentRegion.name))
 
