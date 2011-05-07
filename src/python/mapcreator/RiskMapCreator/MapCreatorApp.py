@@ -12,6 +12,7 @@ from PyQt4 import QtGui
 from PyQt4.pyqtconfig import QtGuiModuleMakefile
 from mainwindow import Ui_MainWindow
 from shutil import copyfile
+from fileinput import close
 
 class Region(object):
     def __init__(self, name):
@@ -271,9 +272,8 @@ class MapCreatorApp(QtGui.QMainWindow):
         if(self.imageF is None):
             self.log("No image file")
         else:
-            imagef = open(filename+"_image", "w")
-            copyfile(self.imageF, imagef)
-            self.log("Saved image file at %s" % imagef)
+            copyfile(self.imageF, filename+"_image")
+            self.log("Saved image file at %s" % self.imageF)
         f = open(filename, "w")
         f.write(str(len(self.regions))+"\n")
         for r in self.regions.values():
