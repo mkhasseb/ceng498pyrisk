@@ -28,7 +28,9 @@ class CommandParser(object):
     '''Trade <first card number> <second card number> <third card number>'''
     COMMAND_TRADE = "trade"
     COMMAND_EXIT = "exit"
-    AVAILABLE_COMMANDS = [COMMAND_PLACE, COMMAND_LIST, COMMAND_MOVE, COMMAND_PASS, COMMAND_ATTACK, COMMAND_TRADE, COMMAND_EXIT]
+    COMMAND_MAP = "map"
+    COMMAND_MAPIMG = "mapimg"
+    AVAILABLE_COMMANDS = [COMMAND_PLACE, COMMAND_LIST, COMMAND_MOVE, COMMAND_PASS, COMMAND_ATTACK, COMMAND_TRADE, COMMAND_EXIT, COMMAND_MAP, COMMAND_MAPIMG]
 
     def __init__(self, game):
         '''
@@ -190,6 +192,10 @@ class CommandParser(object):
             return PassCommand(orig)
         elif(cmd == CommandParser.COMMAND_EXIT):
             return ExitCommand(orig)
+        elif(cmd == CommandParser.COMMAND_MAP):
+            return MapCommand(orig, self.game.map)
+        elif(cmd == CommandParser.COMMAND_MAPIMG):
+            return MapCommand(orig, self.game.mapImage)
         else:
             raise ParseException('Unknown command: %s\n' % (cmd))
 
@@ -197,12 +203,26 @@ class CommandParser(object):
 class PassCommand(AbstractCommand):
     def __init__(self, orig):
         AbstractCommand.__init__(self, orig)
-        pass
 
 class ExitCommand(AbstractCommand):
     def __init__(self, orig):
         AbstractCommand.__init__(self, orig)
-        pass
+        
+class MapCommand(AbstractCommand):
+    def __init__(self, orig, map):
+        AbstractCommand.__init__(self, orig)
+        if(map is None):
+            self.map = 'No map'
+        else:
+            self.map = map
+            
+class MapImageCommand(AbstractCommand):
+    def __init__(self, orig, mapImg):
+        AbstractCommand.__init__(self, orig)
+        if(mapImg is None):
+            self.mapImg = 'No map'
+        else:
+            self.mapImg = mapImg
 
 class ParseException(Exception):
     def __init__(self, message):

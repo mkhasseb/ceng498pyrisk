@@ -4,7 +4,7 @@ Created on 2011 4 14
 @author: cihancimen
 '''
 import sys
-from risk.command.CommandParser import ExitCommand
+from risk.command.CommandParser import ExitCommand, MapCommand, MapImageCommand
 from risk.Connector import Connector
 from threading import Thread
 from Queue import Queue
@@ -58,6 +58,10 @@ class Listener(Thread):
                     command = self.game.parser.parse(self.player, str)
                     if(isinstance(command, ListCommand)):
                         self.socket.send(command.verbose+"\n")
+                    elif(isinstance(command, MapCommand)):
+                        self.socket.send(command.map)
+                    elif(isinstance(command, MapImageCommand)):
+                        self.socket.send(command.mapimg)
                     ##In phase 2 this is left as if so all list commands are outputting duplicate 
                     elif(isinstance(command, ExitCommand)):
                         self.game.broadcast("%s has left the game" % (self.player.color))

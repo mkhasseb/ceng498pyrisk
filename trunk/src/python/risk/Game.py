@@ -15,7 +15,7 @@ class Game(Thread):
     classdocs
     '''
 
-    def __init__(self, continents, goals, cards, players):
+    def __init__(self, continents, goals, cards, players, map=None, mapImage=None):
         '''
         Constructor
         '''
@@ -41,6 +41,8 @@ class Game(Thread):
             player.set_game(self)
         self.gameSet = 1
         self.ended= False
+        self.map = map
+        self.mapImage= mapImage
     def setup(self):
         num_armies = 40 - (len(self.players) - 2) * 5
         while(not self.turner.roundCompleted()):

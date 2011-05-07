@@ -60,16 +60,16 @@ class GameCreator(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.map = None
+        self.mapF = None
 
     def openMap(self):
         file = QtGui.QFileDialog.getOpenFileName(self, "Open a Map")
         mapFile = file + "_image"
         if(os.path.isfile(file) and os.path.isfile(mapFile)):
-            self.map = file
+            self.mapF = file
             self.ui.selectedMapLabel.setText('Map loaded from %s' % file)
         else:
-            self.map = None
+            self.mapF = None
             self.ui.selectedMapLabel.setText('Can not load map')
     def startGameServer(self):
         try:
@@ -90,7 +90,7 @@ class GameCreator(QtGui.QMainWindow):
             self.ui.startServerButton.setEnabled(True)
         
     def parseGame(self, numplayer):
-        mapFile = open(self.map, 'r')
+        mapFile = open(self.mapF, 'r')
         numReg = int(mapFile.readline())
         regions = {}
         conTerrs = {}
@@ -152,6 +152,14 @@ class GameCreator(QtGui.QMainWindow):
                 c1 = conts.pop()
                 c2 = conts.pop()
                 goals.append(GoalFactory.createConquerContinent([c1, c2]))
+                
+        mapFile.close()
+        f = open(self.mapF, 'r')
+        self.map = f.read()
+        f.close()
+        fi = open(self.mapF+"_image")
+        self.mapImg = fi.read()
+        fi.close()
         return (continents.values(), cards, goals)
                          
     def log(self, message):

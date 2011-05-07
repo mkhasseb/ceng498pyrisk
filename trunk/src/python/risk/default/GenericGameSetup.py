@@ -48,4 +48,4 @@ class GenericGameSetup(object):
         for i in range(self.numPlayer):
             players.append(Player(colors[i], SocketConnector(ss[i])))
 
-        return Game(continents, goals, cards, players);
+        return Game(continents, goals, cards, players, map = p.map, mapImage=p.mapImg);
