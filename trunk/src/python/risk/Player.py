@@ -245,6 +245,7 @@ class Player(object):
                     self.connector.send('Command not allowed here')
             except ParseException as e:
                 self.connector.send(e.mess)
+                
     def attack(self, game):
         occupied = False
         while(True):
@@ -311,6 +312,7 @@ class Player(object):
                 if(dice > command.toTerr.armies or dice > 2):
                     self.connector.send('at most 2 or equal to territory army number')
                 else:
+                    self.connector.send('defended with %s dice(s)' %(dice))
                     return dice
             except(Exception):
                 self.connector.send('enter 1 or 2')
