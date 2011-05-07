@@ -60,7 +60,8 @@ class Listener(Thread):
                     command = self.game.parser.parse(self.player, str)
                     if(isinstance(command, ListCommand)):
                         self.socket.send(command.verbose+"\n")
-                    if(isinstance(command, ExitCommand)):
+                    ##In phase 2 this is left as if so all list commands are outputting duplicate 
+                    elif(isinstance(command, ExitCommand)):
                         #FIX exitting
                         self.game.broadcast("%s has left the game" % (self.player.color))
                         self.game.exit()
