@@ -16,8 +16,6 @@ class SocketConnector(Connector):
     '''
     classdocs
     '''
-
-
     def __init__(self, socket):
         '''
         Constructor
@@ -62,7 +60,6 @@ class Listener(Thread):
                         self.socket.send(command.verbose+"\n")
                     ##In phase 2 this is left as if so all list commands are outputting duplicate 
                     elif(isinstance(command, ExitCommand)):
-                        #FIX exitting
                         self.game.broadcast("%s has left the game" % (self.player.color))
                         self.game.exit()
                     else:

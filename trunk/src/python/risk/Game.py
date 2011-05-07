@@ -95,7 +95,6 @@ class Game(Thread):
                     print 'exception at send message '
                     print e
     def exit(self):
-        
         self.broadcast("Game is ending...")
 #        for player in self.players:
 #            try:
