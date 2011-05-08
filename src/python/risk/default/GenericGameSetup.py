@@ -42,10 +42,13 @@ class GenericGameSetup(object):
                     ss[j].send("Waiting %s players to start game.\n" % (self.numPlayer - 1 - i))
 
         p.log("Game starting...")
-        for j in range(self.numPlayer):
-            ss[j].send("Game starting...\n")
+        
         '''Players'''
         for i in range(self.numPlayer):
             players.append(Player(colors[i], SocketConnector(ss[i])))
 
-        return Game(continents, goals, cards, players, map = p.map, mapImage=p.mapImg);
+        g = Game(continents, goals, cards, players, map = p.map, mapImage=p.mapImg);
+    
+        for j in range(self.numPlayer):
+            ss[j].send("Game starting...\n")
+        return g
