@@ -8,7 +8,8 @@ import random
 from risk.command.CommandParser import CommandParser
 from risk.GoalChecker import VictorFound, GoalChecker
 import sys
-from threading import Thread
+from threading import Thread, Lock, Semaphore
+import time
 
 class Game(Thread):
     '''
@@ -43,6 +44,9 @@ class Game(Thread):
         self.ended= False
         self.map = map
         self.mapImage= mapImage
+#        self.locks = {}
+#        for pl in self.players:
+#            self.locks[pl] = Semaphore(0) 
     def setup(self):
         num_armies = 40 - (len(self.players) - 2) * 5
         while(not self.turner.roundCompleted()):
@@ -59,6 +63,7 @@ class Game(Thread):
             self.turner.next().placeArmies(self)
         self.turner.reset()
     def run(self):
+        time.sleep(3)
         self.setup()
         self.turner.reset()
         victor = None

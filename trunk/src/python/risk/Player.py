@@ -153,10 +153,12 @@ class Player(object):
                     else:
                         terr.armies += num
                         self.armies -= num
-                        if(self.armies == 0):
-                            done = True
+                        
                         self.game.broadcast('%s placed %s armies in territory %s' % (terr.occupant.color, num, terr.name))
                         self.game.broadcast('Territory %s has %s armies by %s' % (terr.name, terr.armies, terr.occupant.color))
+                        if(self.armies == 0):
+                            done = True
+                            self.connector.send('You completed income placement')
 
                 elif(isinstance(command, ListCommand)):
                     self.connector.send(command.verbose)
@@ -166,8 +168,12 @@ class Player(object):
                 self.connector.send(e.mess)
 
     def placeSingle(self, game):
+#        for pl in game.players:
+#            game.locks[pl].acquire()
         self.game.broadcast("Turn of %s has %d armies" % (self.color, self.armies))
         self.connector.send('Place one army (Usage: Place <territory name>)')
+#        for pl in game.players:
+#            game.locks[pl].release()
         done = False
         while(not done):
             try:
@@ -208,10 +214,11 @@ class Player(object):
                     else:
                         terr.armies += num
                         self.armies -= num
-                        if(self.armies == 0):
-                            done = True
                         self.game.broadcast('%s placed %s armies in territory %s' % (terr.occupant.color, num, terr.name))
                         self.game.broadcast('Territory %s has %s armies by %s' % (terr.name, terr.armies, terr.occupant.color))
+                        if(self.armies == 0):
+                            done = True
+                            self.connector.send('You completed army placement')
                         
                 elif(isinstance(command, ListCommand)):
                     self.connector.send(command.verbose)

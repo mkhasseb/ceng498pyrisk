@@ -59,9 +59,15 @@ class Listener(Thread):
                     if(isinstance(command, ListCommand)):
                         self.socket.send(command.verbose+"\n")
                     elif(isinstance(command, MapCommand)):
+#                        self.game.locks[self.player].acquire()
                         self.socket.send(command.map)
+                        self.socket.send("EOF")
+#                        self.game.locks[self.player].release()
                     elif(isinstance(command, MapImageCommand)):
+#                        self.game.lock.acquire()
                         self.socket.send(command.mapimg)
+                        self.socket.send("EOF")
+#                        self.game.locks[self.player].release()
                     ##In phase 2 this is left as if so all list commands are outputting duplicate 
                     elif(isinstance(command, ExitCommand)):
                         self.game.broadcast("%s has left the game" % (self.player.color))

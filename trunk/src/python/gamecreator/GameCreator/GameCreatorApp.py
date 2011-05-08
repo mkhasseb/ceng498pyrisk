@@ -47,7 +47,6 @@ class GameThread(Thread):
         except Exception as e:
             self.handle.log('%s' % e)
             self.handle.endGame()
-        
 
 class GameCreator(QtGui.QMainWindow):
     '''
@@ -80,15 +79,15 @@ class GameCreator(QtGui.QMainWindow):
             gameSetup = GenericGameSetup(host, port, numplayer)
             (continents, cards, goals) = self.parseGame(numplayer)
             
-            gt = GameThread(gameSetup, continents, cards, goals, self)
-            gt.start()
+            self.gt = GameThread(gameSetup, continents, cards, goals, self)
+            self.gt.start()
         except Exception as e:
             self.log("%s " % e)
             self.endGame()
 
     def endGame(self):
             self.ui.startServerButton.setEnabled(True)
-        
+    
     def parseGame(self, numplayer):
         mapFile = open(self.mapF, 'r')
         numReg = int(mapFile.readline())
@@ -168,5 +167,5 @@ if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
     window = GameCreator()
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec_())

@@ -347,6 +347,6 @@ if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
     window = MapCreatorApp()
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec_())
         
