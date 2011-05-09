@@ -187,6 +187,7 @@ class DesktopClientApp(QtGui.QMainWindow):
                 self.connector.place(region.name, army_num)
         else:
             self.log("No region selected")
+            
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

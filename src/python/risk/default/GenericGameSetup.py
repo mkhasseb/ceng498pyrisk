@@ -24,14 +24,20 @@ class GenericGameSetup(object):
     def initGame(self, continents, cards, goals, p):
         colors = [Player.COLOR_BLACK, Player.COLOR_BLUE, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
         players = []
+        mapServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        mapServer.bind((self.host, self.port + 1))
         server.bind((self.host, self.port))
         server.listen(5)
+        mapServer.listen(5)
         ss = []
+        mss = []
 
         for i in range(self.numPlayer):
             cs  = server.accept()
+            mcs = mapServer.accept()
             ss.append(cs[0])
+            mss.append(mcs[0])
             p.log("Player %s connected to server." % (colors[i]))
             cs[0].send("Welcome Player %s. Gl Hf." % (colors[i]))
             for j in range(i):
@@ -45,7 +51,7 @@ class GenericGameSetup(object):
         
         '''Players'''
         for i in range(self.numPlayer):
-            players.append(Player(colors[i], SocketConnector(ss[i])))
+            players.append(Player(colors[i], SocketConnector(ss[i]), SocketConnector(mss[i])))
 
         g = Game(continents, goals, cards, players, map = p.map, mapImage=p.mapImg);
     

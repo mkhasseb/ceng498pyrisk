@@ -26,7 +26,7 @@ class Player(object):
     COLOR_YELLOW = "Yellow"
 
 
-    def __init__(self, color, connector):
+    def __init__(self, color, connector, mapConnector):
         '''
         Constructor
         '''
@@ -38,11 +38,12 @@ class Player(object):
         self.eliminates = []
         self.cards = []
         self.connector = connector
+        self.mapConnector = mapConnector
         
- 
     def set_game(self, game):
         self.game = game
         self.connector.set_env(game = self.game, player = self)
+        self.mapConnector.set_env(game = self.game, player = self)
        
  
     def tradeIn(self, game):
