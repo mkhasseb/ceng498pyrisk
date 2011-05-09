@@ -18,6 +18,8 @@ class ClientHelper(Thread):
         Thread.__init__(self)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((host, port))
+        self.mapSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.mapSocket.connect((host, port + 1))
         self.end = False
         self.currentState = S_ROAM
         self.handle = handle
@@ -29,18 +31,18 @@ class ClientHelper(Thread):
 #                print self.socket.recv(10000)
                 while True:
                     self.log("Waiting for map content")
-                    part = self.socket.recv(10000)
+                    part = self.mapSocket.recv(10000)
                     if  "EOF" in part:
                         map += part.split("EOF")[0]
                         break
                     map += part
                 self.handle.map(map)
                 self.log("Retrieved map content")
-                self.send("mapImg")
+                self.mapSocket.send("mapImg")
                 map  = ""
                 while True:
                     self.log("Waiting for map image content")
-                    part = self.socket.recv(10000)
+                    part = self.mapSocket.recv(10000)
                     if  "EOF" in part:
                         map += part.split("EOF")[0]
                         break
@@ -49,9 +51,11 @@ class ClientHelper(Thread):
                 self.handle.mapImgSig()
                 self.currentState = S_ROAM
                 self.log("Retrieved map image")
+                self.mapSocket.close()
             self.log("Waiting")
             self.handle.setStateLabel()
             str = self.socket.recv(10000)
+            self.log(str + ' : ' + self.currentState)
             
             str = str.strip()
             
@@ -61,10 +65,11 @@ class ClientHelper(Thread):
             if 'Game starting...' in str:
                     self.log("Game is starting retrieving map")
                     self.currentState = 'Map'
-                    self.send("map")
+                    print 'map is requested'
+                    self.mapSocket.send("map")
             if 'World State' in str:
                 self.handle.updateWorldMap(str)
-#            Available
+#           available
             if(self.currentState == S_ROAM):
                 if 'Usage: Place' in str:
                     if 'Pass' in str:
@@ -83,7 +88,9 @@ class ClientHelper(Thread):
                     self.refresh()
                     continue
             if(self.currentState == S_PLACE_SINGLE):
-                if('occupied' in str and not 'Territory' in str):
+                if ('World State' in str):
+                    continue
+                elif('occupied' in str and not 'Territory' in str):
                     self.refresh()
                     self.updateState(S_ROAM, S_ROAM)
             if(self.currentState == S_PLACE_ARMIES):
@@ -230,6 +237,7 @@ class ClientHelper(Thread):
         
     def refresh(self):
         self.send("list all")
+        
     def send(self, message):
         self.socket.send(message)
 

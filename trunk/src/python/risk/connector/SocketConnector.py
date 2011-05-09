@@ -60,8 +60,10 @@ class Listener(Thread):
                         self.socket.send(command.verbose+"\n")
                     elif(isinstance(command, MapCommand)):
 #                        self.game.locks[self.player].acquire()
+                        print 'map request is taken'
                         self.socket.send(command.map)
                         self.socket.send("EOF")
+                        print 'map is sent'
 #                        self.game.locks[self.player].release()
                     elif(isinstance(command, MapImageCommand)):
 #                        self.game.lock.acquire()

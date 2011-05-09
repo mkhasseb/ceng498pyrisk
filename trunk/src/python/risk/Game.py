@@ -143,4 +143,3 @@ class TurnIterator(object):
             self.roundFlag = False
             return True
     
-        
