@@ -1,6 +1,7 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 from threading import Thread
+from desktopGUI.DesktupClientGUI.DesktopClientApp import S_ATTACK_0
 
 __author__="ozgur"
 __date__ ="$May 6, 2011 12:25:30 AM$"
@@ -12,7 +13,8 @@ S_PLACE_ARMIES = "placeArmies"
 S_PLACE_INCOME = "placeIncome"
 S_MOVE = "move"
 S_ROAM = "roam"
-
+S_ATTACK = 'attack'
+S_TRANSFER = 'transferarmies'
 class ClientHelper(Thread):
     def __init__(self, host, port, handle):
         Thread.__init__(self)
@@ -43,6 +45,7 @@ class ClientHelper(Thread):
                 while True:
                     self.log("Waiting for map image content")
                     part = self.mapSocket.recv(10000)
+                    print part
                     if  "EOF" in part:
                         map += part.split("EOF")[0]
                         break
@@ -51,7 +54,7 @@ class ClientHelper(Thread):
                 self.handle.mapImgSig()
                 self.currentState = S_ROAM
                 self.log("Retrieved map image")
-                self.mapSocket.close()
+#                self.mapSocket.close()
             self.log("Waiting")
             self.handle.setStateLabel()
             str = self.socket.recv(10000)
@@ -84,7 +87,10 @@ class ClientHelper(Thread):
                         self.handle.placeSingle()
                         self.updateState(S_PLACE_SINGLE, None)
                         continue
-                elif not ("World State" in str):
+                    elif 'Usage: Attack' in str:
+                        self.handle.attackOrPass()
+                        self.updateState(S_ATTACK, None)
+                elif (not ("World State" in str)) and (not ('Welcome' in str)):
                     self.refresh()
                     continue
             if(self.currentState == S_PLACE_SINGLE):
@@ -103,7 +109,16 @@ class ClientHelper(Thread):
                     self.refresh()
                 elif('You completed income placement' == str):
                     self.updateState(S_ROAM, S_ROAM)
-            
+            if(self.currentState == S_ATTACK):
+                if 'Invalid Attack' in str:
+                    self.updateState(S_ATTACK, S_ATTACK_0)
+                elif 'Attacker lost' in str:
+                    self.updateState(S_TRANSFER, S_TRANSFER)
+                    self.handle.transfer()
+            if(self.currentState == S_TRANSFER):
+                if 'Invalid Transfer:' in str:
+                    self.updateState(S_TRANSFER, S_TRANSFER)
+                    self.handle.transfer()
 #            elif 'Usage: Place' in str:
 #                if 'Pass' in str:
 #                    self.handle.placeOrPass()

@@ -12,8 +12,14 @@ from mainwindow import Ui_MainWindow
 from threading import Thread
 from ClientHelper import ClientHelper
 from mapcreator.RiskMapCreator.MapCreatorApp import Region
+import time
+import uuid
 
-
+S_TRANSFER = 'transferarmies'
+S_ATTACK_0 = "attack0"
+S_ATTACK_1 = "attack1"
+S_ATTACK_2 = "attack2"
+S_DEFEND = 'defend'
 S_PLACE_SINGLE = "placeSingle"
 S_PLACE_ARMIES = "placeArmies"
 S_PLACE_INCOME = "placeIncome"
@@ -99,11 +105,12 @@ class DesktopClientApp(QtGui.QMainWindow):
     def map(self, map):
         self.map = map
     def mapImg(self):
-        f = open('tmpImage', 'w')
+        fname = "tmpImage"+str(uuid.uuid1())
+        f = open(fname, 'w')
         f.write(self.mapImage)
         f.flush()
         f.close()
-        image = QtGui.QPixmap('tmpImage')
+        image = QtGui.QPixmap(fname)
         item = QtGui.QGraphicsPixmapItem(image)
         self.scene.clear()
         self.scene.addItem(item)
@@ -160,9 +167,18 @@ class DesktopClientApp(QtGui.QMainWindow):
     def placeOrPass(self):
         self.state = S_PLACE_INCOME
         self.ui.passButton.setEnabled(True)
+    def attackOrPass(self):
+        self.state = S_ATTACK_0
+        self.ui.passButton.setEnabled(True)
+    def transfer(self):
+        self.state = S_TRANSFER
+        army_num, ok = QtGui.QInputDialog.getInteger(self, "Select Number of armies to transfer newly conquered region", "Enter number of armies", value=1)
+        while(not ok):
+            army_num, ok = QtGui.QInputDialog.getInteger(self, "Select Number of armies to transfer newly conquered region", "Enter number of armies", value=1)
+        self.handle.place(army = str(army_num), capture = True)
+        
     def setCommandLabel(self, message):
         self.ui.label_3.setText(message)
-        
     def mouseClickedOnMap(self, event):
         items = self.scene.items(event.scenePos())
 #        self.log("Selected items are %s" % items)
@@ -179,12 +195,23 @@ class DesktopClientApp(QtGui.QMainWindow):
                 army_num, ok = QtGui.QInputDialog.getInteger(self, "Army Placement", "Enter number of armies", value=1)
                 while(not ok):
                     army_num, ok = QtGui.QInputDialog.getInteger(self, "Army Placement", "Enter number of armies", value=1)
-                self.connector.place(region.name, army_num)
+                self.connector.place(region.name, str(army_num))
             elif(self.state == S_PLACE_INCOME):
                 army_num, ok = QtGui.QInputDialog.getInteger(self, "Army Placement", "Enter number of armies", value=1)
                 while(not ok):
                     army_num, ok = QtGui.QInputDialog.getInteger(self, "Army Placement", "Enter number of armies", value=1)
-                self.connector.place(region.name, army_num)
+                self.connector.place(region.name, str(army_num))
+            elif(self.state == S_ATTACK_0):
+                self.attackfrom = region.name
+                self.state = S_ATTACK_1
+            elif(self.state == S_ATTACK_1):
+                self.attackto = region.name
+                army_num, ok = QtGui.QInputDialog.getInteger(self, "Select Number of armies to attack", "Enter number of armies", value=1)
+                while(not ok):
+                    army_num, ok = QtGui.QInputDialog.getInteger(self, "Select Number of armies to attack", "Enter number of armies", value=1)
+                self.state = S_ATTACK_2
+                self.connector.attack(self.attackfrom, self.attackto, str(army_num))
+                self.attackto, self.attackfrom = None, None
         else:
             self.log("No region selected")
             

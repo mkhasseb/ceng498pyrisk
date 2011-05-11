@@ -292,16 +292,16 @@ class Player(object):
                                 try:
                                     move = int(self.connector.receive())
                                     if(not (move) > 0):
-                                        self.connector.send('OMG Enter something bigger than zero')
+                                        self.connector.send('Invalid Transfer: OMG Enter something bigger than zero')
                                     elif(move >= command.fromTerr.armies):
-                                        self.connector.send('Not enough armies')
+                                        self.connector.send('Invalid Transfer: Not enough armies')
                                     else:
                                         command.fromTerr.armies -= move
                                         command.toTerr.armies += move 
                                         self.game.broadcast('Transfer complete: %d armies' % (move))
                                         break
                                 except(Exception):
-                                    self.connector.send('enter a valid integer')
+                                    self.connector.send('Invalid Transfer: enter a valid integer')
                                 
                     else:
                         self.connector.send("Invalid Attack: " + validity[1]) 
