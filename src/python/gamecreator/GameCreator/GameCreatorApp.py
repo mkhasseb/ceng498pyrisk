@@ -157,7 +157,12 @@ class GameCreator(QtGui.QMainWindow):
         self.map = f.read()
         f.close()
         fi = open(self.mapF+"_image")
-        self.mapImg = fi.read()
+        self.mapImg = ""
+        while True:
+            temp  = fi.read()
+            if(temp == ''):break
+            self.mapImg +=temp
+        print self.mapImg
         fi.close()
         return (continents.values(), cards, goals)
                          

@@ -7,6 +7,7 @@ from risk.Player import Player
 import socket
 from risk.connector.SocketConnector import SocketConnector
 from risk.Game import Game
+from risk.connector.MapSocketConnector import MapSocketConnector
 
 class GenericGameSetup(object):
     '''
@@ -51,7 +52,7 @@ class GenericGameSetup(object):
         
         '''Players'''
         for i in range(self.numPlayer):
-            players.append(Player(colors[i], SocketConnector(ss[i]), SocketConnector(mss[i])))
+            players.append(Player(colors[i], SocketConnector(ss[i]), MapSocketConnector(mss[i])))
 
         g = Game(continents, goals, cards, players, map = p.map, mapImage=p.mapImg);
     
