@@ -375,7 +375,7 @@ class DefaultGameSetup(object):
                 connector.send('enter a valid integer')
                 
         '''Goals'''
-        colors = [Player.COLOR_BLACK, Player.COLOR_BLUE, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
+        colors = [Player.COLOR_ORANGE, Player.COLOR_LPINK, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
         goals = []
         
         goals.append(GoalFactory.createConquer(18, 2))

@@ -65,11 +65,11 @@ class MinimalGameSetup(object):
         goals = []
         goals.append(GoalFactory.createConquer(4, 5))
         goals.append(GoalFactory.createConquer(5, 2))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_BLACK, 5))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_BLUE, 5))
+        goals.append(GoalFactory.createEliminate(Player.COLOR_ORANGE, 5))
+        goals.append(GoalFactory.createEliminate(Player.COLOR_LPINK, 5))
         
         players = []
-        players.append(Player(Player.COLOR_BLACK, CmdConnector()))
-        players.append(Player(Player.COLOR_BLUE, CmdConnector()))
+        players.append(Player(Player.COLOR_ORANGE, CmdConnector()))
+        players.append(Player(Player.COLOR_LPINK, CmdConnector()))
         
         return Game(continents, goals, cards, players)

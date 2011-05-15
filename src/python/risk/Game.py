@@ -83,7 +83,7 @@ class Game(Thread):
         except VictorFound as e:
             self.ended = True
             self.victor = e.victor
-            
+            self.broadcast('Victor found: %s with mission %s' % (self.victor.color, self.victor.mission.verbose))
     def __countUnoccupied(self):
         i = 0;
         for ter in self.territories.values():

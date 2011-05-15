@@ -39,7 +39,7 @@ class GameThread(Thread):
             while(not self.game.ended):
                 time.sleep(1)
             if(self.game.victor):
-                self.handle.log('victor is %s with mission %s ' % (self.game.victor.color, self.game.victor.mission))
+                self.handle.log('victor is %s with mission %s ' % (self.game.victor.color, self.game.victor.mission.verbose))
             else:
                 self.handle.log('There was a quiter noob newbie in the game')
             time.sleep(3)
@@ -139,11 +139,11 @@ class GameCreator(QtGui.QMainWindow):
             i %= 3
         cards.append(Card(Card.TYPE_WILD))
         cards.append(Card(Card.TYPE_WILD))
-        goals.append(GoalFactory.createOccupy(len(regions) * 2 / 3))
-        goals.append(GoalFactory.createConquer((len(regions) / 2), 2))
-        colors = [Player.COLOR_BLACK, Player.COLOR_BLUE, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
+        goals.append(GoalFactory.createOccupy((len(regions) * 2 / 3)+1))
+        goals.append(GoalFactory.createConquer((len(regions) / 2)+1, 2))
+        colors = [Player.COLOR_ORANGE, Player.COLOR_LPINK, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
         for i in range(numplayer):
-            goals.append(GoalFactory.createEliminate(colors[i], len(regions) * 2 / 3))
+            goals.append(GoalFactory.createEliminate(colors[i], (len(regions) * 2 / 3)+1))
         if(len(continents) > 5):
             for i in range(3):
                 conts = continents.values()

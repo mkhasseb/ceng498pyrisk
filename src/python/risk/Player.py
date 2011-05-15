@@ -19,10 +19,10 @@ class Player(object):
     classdocs
     '''
     COLOR_RED = "Red"
-    COLOR_BLUE = "Blue"
+    COLOR_LPINK = "Pink"
     COLOR_GREEN = "Green"
     COLOR_GRAY = "Gray"
-    COLOR_BLACK = "Black"
+    COLOR_ORANGE = "Orange"
     COLOR_YELLOW = "Yellow"
 
 

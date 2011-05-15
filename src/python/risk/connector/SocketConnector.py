@@ -55,6 +55,12 @@ class Listener(Thread):
             try:
                 str = self.socket.recv(100)
                 try:
+                    try:
+                        int(str)
+                        self.queue.put(str)
+                        continue
+                    except ValueError:
+                        print 'can not convert to int'
                     command = self.game.parser.parse(self.player, str)
                     if(isinstance(command, ListCommand)):
                         self.socket.send(command.verbose+"\n")

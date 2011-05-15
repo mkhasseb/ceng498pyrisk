@@ -23,7 +23,7 @@ class GenericGameSetup(object):
         self.port = port
         self.numPlayer = numPlayer
     def initGame(self, continents, cards, goals, p):
-        colors = [Player.COLOR_BLACK, Player.COLOR_BLUE, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
+        colors = [Player.COLOR_ORANGE, Player.COLOR_LPINK, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
         players = []
         mapServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

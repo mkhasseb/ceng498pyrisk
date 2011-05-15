@@ -25,7 +25,7 @@ class GoalFactory(object):
     @staticmethod
     def createEliminate(color, num):
         alternate = GoalFactory.createOccupy(num)
-        verbose = GoalFactory.VERBOSE_CONTINENT + " " + color + " troops. If yours are the " + color + " Troops, then: " + alternate.verbose  
+        verbose = GoalFactory.VERBOSE_ELIMINATE + " " + color + " troops, If yours are the " + color + " Troops, then: " + alternate.verbose  
         return Goal(Goal.TYPE_ELIMINATE, verbose, color=color, alternate=alternate)
     
 class Goal(object):
