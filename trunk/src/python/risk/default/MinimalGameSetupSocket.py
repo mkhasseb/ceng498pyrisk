@@ -66,8 +66,8 @@ class MinimalGameSetupSocket(object):
         goals = []
         goals.append(GoalFactory.createConquer(4, 5))
         goals.append(GoalFactory.createConquer(5, 2))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_BLACK, 5))
-        goals.append(GoalFactory.createEliminate(Player.COLOR_BLUE, 5))
+        goals.append(GoalFactory.createEliminate(Player.COLOR_ORANGE, 5))
+        goals.append(GoalFactory.createEliminate(Player.COLOR_LPINK, 5))
         
         
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -82,7 +82,7 @@ class MinimalGameSetupSocket(object):
             
         
         players = []
-        players.append(Player(Player.COLOR_BLACK, SocketConnector(ss[0])))
-        players.append(Player(Player.COLOR_BLUE, SocketConnector(ss[1])))
+        players.append(Player(Player.COLOR_ORANGE, SocketConnector(ss[0])))
+        players.append(Player(Player.COLOR_LPINK, SocketConnector(ss[1])))
         
         return Game(continents, goals, cards, players)

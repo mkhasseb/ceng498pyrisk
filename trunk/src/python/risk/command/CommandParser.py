@@ -116,7 +116,7 @@ class CommandParser(object):
                             all += "\t" + terr.name + " " + (terr.occupant.color if(terr.occupant) else ' unoccupied ') + " " + str(terr.armies) + "\n"
                     return ListCommand(orig, all)
                 elif(words[1] == 'mission'):
-                    return ListCommand(orig, player.mission.verbose)
+                    return ListCommand(orig, 'Your mission is: ' + player.mission.verbose)
                 elif(words[1] == 'commands'):
                     commands = ""
                     commands += "----------\n"

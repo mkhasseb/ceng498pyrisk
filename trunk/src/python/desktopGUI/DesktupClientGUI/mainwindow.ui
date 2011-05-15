@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,25 +16,89 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+color: #333;
+border: 2px solid #555;
+border-radius: 11px;
+padding: 5px;
+background: qradialgradient(cx: 0.3, cy: -0.4,
+fx: 0.3, fy: -0.4,
+radius: 1.35, stop: 0 #fff, stop: 1 #888);
+min-width: 80px;
+}
+
+QPushButton:hover {
+background: qradialgradient(cx: 0.3, cy: -0.4,
+fx: 0.3, fy: -0.4,
+radius: 1.35, stop: 0 #fff, stop: 1 #bbb);
+}
+
+QPushButton:pressed {
+background: qradialgradient(cx: 0.4, cy: -0.1,
+fx: 0.4, fy: -0.1,
+radius: 1.35, stop: 0 #fff, stop: 1 #ddd);
+}
+
+QPushButton:disabled {
+color: #333;
+border: 2px solid #555;
+border-radius: 11px;
+background: qradialgradient(cx: 0.3, cy: -0.4,
+fx: 0.3, fy: -0.4,
+radius: 1.35, stop: 0 #888, stop: 1 #888);
+}
+
+QMainWindow, #centralWidget, QListWidget, QLabel, QPlainTextEdit, QComboBox, QMessageBox, QInputDialog, QPlainTextEdit::handle {
+ color: #333;
+border: 2px solid #555;
+border-radius: 11px;
+padding: 5px;
+background: qradialgradient(cx: 0.3, cy: -0.4,
+fx: 0.3, fy: -0.4,
+radius: 1.35, stop: 0 #fff, stop: 1 #888);
+}
+
+QSpinBox {
+ color: #333;
+padding: 5px;
+background: qradialgradient(cx: 0.3, cy: -0.4,
+fx: 0.3, fy: -0.4,
+radius: 1.35, stop: 0 #fff, stop: 1 #888);
+}
+QGraphicsView, QLineEdit {
+	 color: #333;
+border: 2px solid #555;
+border-radius: 11px;
+padding: 5px;
+
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QGraphicsView" name="mapView">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>150</y>
+      <x>20</x>
+      <y>250</y>
       <width>761</width>
       <height>601</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="passButton">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>150</y>
+      <x>830</x>
+      <y>250</y>
       <width>114</width>
       <height>32</height>
      </rect>
@@ -40,35 +107,12 @@
      <string>Pass</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="gameLog">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>230</y>
-      <width>341</width>
-      <height>221</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>200</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Game Log</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>70</y>
-      <width>721</width>
+      <x>20</x>
+      <y>180</y>
+      <width>751</width>
       <height>51</height>
      </rect>
     </property>
@@ -81,85 +125,23 @@
      </font>
     </property>
     <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="cardList">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>490</y>
-      <width>341</width>
-      <height>192</height>
-     </rect>
-    </property>
-    <property name="selectionMode">
-     <enum>QAbstractItemView::MultiSelection</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>460</y>
-      <width>62</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Cards</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="tradeButton">
-    <property name="geometry">
-     <rect>
-      <x>1050</x>
-      <y>690</y>
-      <width>114</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Trade In</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="contList">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>30</y>
-      <width>381</width>
-      <height>101</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>811</x>
-      <y>10</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Continents</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="stateLabel">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>20</y>
-      <width>191</width>
-      <height>16</height>
+      <x>20</x>
+      <y>60</y>
+      <width>361</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>State:</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -185,10 +167,182 @@
      </item>
      <item>
       <widget class="QPushButton" name="connectButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>Connect</string>
        </property>
       </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="playerLabel">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>10</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="playerView">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>10</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="missionLabel">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>60</y>
+      <width>361</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>Mission: </string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>560</y>
+      <width>262</width>
+      <height>266</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Cards</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="cardList">
+           <property name="selectionMode">
+            <enum>QAbstractItemView::MultiSelection</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>108</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="tradeButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Trade In</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>320</y>
+      <width>258</width>
+      <height>227</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Game Log</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPlainTextEdit" name="gameLog"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>70</y>
+      <width>351</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Continents</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="contList"/>
      </item>
     </layout>
    </widget>
@@ -199,7 +353,7 @@
      <x>0</x>
      <y>0</y>
      <width>1220</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -280,12 +434,119 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>signalDefendPopup(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slotDefendPopup(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>signalTransferPopup()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slotTransferPopup()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tradeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slotTradeIn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1106</x>
+     <y>738</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>signalPlayerName(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slotPlayerName(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>signalMission(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slotMission(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>signalVictor(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slotVictor(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>log(QString)</signal>
   <signal>loadImgSig()</signal>
+  <signal>signalDefendPopup(QString)</signal>
+  <signal>signalTransferPopup()</signal>
+  <signal>signalPlayerName(QString)</signal>
+  <signal>signalMission(QString)</signal>
+  <signal>signalVictor(QString)</signal>
   <slot>dopass()</slot>
   <slot>connect()</slot>
   <slot>loadImgSlt()</slot>
+  <slot>slotDefendPopup(QString)</slot>
+  <slot>slotTransferPopup()</slot>
+  <slot>slotTradeIn()</slot>
+  <slot>slotPlayerName(QString)</slot>
+  <slot>slotMission(QString)</slot>
+  <slot>slotVictor(QString)</slot>
  </slots>
 </ui>
