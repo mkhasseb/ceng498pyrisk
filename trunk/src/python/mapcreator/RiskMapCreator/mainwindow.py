@@ -2,53 +2,115 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Apr 27 00:43:25 2011
-#      by: PyQt4 UI code generator 4.7.2
+# Created: Sun May 15 18:44:29 2011
+#      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
 
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    _fromUtf8 = lambda s: s
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(1600, 754)
+        MainWindow.setStyleSheet(_fromUtf8("QPushButton {\n"
+"color: #333;\n"
+"border: 2px solid #555;\n"
+"border-radius: 11px;\n"
+"padding: 5px;\n"
+"background: qradialgradient(cx: 0.3, cy: -0.4,\n"
+"fx: 0.3, fy: -0.4,\n"
+"radius: 1.35, stop: 0 #fff, stop: 1 #888);\n"
+"min-width: 80px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background: qradialgradient(cx: 0.3, cy: -0.4,\n"
+"fx: 0.3, fy: -0.4,\n"
+"radius: 1.35, stop: 0 #fff, stop: 1 #bbb);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"background: qradialgradient(cx: 0.4, cy: -0.1,\n"
+"fx: 0.4, fy: -0.1,\n"
+"radius: 1.35, stop: 0 #fff, stop: 1 #ddd);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"color: #333;\n"
+"border: 2px solid #555;\n"
+"border-radius: 11px;\n"
+"background: qradialgradient(cx: 0.3, cy: -0.4,\n"
+"fx: 0.3, fy: -0.4,\n"
+"radius: 1.35, stop: 0 #888, stop: 1 #888);\n"
+"}\n"
+"\n"
+"QMainWindow, #centralWidget, QListWidget, QLabel, QPlainTextEdit, QComboBox, QMessageBox, QInputDialog, QPlainTextEdit::handle {\n"
+" color: #333;\n"
+"border: 2px solid #555;\n"
+"border-radius: 11px;\n"
+"padding: 5px;\n"
+"background: qradialgradient(cx: 0.3, cy: -0.4,\n"
+"fx: 0.3, fy: -0.4,\n"
+"radius: 1.35, stop: 0 #fff, stop: 1 #888);\n"
+"}\n"
+"\n"
+"QSpinBox {\n"
+" color: #333;\n"
+"padding: 5px;\n"
+"background: qradialgradient(cx: 0.3, cy: -0.4,\n"
+"fx: 0.3, fy: -0.4,\n"
+"radius: 1.35, stop: 0 #fff, stop: 1 #888);\n"
+"}\n"
+"QGraphicsView, QLineEdit {\n"
+"     color: #333;\n"
+"border: 2px solid #555;\n"
+"border-radius: 11px;\n"
+"padding: 5px;\n"
+"\n"
+"}"))
         self.centralWidget = QtGui.QWidget(MainWindow)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.centralWidget.sizePolicy().hasHeightForWidth())
         self.centralWidget.setSizePolicy(sizePolicy)
-        self.centralWidget.setObjectName("centralWidget")
+        self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.tabWidget = QtGui.QTabWidget(self.centralWidget)
-        self.tabWidget.setGeometry(QtCore.QRect(50, 0, 1541, 701))
-        self.tabWidget.setObjectName("tabWidget")
+        self.tabWidget.setGeometry(QtCore.QRect(50, 0, 1291, 701))
+        self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
         self.regionTab = QtGui.QWidget()
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.regionTab.sizePolicy().hasHeightForWidth())
         self.regionTab.setSizePolicy(sizePolicy)
-        self.regionTab.setObjectName("regionTab")
+        self.regionTab.setObjectName(_fromUtf8("regionTab"))
         self.logText = QtGui.QPlainTextEdit(self.regionTab)
         self.logText.setGeometry(QtCore.QRect(910, 390, 341, 211))
-        self.logText.setObjectName("logText")
+        self.logText.setObjectName(_fromUtf8("logText"))
         self.mapView = QtGui.QGraphicsView(self.regionTab)
         self.mapView.setGeometry(QtCore.QRect(0, 0, 901, 611))
-        self.mapView.setProperty("cursor", QtCore.Qt.CrossCursor)
+        self.mapView.setProperty(_fromUtf8("cursor"), QtCore.Qt.CrossCursor)
         self.mapView.setMouseTracking(True)
-        self.mapView.setObjectName("mapView")
+        self.mapView.setObjectName(_fromUtf8("mapView"))
         self.layoutWidget = QtGui.QWidget(self.regionTab)
         self.layoutWidget.setGeometry(QtCore.QRect(910, 10, 240, 152))
-        self.layoutWidget.setObjectName("layoutWidget")
+        self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.layoutWidget)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout.setMargin(0)
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.label_2 = QtGui.QLabel(self.layoutWidget)
         self.label_2.setMaximumSize(QtCore.QSize(100, 40))
-        self.label_2.setObjectName("label_2")
+        self.label_2.setObjectName(_fromUtf8("label_2"))
         self.horizontalLayout.addWidget(self.label_2)
         self.regionName = QtGui.QLineEdit(self.layoutWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.Fixed)
@@ -57,19 +119,19 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.regionName.sizePolicy().hasHeightForWidth())
         self.regionName.setSizePolicy(sizePolicy)
         self.regionName.setMaximumSize(QtCore.QSize(200, 40))
-        self.regionName.setObjectName("regionName")
+        self.regionName.setObjectName(_fromUtf8("regionName"))
         self.horizontalLayout.addWidget(self.regionName)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.beginButton = QtGui.QPushButton(self.layoutWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.beginButton.sizePolicy().hasHeightForWidth())
         self.beginButton.setSizePolicy(sizePolicy)
-        self.beginButton.setObjectName("beginButton")
+        self.beginButton.setObjectName(_fromUtf8("beginButton"))
         self.horizontalLayout_2.addWidget(self.beginButton)
         self.endButton = QtGui.QPushButton(self.layoutWidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.Fixed)
@@ -77,12 +139,12 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.endButton.sizePolicy().hasHeightForWidth())
         self.endButton.setSizePolicy(sizePolicy)
-        self.endButton.setObjectName("endButton")
+        self.endButton.setObjectName(_fromUtf8("endButton"))
         self.horizontalLayout_2.addWidget(self.endButton)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem)
         self.clearButton = QtGui.QPushButton(self.layoutWidget)
@@ -91,138 +153,137 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.clearButton.sizePolicy().hasHeightForWidth())
         self.clearButton.setSizePolicy(sizePolicy)
-        self.clearButton.setMinimumSize(QtCore.QSize(100, 0))
-        self.clearButton.setObjectName("clearButton")
+        self.clearButton.setMinimumSize(QtCore.QSize(94, 0))
+        self.clearButton.setObjectName(_fromUtf8("clearButton"))
         self.horizontalLayout_3.addWidget(self.clearButton)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.regionList = QtGui.QListWidget(self.regionTab)
         self.regionList.setGeometry(QtCore.QRect(910, 180, 341, 191))
-        self.regionList.setObjectName("regionList")
-        self.tabWidget.addTab(self.regionTab, "")
+        self.regionList.setObjectName(_fromUtf8("regionList"))
+        self.tabWidget.addTab(self.regionTab, _fromUtf8(""))
         self.neighbourTab = QtGui.QWidget()
-        self.neighbourTab.setObjectName("neighbourTab")
+        self.neighbourTab.setObjectName(_fromUtf8("neighbourTab"))
         self.mapView_2 = QtGui.QGraphicsView(self.neighbourTab)
         self.mapView_2.setGeometry(QtCore.QRect(0, 0, 1001, 611))
-        self.mapView_2.setProperty("cursor", QtCore.Qt.CrossCursor)
+        self.mapView_2.setProperty(_fromUtf8("cursor"), QtCore.Qt.CrossCursor)
         self.mapView_2.setMouseTracking(True)
-        self.mapView_2.setObjectName("mapView_2")
+        self.mapView_2.setObjectName(_fromUtf8("mapView_2"))
         self.logText_2 = QtGui.QPlainTextEdit(self.neighbourTab)
-        self.logText_2.setGeometry(QtCore.QRect(1020, 400, 411, 211))
-        self.logText_2.setObjectName("logText_2")
+        self.logText_2.setGeometry(QtCore.QRect(1020, 300, 411, 211))
+        self.logText_2.setObjectName(_fromUtf8("logText_2"))
         self.layoutWidget1 = QtGui.QWidget(self.neighbourTab)
-        self.layoutWidget1.setGeometry(QtCore.QRect(1020, 10, 151, 134))
-        self.layoutWidget1.setObjectName("layoutWidget1")
+        self.layoutWidget1.setGeometry(QtCore.QRect(1130, 50, 151, 134))
+        self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget1)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout_2.setMargin(0)
+        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.startLinkButton = QtGui.QPushButton(self.layoutWidget1)
-        self.startLinkButton.setObjectName("startLinkButton")
+        self.startLinkButton.setObjectName(_fromUtf8("startLinkButton"))
         self.verticalLayout_2.addWidget(self.startLinkButton)
         self.endLinkButton = QtGui.QPushButton(self.layoutWidget1)
-        self.endLinkButton.setObjectName("endLinkButton")
+        self.endLinkButton.setObjectName(_fromUtf8("endLinkButton"))
         self.verticalLayout_2.addWidget(self.endLinkButton)
         self.startRemoveButton = QtGui.QPushButton(self.layoutWidget1)
-        self.startRemoveButton.setObjectName("startRemoveButton")
+        self.startRemoveButton.setObjectName(_fromUtf8("startRemoveButton"))
         self.verticalLayout_2.addWidget(self.startRemoveButton)
         self.endRemoveButton = QtGui.QPushButton(self.layoutWidget1)
-        self.endRemoveButton.setObjectName("endRemoveButton")
+        self.endRemoveButton.setObjectName(_fromUtf8("endRemoveButton"))
         self.verticalLayout_2.addWidget(self.endRemoveButton)
-        self.neighbourList = QtGui.QListWidget(self.neighbourTab)
-        self.neighbourList.setGeometry(QtCore.QRect(1020, 180, 411, 201))
-        self.neighbourList.setObjectName("neighbourList")
-        self.tabWidget.addTab(self.neighbourTab, "")
+        self.tabWidget.addTab(self.neighbourTab, _fromUtf8(""))
         self.continentTab = QtGui.QWidget()
-        self.continentTab.setObjectName("continentTab")
+        self.continentTab.setObjectName(_fromUtf8("continentTab"))
         self.mapView_3 = QtGui.QGraphicsView(self.continentTab)
         self.mapView_3.setGeometry(QtCore.QRect(10, 0, 721, 631))
-        self.mapView_3.setObjectName("mapView_3")
+        self.mapView_3.setObjectName(_fromUtf8("mapView_3"))
         self.continentList = QtGui.QListWidget(self.continentTab)
         self.continentList.setGeometry(QtCore.QRect(740, 0, 241, 281))
-        self.continentList.setObjectName("continentList")
+        self.continentList.setObjectName(_fromUtf8("continentList"))
         self.logText_3 = QtGui.QPlainTextEdit(self.continentTab)
         self.logText_3.setGeometry(QtCore.QRect(740, 300, 321, 281))
-        self.logText_3.setObjectName("logText_3")
+        self.logText_3.setObjectName(_fromUtf8("logText_3"))
         self.layoutWidget2 = QtGui.QWidget(self.continentTab)
         self.layoutWidget2.setGeometry(QtCore.QRect(990, 0, 261, 222))
-        self.layoutWidget2.setObjectName("layoutWidget2")
+        self.layoutWidget2.setObjectName(_fromUtf8("layoutWidget2"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.layoutWidget2)
-        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.verticalLayout_5.setMargin(0)
+        self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
         self.label_3 = QtGui.QLabel(self.layoutWidget2)
-        self.label_3.setObjectName("label_3")
+        self.label_3.setObjectName(_fromUtf8("label_3"))
         self.horizontalLayout_5.addWidget(self.label_3)
         self.continentNameEdit = QtGui.QLineEdit(self.layoutWidget2)
-        self.continentNameEdit.setObjectName("continentNameEdit")
+        self.continentNameEdit.setObjectName(_fromUtf8("continentNameEdit"))
         self.horizontalLayout_5.addWidget(self.continentNameEdit)
         self.verticalLayout_5.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_6 = QtGui.QHBoxLayout()
-        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
         self.label_4 = QtGui.QLabel(self.layoutWidget2)
-        self.label_4.setObjectName("label_4")
+        self.label_4.setObjectName(_fromUtf8("label_4"))
         self.horizontalLayout_6.addWidget(self.label_4)
         self.continentBonusEdit = QtGui.QLineEdit(self.layoutWidget2)
-        self.continentBonusEdit.setObjectName("continentBonusEdit")
+        self.continentBonusEdit.setObjectName(_fromUtf8("continentBonusEdit"))
         self.horizontalLayout_6.addWidget(self.continentBonusEdit)
         self.verticalLayout_5.addLayout(self.horizontalLayout_6)
         self.verticalLayout_3 = QtGui.QVBoxLayout()
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.newContinentButton = QtGui.QPushButton(self.layoutWidget2)
-        self.newContinentButton.setObjectName("newContinentButton")
+        self.newContinentButton.setObjectName(_fromUtf8("newContinentButton"))
         self.verticalLayout_3.addWidget(self.newContinentButton)
         self.deleteContinentButton = QtGui.QPushButton(self.layoutWidget2)
-        self.deleteContinentButton.setObjectName("deleteContinentButton")
+        self.deleteContinentButton.setObjectName(_fromUtf8("deleteContinentButton"))
         self.verticalLayout_3.addWidget(self.deleteContinentButton)
         self.verticalLayout_5.addLayout(self.verticalLayout_3)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_5.addItem(spacerItem1)
         self.verticalLayout_4 = QtGui.QVBoxLayout()
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
         self.addToContinentButton = QtGui.QPushButton(self.layoutWidget2)
-        self.addToContinentButton.setObjectName("addToContinentButton")
+        self.addToContinentButton.setObjectName(_fromUtf8("addToContinentButton"))
         self.verticalLayout_4.addWidget(self.addToContinentButton)
         self.removeFromContinentButton = QtGui.QPushButton(self.layoutWidget2)
-        self.removeFromContinentButton.setObjectName("removeFromContinentButton")
+        self.removeFromContinentButton.setObjectName(_fromUtf8("removeFromContinentButton"))
         self.verticalLayout_4.addWidget(self.removeFromContinentButton)
         self.verticalLayout_5.addLayout(self.verticalLayout_4)
-        self.tabWidget.addTab(self.continentTab, "")
+        self.tabWidget.addTab(self.continentTab, _fromUtf8(""))
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtGui.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1600, 23))
-        self.menuBar.setObjectName("menuBar")
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1600, 21))
+        self.menuBar.setObjectName(_fromUtf8("menuBar"))
         self.menuFile = QtGui.QMenu(self.menuBar)
-        self.menuFile.setObjectName("menuFile")
+        self.menuFile.setObjectName(_fromUtf8("menuFile"))
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtGui.QToolBar(MainWindow)
-        self.mainToolBar.setObjectName("mainToolBar")
-        MainWindow.addToolBar(QtCore.Qt.ToolBarArea(QtCore.Qt.TopToolBarArea), self.mainToolBar)
+        self.mainToolBar.setObjectName(_fromUtf8("mainToolBar"))
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
         self.statusBar = QtGui.QStatusBar(MainWindow)
-        self.statusBar.setObjectName("statusBar")
+        self.statusBar.setObjectName(_fromUtf8("statusBar"))
         MainWindow.setStatusBar(self.statusBar)
         self.actionOpen = QtGui.QAction(MainWindow)
-        self.actionOpen.setObjectName("actionOpen")
+        self.actionOpen.setObjectName(_fromUtf8("actionOpen"))
         self.actionSave = QtGui.QAction(MainWindow)
-        self.actionSave.setObjectName("actionSave")
+        self.actionSave.setObjectName(_fromUtf8("actionSave"))
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave)
         self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
-        QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("triggered()"), MainWindow.actionOpen)
-        QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL("triggered()"), MainWindow.actionSave)
-        QtCore.QObject.connect(self.beginButton, QtCore.SIGNAL("clicked()"), MainWindow.beginRegion)
-        QtCore.QObject.connect(self.endButton, QtCore.SIGNAL("clicked()"), MainWindow.endRegion)
-        QtCore.QObject.connect(self.clearButton, QtCore.SIGNAL("clicked()"), MainWindow.clearRegion)
-        QtCore.QObject.connect(self.tabWidget, QtCore.SIGNAL("currentChanged(int)"), MainWindow.tabChange)
-        QtCore.QObject.connect(self.startLinkButton, QtCore.SIGNAL("clicked()"), MainWindow.startLinking)
-        QtCore.QObject.connect(self.endLinkButton, QtCore.SIGNAL("clicked()"), MainWindow.endLinking)
-        QtCore.QObject.connect(self.startRemoveButton, QtCore.SIGNAL("clicked()"), MainWindow.startRemoving)
-        QtCore.QObject.connect(self.endRemoveButton, QtCore.SIGNAL("clicked()"), MainWindow.endRemoving)
-        QtCore.QObject.connect(self.newContinentButton, QtCore.SIGNAL("clicked()"), MainWindow.createContinent)
-        QtCore.QObject.connect(self.deleteContinentButton, QtCore.SIGNAL("clicked()"), MainWindow.deleteContinent)
-        QtCore.QObject.connect(self.addToContinentButton, QtCore.SIGNAL("clicked()"), MainWindow.addRegionToContinent)
-        QtCore.QObject.connect(self.removeFromContinentButton, QtCore.SIGNAL("clicked()"), MainWindow.removeRegionFromContinent)
-        QtCore.QObject.connect(self.continentList, QtCore.SIGNAL("itemClicked(QListWidgetItem*)"), MainWindow.selectContinent)
+        self.tabWidget.setCurrentIndex(2)
+        QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.actionOpen)
+        QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.actionSave)
+        QtCore.QObject.connect(self.beginButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.beginRegion)
+        QtCore.QObject.connect(self.endButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.endRegion)
+        QtCore.QObject.connect(self.clearButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.clearRegion)
+        QtCore.QObject.connect(self.tabWidget, QtCore.SIGNAL(_fromUtf8("currentChanged(int)")), MainWindow.tabChange)
+        QtCore.QObject.connect(self.startLinkButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.startLinking)
+        QtCore.QObject.connect(self.endLinkButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.endLinking)
+        QtCore.QObject.connect(self.startRemoveButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.startRemoving)
+        QtCore.QObject.connect(self.endRemoveButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.endRemoving)
+        QtCore.QObject.connect(self.newContinentButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.createContinent)
+        QtCore.QObject.connect(self.deleteContinentButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.deleteContinent)
+        QtCore.QObject.connect(self.addToContinentButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.addRegionToContinent)
+        QtCore.QObject.connect(self.removeFromContinentButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.removeRegionFromContinent)
+        QtCore.QObject.connect(self.continentList, QtCore.SIGNAL(_fromUtf8("itemClicked(QListWidgetItem*)")), MainWindow.selectContinent)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
