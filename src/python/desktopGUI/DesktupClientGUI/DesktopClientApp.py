@@ -113,7 +113,7 @@ class DesktopClientApp(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.connector = None
-        self.scene = QtGui.QGraphicsScene(0, 0, 800, 800)
+        self.scene = QtGui.QGraphicsScene(0, 0, 1000, 1000)
         self.ui.mapView.setScene(self.scene)
         self.scene.mousePressEvent = self.mouseClickedOnMap
         self.regions = {}
@@ -121,6 +121,7 @@ class DesktopClientApp(QtGui.QMainWindow):
         self.ui.playerLabel.setVisible(False)
         self.ui.playerView.setVisible(False)
         self.ui.missionLabel.setVisible(False)
+        self.ui
         
         
     
