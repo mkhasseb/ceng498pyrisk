@@ -84,7 +84,7 @@ padding: 5px;
       <x>20</x>
       <y>250</y>
       <width>761</width>
-      <height>601</height>
+      <height>501</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -93,12 +93,12 @@ padding: 5px;
    </widget>
    <widget class="QPushButton" name="passButton">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>250</y>
+      <x>820</x>
+      <y>180</y>
       <width>114</width>
       <height>32</height>
      </rect>
@@ -140,45 +140,6 @@ padding: 5px;
     <property name="text">
      <string>State:</string>
     </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>369</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>&lt;host&gt;:&lt;port&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="connectInput">
-       <property name="text">
-        <string>localhost:8080</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="connectButton">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>Connect</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
    <widget class="QLabel" name="playerLabel">
     <property name="geometry">
@@ -241,72 +202,11 @@ padding: 5px;
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>820</x>
-      <y>560</y>
-      <width>262</width>
-      <height>266</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Cards</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="cardList">
-           <property name="selectionMode">
-            <enum>QAbstractItemView::MultiSelection</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>108</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="tradeButton">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Trade In</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>820</x>
-      <y>320</y>
+      <y>220</y>
       <width>258</width>
       <height>227</height>
      </rect>
@@ -324,11 +224,11 @@ padding: 5px;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>70</y>
+      <x>790</x>
+      <y>10</y>
       <width>351</width>
       <height>161</height>
      </rect>
@@ -346,6 +246,102 @@ padding: 5px;
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>460</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cards</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="cardList">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>490</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>256</width>
+      <height>192</height>
+     </size>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>11</y>
+      <width>124</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;host&gt;:&lt;port&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="connectInput">
+    <property name="geometry">
+     <rect>
+      <x>151</x>
+      <y>11</y>
+      <width>137</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>localhost:8080</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="connectButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>294</x>
+      <y>12</y>
+      <width>94</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Connect</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="tradeButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>985</x>
+      <y>691</y>
+      <width>94</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trade In</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -353,7 +349,7 @@ padding: 5px;
      <x>0</x>
      <y>0</y>
      <width>1220</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
