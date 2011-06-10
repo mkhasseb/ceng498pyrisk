@@ -20,7 +20,7 @@ from random import shuffle
 from threading import Thread
 
 class GameThread(Thread):
-    def __init__(self, setup, continents, cards, goals, handle):
+    def __init__(self, gameName, setup, continents, cards, goals, handle):
         Thread.__init__(self)
         self.setup = setup
          
@@ -29,23 +29,31 @@ class GameThread(Thread):
         self.continents = continents
         self.cards = cards
         self.goals = goals
+        self.gameName = gameName
+        
     def run(self):
         try:
-            self.handle.log("Setting up game")
-            self.game = self.setup.initGame(self.continents, self.cards, self.goals, self.handle)
+            self.handle.addLog(self.gameName, "Setting up game\n")
+            self.handle.log(gameName = self.gameName)
+            self.game = self.setup.initGame(self.continents, self.cards, self.goals, self)
             
             self.game.start()
-            self.handle.log("Game started wait until it finishes")
+            self.handle.addLog(self.gameName, "Game started wait until it finishes\n")
+            self.handle.log(gameName = self.gameName)
+            
             while(not self.game.ended):
                 time.sleep(1)
             if(self.game.victor):
-                self.handle.log('victor is %s with mission %s ' % (self.game.victor.color, self.game.victor.mission.verbose))
+                self.handle.addLog(self.gameName, 'victor is ' + self.game.victor.color + 'with mission ' + self.game.victor.mission.verbose + '\n')
+                self.handle.log(gameName = self.gameName)
             else:
-                self.handle.log('There was a quiter noob newbie in the game')
+                self.handle.addLog(self.gameName, 'There was a quiter noob newbie in the game\n')
+                self.handle.log(gameName = self.gameName)
+                
             time.sleep(3)
             self.handle.endGame()
         except Exception as e:
-            self.handle.log('%s' % e)
+            self.handle.log(message = '%s' % e)
             self.handle.endGame()
 
 class GameCreator(QtGui.QMainWindow):
@@ -60,6 +68,7 @@ class GameCreator(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.mapF = None
+        self.games = {}
 
     def openMap(self):
         file = QtGui.QFileDialog.getOpenFileName(self, "Open a Map")
@@ -70,19 +79,38 @@ class GameCreator(QtGui.QMainWindow):
         else:
             self.mapF = None
             self.ui.selectedMapLabel.setText('Can not load map')
+
+    def addLog(self, gameName, log):
+        self.games[gameName]['log'] += log
+
+    def playerNumInc(self, gameName):
+        self.games[gameName]['currentPlayerNum'] += 1
+
     def startGameServer(self):
         try:
-            self.ui.startServerButton.setEnabled(False)
+            #self.ui.startServerButton.setEnabled(False)
             host = self.ui.hostInput.text()
             port = int(self.ui.portInput.text())
             numplayer = int(self.ui.numPlayerInput.text())
             gameSetup = GenericGameSetup(host, port, numplayer)
             (continents, cards, goals) = self.parseGame(numplayer)
+
+            gName = self.ui.gameNameInput.text()
+            self.games[gName] = {}
+            self.games[gName]['host'] = host
+            self.games[gName]['port'] = port
+            self.games[gName]['playerNum'] = numplayer
+            self.games[gName]['currentPlayerNum'] = 0
+            self.games[gName]['log'] = ''
+
+            self.games[gName]['log'] += 'host:' + host + '  port:' + str(port) + '\n'
+            self.ui.gameList.addItem(gName)
             
-            self.gt = GameThread(gameSetup, continents, cards, goals, self)
-            self.gt.start()
+            self.gt = GameThread(gName, gameSetup, continents, cards, goals, self)
+            self.games[gName]['game'] = self.gt
+            self.games[gName]['game'].start()
         except Exception as e:
-            self.log("%s " % e)
+            self.log(message = e)
             self.endGame()
 
     def endGame(self):
@@ -165,9 +193,21 @@ class GameCreator(QtGui.QMainWindow):
         print self.mapImg
         fi.close()
         return (continents.values(), cards, goals)
-                         
-    def log(self, message):
-        self.emit(QtCore.SIGNAL("log(QString)"),QtCore.QString(message))
+
+    def selectGame(self, selectedGame):
+        gameName = selectedGame.text()
+        self.log(gameName = gameName)
+
+    def log(self, message=None, gameName=None):
+        if message:
+            self.emit(QtCore.SIGNAL("log(QString)"),QtCore.QString(message))
+        elif gameName:
+            self.ui.gameInfo.clear()
+            tempStr = ''
+            tempStr += str(self.games[gameName]['currentPlayerNum']) + '/' + str(self.games[gameName]['playerNum']) + '\n'
+            tempStr += self.games[gameName]['log']
+            self.ui.gameInfo.setPlainText(tempStr)
+        
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

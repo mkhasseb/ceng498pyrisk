@@ -22,7 +22,8 @@ class GenericGameSetup(object):
         self.host = host
         self.port = port
         self.numPlayer = numPlayer
-    def initGame(self, continents, cards, goals, p):
+        
+    def initGame(self, continents, cards, goals, h):
         colors = [Player.COLOR_ORANGE, Player.COLOR_LPINK, Player.COLOR_GRAY, Player.COLOR_GREEN, Player.COLOR_RED, Player.COLOR_YELLOW]
         players = []
         mapServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -39,17 +40,20 @@ class GenericGameSetup(object):
             mcs = mapServer.accept()
             ss.append(cs[0])
             mss.append(mcs[0])
-            p.log("Player %s connected to server." % (colors[i]))
+            h.handle.addLog(h.gameName, 'Player ' + colors[i] + ' connected to server\n')
+            h.handle.playerNumInc(h.gameName)
+            h.handle.log(gameName = h.gameName)
             cs[0].send("Welcome Player %s. Gl Hf." % (colors[i]))
             for j in range(i):
                 ss[j].send("Player %s connected to server.\n" % (colors[i]))
             if(not (self.numPlayer - 1 - i == 0)):
-                p.log("Waiting %s players to start game." % (self.numPlayer - 1 - i))
+                h.handle.addLog(h.gameName, 'Waiting ' + str(self.numPlayer - 1 - i) + ' players to start game\n')
+                h.handle.log(gameName = h.gameName)
                 for j in range(i):
                     ss[j].send("Waiting %s players to start game.\n" % (self.numPlayer - 1 - i))
 
-        p.log("Game starting...")
-        
+        h.handle.addLog(h.gameName, 'Game starting...\n')
+        h.handle.log(gameName = h.gameName)
         '''Players'''
         for i in range(self.numPlayer):
             players.append(Player(colors[i], SocketConnector(ss[i]), MapSocketConnector(mss[i])))
