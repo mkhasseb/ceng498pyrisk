@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>833</width>
-    <height>386</height>
+    <width>935</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@ padding: 5px;
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>110</y>
+      <y>140</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -58,14 +58,14 @@ padding: 5px;
      </rect>
     </property>
     <property name="text">
-     <string>Start Game Server</string>
+     <string>Start Game</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>50</y>
+      <y>80</y>
       <width>94</width>
       <height>31</height>
      </rect>
@@ -78,7 +78,7 @@ padding: 5px;
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>50</y>
+      <y>80</y>
       <width>113</width>
       <height>31</height>
      </rect>
@@ -91,7 +91,7 @@ padding: 5px;
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>110</y>
+      <y>140</y>
       <width>94</width>
       <height>31</height>
      </rect>
@@ -104,7 +104,7 @@ padding: 5px;
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>80</y>
+      <y>110</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -117,7 +117,7 @@ padding: 5px;
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>80</y>
+      <y>110</y>
       <width>113</width>
       <height>31</height>
      </rect>
@@ -130,7 +130,7 @@ padding: 5px;
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>20</y>
+      <y>50</y>
       <width>94</width>
       <height>31</height>
      </rect>
@@ -143,7 +143,7 @@ padding: 5px;
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>20</y>
+      <y>50</y>
       <width>113</width>
       <height>31</height>
      </rect>
@@ -165,14 +165,63 @@ padding: 5px;
      </rect>
     </property>
    </widget>
+   <widget class="QListWidget" name="gameList">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>250</y>
+      <width>401</width>
+      <height>231</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="gameInfo">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>260</y>
+      <width>371</width>
+      <height>231</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Game Name</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="gameNameInput">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>20</y>
+      <width>113</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>833</width>
-     <height>35</height>
+     <width>935</width>
+     <height>37</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -248,10 +297,27 @@ padding: 5px;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>gameList</sender>
+   <signal>itemClicked(QListWidgetItem*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selectGame()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>230</x>
+     <y>415</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>467</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>log(QString)</signal>
   <slot>startGameServer()</slot>
   <slot>openMap()</slot>
+  <slot>selectGame()</slot>
  </slots>
 </ui>
