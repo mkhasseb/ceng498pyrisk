@@ -2,19 +2,24 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Thu Jun  9 16:38:54 2011
-#      by: PyQt4 UI code generator 4.7.2
+# Created: Sat Jun 11 21:11:04 2011
+#      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
 
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    _fromUtf8 = lambda s: s
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.setEnabled(True)
         MainWindow.resize(935, 577)
-        MainWindow.setStyleSheet("QMainWindow, QLabel, QPlainTextEdit, QMenuBar, QMenu, QAction, #centralWidget, QPushButton {\n"
+        MainWindow.setStyleSheet(_fromUtf8("QMainWindow, QLabel, QPlainTextEdit, QMenuBar, QMenu, QAction, #centralWidget, QPushButton {\n"
 "color: #333;\n"
 "border: 2px solid #555;\n"
 "border-radius: 11px;\n"
@@ -29,74 +34,79 @@ class Ui_MainWindow(object):
 "border: 2px solid #555;\n"
 "border-radius: 11px;\n"
 "padding: 5px;\n"
-"}")
+"}"))
         self.centralWidget = QtGui.QWidget(MainWindow)
-        self.centralWidget.setObjectName("centralWidget")
+        self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.selectedMapLabel = QtGui.QLabel(self.centralWidget)
         self.selectedMapLabel.setGeometry(QtCore.QRect(170, 140, 111, 31))
-        self.selectedMapLabel.setObjectName("selectedMapLabel")
+        self.selectedMapLabel.setObjectName(_fromUtf8("selectedMapLabel"))
         self.startServerButton = QtGui.QPushButton(self.centralWidget)
         self.startServerButton.setGeometry(QtCore.QRect(243, 180, 141, 32))
-        self.startServerButton.setObjectName("startServerButton")
+        self.startServerButton.setObjectName(_fromUtf8("startServerButton"))
         self.label_2 = QtGui.QLabel(self.centralWidget)
         self.label_2.setGeometry(QtCore.QRect(30, 80, 94, 31))
-        self.label_2.setObjectName("label_2")
+        self.label_2.setObjectName(_fromUtf8("label_2"))
         self.portInput = QtGui.QLineEdit(self.centralWidget)
         self.portInput.setGeometry(QtCore.QRect(170, 80, 113, 31))
-        self.portInput.setObjectName("portInput")
+        self.portInput.setObjectName(_fromUtf8("portInput"))
         self.label_4 = QtGui.QLabel(self.centralWidget)
         self.label_4.setGeometry(QtCore.QRect(30, 140, 94, 31))
-        self.label_4.setObjectName("label_4")
+        self.label_4.setObjectName(_fromUtf8("label_4"))
         self.label_3 = QtGui.QLabel(self.centralWidget)
         self.label_3.setGeometry(QtCore.QRect(30, 110, 131, 31))
-        self.label_3.setObjectName("label_3")
+        self.label_3.setObjectName(_fromUtf8("label_3"))
         self.numPlayerInput = QtGui.QLineEdit(self.centralWidget)
         self.numPlayerInput.setGeometry(QtCore.QRect(170, 110, 113, 31))
-        self.numPlayerInput.setObjectName("numPlayerInput")
+        self.numPlayerInput.setObjectName(_fromUtf8("numPlayerInput"))
         self.label = QtGui.QLabel(self.centralWidget)
         self.label.setGeometry(QtCore.QRect(30, 50, 94, 31))
-        self.label.setObjectName("label")
+        self.label.setObjectName(_fromUtf8("label"))
         self.hostInput = QtGui.QLineEdit(self.centralWidget)
         self.hostInput.setGeometry(QtCore.QRect(170, 50, 113, 31))
-        self.hostInput.setObjectName("hostInput")
+        self.hostInput.setObjectName(_fromUtf8("hostInput"))
         self.logText = QtGui.QPlainTextEdit(self.centralWidget)
         self.logText.setEnabled(False)
         self.logText.setGeometry(QtCore.QRect(440, 20, 371, 231))
-        self.logText.setObjectName("logText")
+        self.logText.setObjectName(_fromUtf8("logText"))
         self.gameList = QtGui.QListWidget(self.centralWidget)
         self.gameList.setGeometry(QtCore.QRect(30, 250, 401, 231))
-        self.gameList.setObjectName("gameList")
+        self.gameList.setObjectName(_fromUtf8("gameList"))
         self.gameInfo = QtGui.QPlainTextEdit(self.centralWidget)
         self.gameInfo.setEnabled(False)
         self.gameInfo.setGeometry(QtCore.QRect(440, 260, 371, 231))
-        self.gameInfo.setObjectName("gameInfo")
+        self.gameInfo.setObjectName(_fromUtf8("gameInfo"))
         self.label_5 = QtGui.QLabel(self.centralWidget)
         self.label_5.setGeometry(QtCore.QRect(30, 20, 111, 31))
-        self.label_5.setObjectName("label_5")
+        self.label_5.setObjectName(_fromUtf8("label_5"))
         self.gameNameInput = QtGui.QLineEdit(self.centralWidget)
         self.gameNameInput.setGeometry(QtCore.QRect(170, 20, 113, 31))
-        self.gameNameInput.setText("")
-        self.gameNameInput.setObjectName("gameNameInput")
+        self.gameNameInput.setText(_fromUtf8(""))
+        self.gameNameInput.setObjectName(_fromUtf8("gameNameInput"))
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtGui.QMenuBar(MainWindow)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 935, 37))
-        self.menuBar.setObjectName("menuBar")
+        self.menuBar.setObjectName(_fromUtf8("menuBar"))
         self.menuFile = QtGui.QMenu(self.menuBar)
-        self.menuFile.setObjectName("menuFile")
+        self.menuFile.setObjectName(_fromUtf8("menuFile"))
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtGui.QToolBar(MainWindow)
-        self.mainToolBar.setObjectName("mainToolBar")
-        MainWindow.addToolBar(QtCore.Qt.ToolBarArea(QtCore.Qt.TopToolBarArea), self.mainToolBar)
+        self.mainToolBar.setObjectName(_fromUtf8("mainToolBar"))
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
+        self.toolBar = QtGui.QToolBar(MainWindow)
+        self.toolBar.setObjectName(_fromUtf8("toolBar"))
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.actionOpen_Map = QtGui.QAction(MainWindow)
-        self.actionOpen_Map.setObjectName("actionOpen_Map")
+        self.actionOpen_Map.setObjectName(_fromUtf8("actionOpen_Map"))
         self.menuFile.addAction(self.actionOpen_Map)
         self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
-        QtCore.QObject.connect(self.startServerButton, QtCore.SIGNAL("clicked()"), MainWindow.startGameServer)
-        QtCore.QObject.connect(self.actionOpen_Map, QtCore.SIGNAL("triggered()"), MainWindow.openMap)
-        QtCore.QObject.connect(MainWindow, QtCore.SIGNAL("log(QString)"), self.logText.appendPlainText)
-        QtCore.QObject.connect(self.gameList, QtCore.SIGNAL("itemClicked(QListWidgetItem*)"), MainWindow.selectGame)
+        QtCore.QObject.connect(self.startServerButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.startGameServer)
+        QtCore.QObject.connect(self.actionOpen_Map, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.openMap)
+        QtCore.QObject.connect(MainWindow, QtCore.SIGNAL(_fromUtf8("log(QString)")), self.logText.appendPlainText)
+        QtCore.QObject.connect(self.gameList, QtCore.SIGNAL(_fromUtf8("itemClicked(QListWidgetItem*)")), MainWindow.selectGame)
+        QtCore.QObject.connect(MainWindow, QtCore.SIGNAL(_fromUtf8("setGameLog(QString)")), self.gameInfo.setPlainText)
+        QtCore.QObject.connect(MainWindow, QtCore.SIGNAL(_fromUtf8("removeGame(QString)")), MainWindow.deleteGame)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -112,5 +122,6 @@ class Ui_MainWindow(object):
         self.hostInput.setText(QtGui.QApplication.translate("MainWindow", "localhost", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("MainWindow", "Game Name", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.toolBar.setWindowTitle(QtGui.QApplication.translate("MainWindow", "toolBar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_Map.setText(QtGui.QApplication.translate("MainWindow", "Open Map", None, QtGui.QApplication.UnicodeUTF8))
 
