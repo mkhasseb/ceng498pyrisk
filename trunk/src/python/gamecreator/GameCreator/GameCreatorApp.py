@@ -11,6 +11,7 @@ from mainwindow import Ui_MainWindow
 import os
 from risk.default.GenericGameSetup import GenericGameSetup
 import time
+import socket
 from risk.Territory import Territory
 from risk.Continent import Continent
 from risk.Card import Card
@@ -18,7 +19,6 @@ from risk.Goal import GoalFactory
 from risk.Player import Player
 from random import shuffle
 from threading import Thread
-from socket import socket
 
 class GameThread(Thread):
     def __init__(self, gameName, setup, continents, cards, goals, handle):
@@ -56,11 +56,34 @@ class GameThread(Thread):
             self.handle.log(message = '%s' % e)
             self.handle.endGame(game = self.gameName)
 
+
+class GamesInfoThread(Thread):
+    def __init__(self, host, port, games):
+        self.host = host
+        self.port = port
+        self.games = games
+        Thread.__init__(self)
+
+    def run(self):
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.bind((self.host, self.port))
+        server.listen(5)
+
+        while True:
+            cs  = server.accept()
+            gamesInfo = ''
+            for name,info in self.games.iteritems():
+                gamesInfo += name + ','
+                gamesInfo += info['host'] + ':' + str(info['port']) + ','
+                gamesInfo += str(info['currentPlayerNum']) + '/' + str(info['playerNum']) + '\n'
+            cs[0].send(gamesInfo)
+
+
 class GameCreator(QtGui.QMainWindow):
     '''
     classdocs
     '''
-    def __init__(self, parent=None):
+    def __init__(self, gamesInfoHost, gamesInfoPort, parent=None):
         '''
         Constructor
         '''
@@ -69,6 +92,10 @@ class GameCreator(QtGui.QMainWindow):
         self.ui.setupUi(self)
         self.mapF = None
         self.games = {}
+        self.gip = gamesInfoPort
+        self.gih = gamesInfoHost
+        self.gamesInfoT = GamesInfoThread(self.gih, self.gip, self.games)
+        self.gamesInfoT.start()
 
     def openMap(self):
         file = QtGui.QFileDialog.getOpenFileName(self, "Open a Map")
@@ -235,6 +262,8 @@ class GameCreator(QtGui.QMainWindow):
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    window = GameCreator()
+    host = sys.argv[1]
+    port = int(sys.argv[2])
+    window = GameCreator(host, port)
     window.showMaximized()
     sys.exit(app.exec_())
