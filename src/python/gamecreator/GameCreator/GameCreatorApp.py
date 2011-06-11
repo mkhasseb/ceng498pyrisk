@@ -58,26 +58,25 @@ class GameThread(Thread):
 
 
 class GamesInfoThread(Thread):
-    def __init__(self, host, port, games):
-        self.host = host
-        self.port = port
+    def __init__(self, socket, games):
         self.games = games
+        self.socket = socket
         Thread.__init__(self)
 
     def run(self):
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind((self.host, self.port))
-        server.listen(5)
+       
+        self.socket.listen(5)
 
         while True:
-            cs  = server.accept()
+            cs  = self.socket.accept()
             gamesInfo = ''
             for name,info in self.games.iteritems():
                 gamesInfo += name + ','
                 gamesInfo += info['host'] + ':' + str(info['port']) + ','
                 gamesInfo += str(info['currentPlayerNum']) + '/' + str(info['playerNum']) + '\n'
-            cs[0].send(gamesInfo)
-
+            print gamesInfo
+            cs[0].sendall(gamesInfo + "EOF")
+            #cs[0].close()
 
 class GameCreator(QtGui.QMainWindow):
     '''
@@ -94,7 +93,9 @@ class GameCreator(QtGui.QMainWindow):
         self.games = {}
         self.gip = gamesInfoPort
         self.gih = gamesInfoHost
-        self.gamesInfoT = GamesInfoThread(self.gih, self.gip, self.games)
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.bind((self.gih, self.gip))
+        self.gamesInfoT = GamesInfoThread(server, self.games)
         self.gamesInfoT.start()
 
     def openMap(self):
