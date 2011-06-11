@@ -18,6 +18,7 @@ from risk.Goal import GoalFactory
 from risk.Player import Player
 from random import shuffle
 from threading import Thread
+from socket import socket
 
 class GameThread(Thread):
     def __init__(self, gameName, setup, continents, cards, goals, handle):
@@ -36,7 +37,6 @@ class GameThread(Thread):
             self.handle.addLog(self.gameName, "Setting up game\n")
             self.handle.log(gameName = self.gameName)
             self.game = self.setup.initGame(self.continents, self.cards, self.goals, self)
-            
             self.game.start()
             self.handle.addLog(self.gameName, "Game started wait until it finishes\n")
             self.handle.log(gameName = self.gameName)
@@ -51,10 +51,10 @@ class GameThread(Thread):
                 self.handle.log(gameName = self.gameName)
                 
             time.sleep(3)
-            self.handle.endGame()
+            self.handle.endGame(game = self.gameName)
         except Exception as e:
             self.handle.log(message = '%s' % e)
-            self.handle.endGame()
+            self.handle.endGame(game = self.gameName)
 
 class GameCreator(QtGui.QMainWindow):
     '''
@@ -95,7 +95,14 @@ class GameCreator(QtGui.QMainWindow):
             gameSetup = GenericGameSetup(host, port, numplayer)
             (continents, cards, goals) = self.parseGame(numplayer)
 
-            gName = self.ui.gameNameInput.text()
+            gName = str(self.ui.gameNameInput.text())
+            if(gName.strip() == ""):
+                QtGui.QMessageBox.warning(self, "Game Name Warning", "Empty game name not allowed")
+                return
+            elif(gName in self.games):
+                QtGui.QMessageBox.warning(self, "Game Name Warning", "Game %s already exists" % gName)
+                return
+            
             self.games[gName] = {}
             self.games[gName]['host'] = host
             self.games[gName]['port'] = port
@@ -110,11 +117,26 @@ class GameCreator(QtGui.QMainWindow):
             self.games[gName]['game'] = self.gt
             self.games[gName]['game'].start()
         except Exception as e:
-            self.log(message = e)
+            self.log(message = str(e))
             self.endGame()
 
-    def endGame(self):
-            self.ui.startServerButton.setEnabled(True)
+    def endGame(self, game=None):
+        print 'end game'
+        if game:
+            print 'end game %s ' % game    
+            del self.games[game]
+            self.emit(QtCore.SIGNAL("removeGame(QString)"), QtCore.QString(game))
+        self.ui.startServerButton.setEnabled(True)
+    def deleteGame(self, gameName):
+        gameName = str(gameName)
+        print 'delete %s ' % gameName
+        for i in range(self.ui.gameList.count()):
+            print 'checking %s ' % str(self.ui.gameList.item(i))
+            if(gameName == str(self.ui.gameList.item(i).text())):
+                print 'removed item'
+                self.ui.gameList.takeItem(i)
+                break
+    
     
     def parseGame(self, numplayer):
         mapFile = open(self.mapF, 'r')
@@ -201,13 +223,15 @@ class GameCreator(QtGui.QMainWindow):
     def log(self, message=None, gameName=None):
         if message:
             self.emit(QtCore.SIGNAL("log(QString)"),QtCore.QString(message))
-        elif gameName:
-            self.ui.gameInfo.clear()
+        elif gameName and str(gameName) in self.games:
+            gameName = str(gameName)
             tempStr = ''
             tempStr += str(self.games[gameName]['currentPlayerNum']) + '/' + str(self.games[gameName]['playerNum']) + '\n'
             tempStr += self.games[gameName]['log']
-            self.ui.gameInfo.setPlainText(tempStr)
-        
+            #self.emit(QtCore.SIGNAL("clearGameLog(QString)"), QtCore.QString(gameName))
+            self.emit(QtCore.SIGNAL("setGameLog(QString)"), QtCore.QString(tempStr))   
+        else:
+            print message
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
