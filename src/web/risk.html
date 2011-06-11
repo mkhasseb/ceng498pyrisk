@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="risk.css" type="text/css">
+<link rel="stylesheet" href="azulon.css" type="text/css">
+<link type="text/css" href="css/le-frog/jquery-ui-1.8.13.custom.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="niceforms-v2.0/niceforms-default.css" />
+<script language="javascript" type="text/javascript"
+	src="niceforms-v2.0/niceforms.js"></script>
+<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//hover states on the static widgets
+		$('#dialog_link, ul#icons li, .button-enabled').hover(function() {
+			$(this).addClass('ui-state-hover');
+		}, function() {
+			$(this).removeClass('ui-state-hover');
+		});
+
+	});
+</script>
+<title>Risk</title>
+</head>
+<body>
+	<h1>Super Oyun</h1>
+	<br/>
+	<div id="serverConn">
+		<form class="niceform">
+			<fieldset>
+				<legend>Server Info</legend>
+				<dl>
+					<dt>
+						<label for="host">Host:</label>
+					</dt>
+					<dd>
+						<input type="text" name="host" id="host" size="32" maxlength="128" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<label for="port">Port:</label>
+					</dt>
+					<dd>
+						<input type="text" name="port" id="port" size="32" maxlength="32" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<label for="connect">Connect:</label>
+					</dt>
+					<dd>
+						<button type="button" name="connect" id="connect">Connect</button>
+					</dd>
+				</dl>
+			</fieldset>
+		</form>
+	</div>
+	<div id="gamesTable">
+		<table id="itsthetable">
+			<thead>
+				<tr>
+					<th>Game Name</th>
+					<th>Address</th>
+					<th>Number of Players</th>
+					<th style="width: 50px"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Cihan's Game</th>
+					<td>127.0.0.1:9091</td>
+					<td>5/6</td>
+					<td>
+						<button
+							class="button-disabled ui-button ui-widget ui-state-inactive ui-corner-all ui-button-text-only "
+							role="button" aria-disabled="false">
+							<span class="ui-button-text">Join</span>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<th>Cihan's Game</th>
+					<td>127.0.0.1:9091</td>
+					<td>5/6</td>
+					<td>
+						<button
+							class="button-enabled ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "
+							role="button" aria-disabled="false">
+							<span class="ui-button-text">Join</span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="game"></div>
+</body>
+
+</html>
