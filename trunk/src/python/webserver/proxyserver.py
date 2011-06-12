@@ -110,5 +110,20 @@ def worldMap(req):
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
-    
+
+@get("/log")
+def log(req):
+    try:
+        id = req.GET.get('id', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        else:
+            print clientHelpers[id]
+            print clientHelpers[id].logstr
+            return sendAsJSON({'log':clientHelpers[id].logstr})
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+
 run_itty(host='localhost', port=10000)
