@@ -18,3 +18,9 @@
 canvas{
 	background-color: #FFFFFF; 	
 }
+
+#canvas{
+	display: inline;
+	position: relative;
+	float: left;
+}

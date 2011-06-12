@@ -85,20 +85,22 @@ def parseMap(map):
     numCont = int(lines[numReg + 1])
     regions = []
     conts = []
+    contsm= {}
     for i in range(numCont):
         (conname, bonus) = lines[numReg + 2 + i].split(",")
         cont = {'name': conname, 'bonus':bonus, 'regions': [], 'color' : continentColors[i]}
         conts.append(cont)
+        contsm[conname] = cont
     for i in range(numReg):
         regStr = lines[i+1]
         [namecont,neighbours,points] = regStr.split(":")
         [name, contName] = namecont.split(',')
         neighbours = neighbours.split(',')[:-1]
         points = points.split(',')[:-1]
-        region = {'name': name, 'continent': contName, 'neighbours': neighbours, 'points' : [], 'color' : '#FFFFFF'}
+        region = {'name': name, 'continent': contName, 'neighbours': neighbours, 'points' : [], 'color' : '#FFFFFF', 'continentColor': contsm[contName]['color'], 'armies': 0}
         regions.append(region)
         for p in points:
-            point  = { 'x': (p.split('-')[0]), 'y': (p.split('-')[1])}
+            point  = { 'x': float(p.split('-')[0]), 'y': float(p.split('-')[1])}
             region['points'].append(point)
     return {'regions' :  regions, 'continents': conts, 'colors': occupantColors}
         
