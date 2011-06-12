@@ -14,6 +14,7 @@ COLOR_GRAY = "Gray"
 COLOR_ORANGE = "Orange"
 COLOR_YELLOW = "Yellow"
 clientHelpers = {}
+mapFileNames = {}
 occupantColors = { COLOR_RED : "#FD121A",  COLOR_LPINK : "#EE8FFF", COLOR_GREEN : "#93FF1F", COLOR_GRAY: "#B7B7B7", COLOR_ORANGE: "#FB710E", COLOR_YELLOW:"#F1ED04"}
 continentColors = ["#029D11", "#010AFE", "#9703D6", "#713800", "#601515", "#000000", "#FFFFFF"]
 
@@ -30,8 +31,19 @@ def serverstatus(req):
     except Exception as e:
             traceback.print_exc(file=sys.stdout)
             return 'Error %s, parameters were host %s, port %s' % (e, host, port)
-    
-    
+        
+@get("/mapFileName")
+def mapFileName(req):
+    try:
+        id = req.GET.get('id', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        else:
+            return sendAsJSON({'fileName': clientHelpers[id].fname})
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were host %s, port %s' % (e, host, port) 
+         
 @get("/join")
 def join(req):
     try:
@@ -47,8 +59,8 @@ def join(req):
             return sendAsJSON({'id': id})
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
-        return 'Error %s, parameters were host %s, port %s' % (e, host, port) 
-            
+        return 'Error %s, parameters were host %s, port %s' % (e, host, port)
+
 @get("/map")
 def map(req):
     try:

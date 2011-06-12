@@ -1,5 +1,6 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
+import uuid
 from threading import Thread
 
 
@@ -63,12 +64,13 @@ class ClientHelper(Thread):
                         self.mapImage += part.split("EOF")[0]
                         break
                     self.mapImage += part
+                self.writeImage()
                 #self.handle.mapImgSig()
                 self.currentMapState = 'None'
                 self.currentState = S_ROAM
                 self.log("Retrieved map image")
             
-#                self.mapSocket.close()
+#           self.mapSocket.close()
             self.log("Waiting")
             #self.handle.setStateLabel()
             str = self.socket.recv(10000)
@@ -328,6 +330,13 @@ class ClientHelper(Thread):
 #                    self.send("list all")
             
         return
+
+    def writeImage(self):
+        self.fname = "tmpImage"+str(uuid.uuid1())
+        f = open(self.fname, 'w')
+        f.write(self.mapImage)
+        f.flush()
+        f.close()
 
     def updateWorldMap(self, wm):
         self.worldMap = ''
