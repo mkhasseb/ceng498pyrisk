@@ -19,6 +19,7 @@ from risk.Goal import GoalFactory
 from risk.Player import Player
 from random import shuffle
 from threading import Thread
+import traceback
 
 class GameThread(Thread):
     def __init__(self, gameName, setup, continents, cards, goals, handle):
@@ -53,6 +54,7 @@ class GameThread(Thread):
             time.sleep(3)
             self.handle.endGame(game = self.gameName)
         except Exception as e:
+            traceback.print_exc(file=sys.stdout)
             self.handle.log(message = '%s' % e)
             self.handle.endGame(game = self.gameName)
 
@@ -145,6 +147,7 @@ class GameCreator(QtGui.QMainWindow):
             self.games[gName]['game'] = self.gt
             self.games[gName]['game'].start()
         except Exception as e:
+            traceback.print_exc(file=sys.stdout)
             self.log(message = str(e))
             self.endGame()
 
