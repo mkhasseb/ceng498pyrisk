@@ -32,7 +32,7 @@ class ClientHelper(Thread):
         self.mapSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.mapSocket.connect((host, port + 1))
         self.end = False
-        self.currentState = S_ROAM
+        self.currentState = 'None'
         self.currentMapState = 'None'
         self.map = ''
         self.mapImage = ''
@@ -65,8 +65,9 @@ class ClientHelper(Thread):
                     self.mapImage += part
                 #self.handle.mapImgSig()
                 self.currentMapState = 'None'
+                self.currentState = S_ROAM
                 self.log("Retrieved map image")
-                
+            
 #                self.mapSocket.close()
             self.log("Waiting")
             #self.handle.setStateLabel()

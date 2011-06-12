@@ -16,6 +16,7 @@ class ServerAccessor:
             s.close()
             games = {}
             print ddd
+            ddd = ddd.replace("\x00", "")
             gds = ddd.split('*')[:-1]
             print gds
             for gs in gds: 

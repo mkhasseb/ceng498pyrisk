@@ -14,3 +14,7 @@
 .invisible {
 	display: none;	
 }
+
+canvas{
+	background-color: #FFFFFF; 	
+}
