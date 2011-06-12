@@ -1,8 +1,13 @@
+from webserver.ClientHelper import ClientHelper
 from itty import *
 from serveraccessor import ServerAccessor
 import json
 import sys
 import traceback
+import uuid
+
+clientHelpers = {}
+
 @get("/serverstatus")
 def serverstatus(req):
     try:
@@ -23,7 +28,10 @@ def join(req):
         if(not host or not port):
             return 'Error host or port not set'
         else:
-            
+            id = uuid.uuid4()
+            ch = ClientHelper(host, int(port))
+            clientHelpers[id] = ch
+            clientHelpers[id].start()
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were host %s, port %s' % (e, host, port) 

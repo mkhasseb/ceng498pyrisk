@@ -141,11 +141,13 @@ class DesktopClientApp(QtGui.QMainWindow):
         except Exception as e:
             self.ui.connectButton.setEnabled(True)
             self.log('%s' % e)
+            
     def log(self, message):
         self.emit(QtCore.SIGNAL("log(QString)"), QtCore.QString(message))
     
     def map(self, map):
         self.map = map
+        
     def mapImg(self):
         fname = "tmpImage"+str(uuid.uuid1())
         f = open(fname, 'w')
