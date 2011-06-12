@@ -5,6 +5,7 @@ import json
 import sys
 import traceback
 import uuid
+import time
 
 COLOR_RED = "Red"
 COLOR_LPINK = "Pink"
@@ -55,14 +56,15 @@ def map(req):
         if(not id or not id in clientHelpers):
             return 'Error no or wrong id'
         else:
-            print clientHelpers[id]
-            print clientHelpers[id].map
-            return clientHelpers[id].map
+            time.sleep(3)
+            print 'mm', clientHelpers[id].map
+            return sendAsJSON(parseMap(clientHelpers[id].map))
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)     
 
 def parseMap(map):
+    print 'map', map
     lines = map.split("\n")
     for i in range(len(lines)):
         if(lines[i] == "" or ("Turn of" in lines[i])):
@@ -85,8 +87,8 @@ def parseMap(map):
         regions.append(region)
         for p in points:
             point  = { 'x': (p.split('-')[0]), 'y': (p.split('-')[1])}
-            region['points'].add(point)
-    return 
+            region['points'].append(point)
+    return {'regions' :  regions, 'continents': conts, 'colors': occupantColors}
         
 @get("/worldMap")
 def worldMap(req):
@@ -118,9 +120,19 @@ def log(req):
         if(not id or not id in clientHelpers):
             return 'Error no or wrong id'
         else:
-            print clientHelpers[id]
-            print clientHelpers[id].logstr
-            return sendAsJSON({'log':clientHelpers[id].logstr})
+            return clientHelpers[id].logstr
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/state")
+def state(req):
+    try:
+        id = req.GET.get('id', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        else:
+            return clientHelpers[id].currentState
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
