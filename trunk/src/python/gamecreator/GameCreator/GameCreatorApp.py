@@ -73,7 +73,7 @@ class GamesInfoThread(Thread):
             for name,info in self.games.iteritems():
                 gamesInfo += name + ','
                 gamesInfo += info['host'] + ':' + str(info['port']) + ','
-                gamesInfo += str(info['currentPlayerNum']) + '/' + str(info['playerNum']) + '\n'
+                gamesInfo += str(info['currentPlayerNum']) + '/' + str(info['playerNum']) + '*'
             print gamesInfo
             cs[0].sendall(gamesInfo + "EOF")
             #cs[0].close()
