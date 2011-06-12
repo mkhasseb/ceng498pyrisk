@@ -57,3 +57,17 @@ def worldMap(req, id=None):
     except Exception as e:
         print traceback.print_exc(file=sys.stdout)
         return 'Error %s' % e
+    
+def log(req, id=None):
+    try:
+        conn = HTTPConnection("localhost:10000")
+        conn.request("GET", "/log?id=%s" % id)
+        r = conn.getresponse()
+        data = r.read()
+        conn.close()
+        if data.startswith('Error'):
+            return 'Error %s' % data
+        return data
+    except Exception as e:
+        print traceback.print_exc(file=sys.stdout)
+        return 'Error %s' % e
