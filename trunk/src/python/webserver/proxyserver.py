@@ -148,6 +148,7 @@ def placeSingle(req):
             return 'Error no name'
         else:
             clientHelpers[id].place(terr = name)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -164,6 +165,7 @@ def placeArmy(req):
         else:
             [name, armyNum] = placeArmyStr.split(',')
             clientHelpers[id].place(terr = name, army = armyNum)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -180,6 +182,7 @@ def placeIncome(req):
         else:
             [name, armyNum] = placeIncomeStr.split(',')
             clientHelpers[id].place(terr = name, army = armyNum)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -196,6 +199,7 @@ def trade(req):
         else:
             cards = cardNums.split(',')
             clientHelpers[id].trade(cards)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -212,6 +216,7 @@ def move(req):
         else:
             [fromTerr, toTerr, armyNum] = moveStr.split(',')
             clientHelpers[id].move(fromTerr, toTerr, armyNum)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -228,6 +233,7 @@ def attack(req):
         else:
             [fromTerr, toTerr, armyNum] = attackStr.split(',')
             clientHelpers[id].attack(fromTerr, toTerr, armyNum)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -243,6 +249,7 @@ def defend(req):
             return 'Error no dice number'
         else:
             clientHelpers[id].defend(diceNum)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -258,6 +265,7 @@ def transfer(req):
             return 'Error no dice number'
         else:
             clientHelpers[id].place(army = armyNum, captured = True)
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
@@ -270,6 +278,7 @@ def doPass(req):
             return 'Error no or wrong id'
         else:
             clientHelpers[id].doPass()
+            return 'Success'
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
