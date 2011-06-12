@@ -37,6 +37,7 @@ class ClientHelper(Thread):
         self.map = ''
         self.mapImage = ''
         self.logstr = ""
+        self.worldMap = ''
         
     def run(self):
         while(not self.end):
@@ -84,7 +85,7 @@ class ClientHelper(Thread):
                     self.mapSocket.send("map")
             if 'World State' in str:
                 pass
-                #self.handle.updateWorldMap(str)
+                self.updateWorldMap(str)
             if 'Cards' in str:
                 pass
                 #self.handle.updateCardList(str)
@@ -326,6 +327,18 @@ class ClientHelper(Thread):
 #                    self.send("list all")
             
         return
+
+    def updateWorldMap(self, wm):
+        self.worldMap = ''
+        lines = wm.split("\n")
+        for line in lines:
+            parts = line.split(" ")
+            if(len(parts) == 3):
+                [name, color, armies] = parts
+                lineStr = ''
+                lineStr += name.strip() + ',' + color.strip() + ',' + armies.strip() + '\n'
+                self.worldMap += lineStr
+
     def updateState(self, s1, s2):
         if(not s2 is None):
             pass
@@ -338,6 +351,7 @@ class ClientHelper(Thread):
         
     def refresh(self):
         self.send("list all")
+        
     def refreshCards(self):
         self.send("list cards")
         

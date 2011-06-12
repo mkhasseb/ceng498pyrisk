@@ -62,9 +62,6 @@ def map(req):
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)     
 
-
-
-
 def parseMap(map):
     lines = map.split("\n")
     for i in range(len(lines)):
@@ -91,5 +88,27 @@ def parseMap(map):
             region['points'].add(point)
     return 
         
-
+@get("/worldMap")
+def worldMap(req):
+    try:
+        id = req.GET.get('id', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        else:
+            print clientHelpers[id]
+            print clientHelpers[id].worldMap
+            wm = clientHelpers[id].worldMap
+            if wm == '':
+                return 'Error empty string'
+            wmDict = {'regions':[]}
+            regions = wm.split('\n')[:-1]
+            for region in regions:
+                [name, color, armyNum] = region.split(',')
+                r={'name':name, 'occupant':color, 'armyNum':armyNum}
+                wmDict['regions'].append(r)
+            return sendAsJSON(wmDict)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+    
 run_itty(host='localhost', port=10000)
