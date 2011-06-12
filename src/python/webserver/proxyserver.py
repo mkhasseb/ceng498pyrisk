@@ -137,5 +137,141 @@ def state(req):
         traceback.print_exc(file=sys.stdout)
         return 'Error %s, parameters were id=%s' % (e, id)
 
+@get("/placeSingle")
+def placeSingle(req):
+    try:
+        id = req.GET.get('id', None)
+        name = req.Get.get('name', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not name):
+            return 'Error no name'
+        else:
+            clientHelpers[id].place(terr = name)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/placeArmy")
+def placeArmy(req):
+    try:
+        id = req.GET.get('id', None)
+        placeArmyStr = req.Get.get('placeArmyStr', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not placeArmyStr):
+            return 'Error no place army string'
+        else:
+            [name, armyNum] = placeArmyStr.split(',')
+            clientHelpers[id].place(terr = name, army = armyNum)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/placeIncome")
+def placeIncome(req):
+    try:
+        id = req.GET.get('id', None)
+        placeIncomeStr = req.Get.get('placeIncomeStr', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not placeIncomeStr):
+            return 'Error no place income string'
+        else:
+            [name, armyNum] = placeIncomeStr.split(',')
+            clientHelpers[id].place(terr = name, army = armyNum)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/trade")
+def trade(req):
+    try:
+        id = req.GET.get('id', None)
+        cardNums = req.Get.get('cardNums', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not cardNums):
+            return 'Error no card nums string'
+        else:
+            cards = cardNums.split(',')
+            clientHelpers[id].trade(cards)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/move")
+def move(req):
+    try:
+        id = req.GET.get('id', None)
+        moveStr = req.Get.get('moveStr', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not moveStr):
+            return 'Error no move string'
+        else:
+            [fromTerr, toTerr, armyNum] = moveStr.split(',')
+            clientHelpers[id].move(fromTerr, toTerr, armyNum)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/attack")
+def attack(req):
+    try:
+        id = req.GET.get('id', None)
+        attackStr = req.Get.get('attackStr', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not attackStr):
+            return 'Error no attack string'
+        else:
+            [fromTerr, toTerr, armyNum] = attackStr.split(',')
+            clientHelpers[id].attack(fromTerr, toTerr, armyNum)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/defend")
+def defend(req):
+    try:
+        id = req.GET.get('id', None)
+        diceNum = req.Get.get('diceNum', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not diceNum):
+            return 'Error no dice number'
+        else:
+            clientHelpers[id].defend(diceNum)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/transfer")
+def transfer(req):
+    try:
+        id = req.GET.get('id', None)
+        armyNum = req.Get.get('armyNum', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        if(not diceNum):
+            return 'Error no dice number'
+        else:
+            clientHelpers[id].place(army = armyNum, captured = True)
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
+
+@get("/doPass")
+def doPass(req):
+    try:
+        id = req.GET.get('id', None)
+        if(not id or not id in clientHelpers):
+            return 'Error no or wrong id'
+        else:
+            clientHelpers[id].doPass()
+    except Exception as e:
+        traceback.print_exc(file=sys.stdout)
+        return 'Error %s, parameters were id=%s' % (e, id)
 
 run_itty(host='localhost', port=10000)
