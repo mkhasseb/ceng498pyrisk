@@ -58,7 +58,7 @@ class GenericGameSetup(object):
         for i in range(self.numPlayer):
             players.append(Player(colors[i], SocketConnector(ss[i]), MapSocketConnector(mss[i])))
 
-        g = Game(continents, goals, cards, players, map = p.map, mapImage=p.mapImg);
+        g = Game(continents, goals, cards, players, map = h.handle.map, mapImage=h.handle.mapImg);
     
         for j in range(self.numPlayer):
             ss[j].send("Game starting...\n")

@@ -36,7 +36,8 @@ class ClientHelper(Thread):
         self.currentMapState = 'None'
         self.map = ''
         self.mapImage = ''
-
+        self.logstr = ""
+        
     def run(self):
         while(not self.end):
             if self.currentMapState == 'Map':
@@ -373,5 +374,5 @@ class ClientHelper(Thread):
         self.send('Pass')
         
     def log(self,message):
-        self.handle.log(message)
+        self.logstr+=message
     

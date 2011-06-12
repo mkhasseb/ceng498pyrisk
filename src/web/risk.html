@@ -12,17 +12,8 @@
 	src="niceforms-v2.0/niceforms.js"></script>
 <script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		//hover states on the static widgets
-		$('#dialog_link, ul#icons li, .button-enabled').hover(function() {
-			$(this).addClass('ui-state-hover');
-		}, function() {
-			$(this).removeClass('ui-state-hover');
-		});
-
-	});
-</script>
+<script type="text/javascript" src="utf8.js"></script>
+<script type="text/javascript" src="risk.js"></script>
 <title>Risk</title>
 </head>
 <body>
@@ -53,13 +44,13 @@
 						<label for="connect">Connect:</label>
 					</dt>
 					<dd>
-						<button type="button" name="connect" id="connect">Connect</button>
+						<button type="button" name="connect" id="connect" onclick="javascript: risk_update_proxy()">Connect</button>
 					</dd>
 				</dl>
 			</fieldset>
 		</form>
 	</div>
-	<div id="gamesTable">
+	<div id="gamesTable" class="invisible">
 		<table id="itsthetable">
 			<thead>
 				<tr>
@@ -97,7 +88,20 @@
 			</tbody>
 		</table>
 	</div>
-	<div id="game"></div>
+	<div id="game">
+		<div id="canvas"> 
+			<canvas id="view" width="500" height="500">
+			<p>Unfortunately, your browser is currently unsupported by our web
+        application.  We are sorry for the inconvenience. Please use one of the
+        supported browsers listed below, or draw the image you want using an
+        offline tool.</p>
+        <p>Supported browsers: <a href="http://www.opera.com">Opera</a>, <a
+          href="http://www.mozilla.com">Firefox</a>, <a
+          href="http://www.apple.com/safari">Safari</a>, and <a
+          href="http://www.konqueror.org">Konqueror</a>.</p>
+			</canvas>
+		</div>
+	</div>
 </body>
 
 </html>
