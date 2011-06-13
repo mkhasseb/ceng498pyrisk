@@ -39,6 +39,8 @@ class ClientHelper(Thread):
         self.mapImage = ''
         self.logstr = ""
         self.worldMap = ''
+        self.playername = "unoccupied"
+        self.mission = ''
         
     def run(self):
         while(not self.end):
@@ -95,12 +97,14 @@ class ClientHelper(Thread):
             if 'you conquered somewhere, draw a card' in str:
                 self.refreshCards()
                 
-            if 'Welcome' in str:
+            if 'Welcome' in self.logstr:
                 pass
-                #self.handle.setPlayerName(str.split(' ')[2][:-1])
-            if 'Your mission is:' in str:
+                self.playername = self.logstr.split(' ')[2][:-1]
+                print 'playername', self.playername
+            if 'Your mission is:' in self.logstr:
                 pass
-                #self.handle.setMission(str.split('Your mission is:')[1].split(".")[0])
+                self.mission = self.logstr.split('Your mission is:')[1].split(".")[0]
+                print 'mission', self.mission
             if 'Victor found:' in str:
                 pass
                 #self.handle.victorFound(str.split('Victor found:')[1].split('.')[0])
@@ -398,5 +402,7 @@ class ClientHelper(Thread):
         self.send('Pass')
         
     def log(self,message):
-        self.logstr+=message
+        self.logstr+=message+"\n"
+        
+        
     
