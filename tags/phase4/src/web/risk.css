@@ -1,0 +1,50 @@
+.spanner {
+	width: 100%
+}
+
+.ui-state-inactive,.ui-widget-content .ui-state-inactive,.ui-widget-header .ui-state-inactive
+	{
+	border: 1px solid #FF0000;
+	background: #cc0000 url(css/le-frog/images/ui-bg_highlight-soft_15_cc0000_1x100.png) 50%
+		50% repeat-x;
+	font-weight: normal;
+	color: #ffffff;
+}
+
+.invisible {
+	display: none;	
+}
+
+canvas{
+	background-color: #FFFFFF;
+	margin-top: 20px;
+}
+
+#canvas{
+	display: inline;
+	position: relative;
+	float: left;
+	padding-left: 15 px
+}
+
+body{ 
+	background-color: #1142D6; 	
+}
+
+#states, #playernamediv, #missiondiv{
+	display: inline;
+	position: relative;
+	font-size: 25px;
+}
+
+#states{
+	left: 0%;	
+}
+
+#playernamediv{
+	left: 10%;
+}
+
+#missiondiv{
+	left: 12%;	
+}
