@@ -99,6 +99,34 @@ def state(req, id=None):
     except Exception as e:
         print traceback.print_exc(file=sys.stdout)
         return 'Error %s' % e
+    
+def mission(req, id=None):
+    try:
+        conn = HTTPConnection("localhost:10000")
+        conn.request("GET", "/mission?id=%s" % id)
+        r = conn.getresponse()
+        data = r.read()
+        conn.close()
+        if data.startswith('Error'):
+            return 'Error %s' % data
+        return data
+    except Exception as e:
+        print traceback.print_exc(file=sys.stdout)
+        return 'Error %s' % e
+    
+def playername(req, id=None):
+    try:
+        conn = HTTPConnection("localhost:10000")
+        conn.request("GET", "/playername?id=%s" % id)
+        r = conn.getresponse()
+        data = r.read()
+        conn.close()
+        if data.startswith('Error'):
+            return 'Error %s' % data
+        return data
+    except Exception as e:
+        print traceback.print_exc(file=sys.stdout)
+        return 'Error %s' % e
 
 def placeSingle(req, id=None, name=None):
     try:

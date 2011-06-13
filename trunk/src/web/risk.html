@@ -2,12 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="risk.css" type="text/css">
+
 <link rel="stylesheet" href="azulon.css" type="text/css">
 <link type="text/css" href="css/le-frog/jquery-ui-1.8.13.custom.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css" media="all"
 	href="niceforms-v2.0/niceforms-default.css" />
+<link rel="stylesheet" href="risk.css" type="text/css">
 <script language="javascript" type="text/javascript"
 	src="niceforms-v2.0/niceforms.js"></script>
 <script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
@@ -18,7 +19,7 @@
 </head>
 <body>
 	<h1>Super Oyun</h1>
-	<br/>
+	<br />
 	<div id="serverConn">
 		<form class="niceform">
 			<fieldset>
@@ -44,7 +45,8 @@
 						<label for="connect">Connect:</label>
 					</dt>
 					<dd>
-						<button type="button" name="connect" id="connect" onclick="javascript: risk_update_proxy()">Connect</button>
+						<button type="button" name="connect" id="connect"
+							onclick="javascript: risk_update_proxy()">Connect</button>
 					</dd>
 				</dl>
 			</fieldset>
@@ -70,8 +72,7 @@
 							class="button-disabled ui-button ui-widget ui-state-inactive ui-corner-all ui-button-text-only "
 							role="button" aria-disabled="false">
 							<span class="ui-button-text">Join</span>
-						</button>
-					</td>
+						</button></td>
 				</tr>
 				<tr>
 					<th>Cihan's Game</th>
@@ -82,27 +83,65 @@
 							class="button-enabled ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "
 							role="button" aria-disabled="false">
 							<span class="ui-button-text">Join</span>
-						</button>
-					</td>
+						</button></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div id="game">
-		<div id="canvas"> 
+	<div id="game" class="invisible" >
+	    <div id="states">
+	    	State: <span id="stateSpan"></span>
+	    </div>
+	    <div id="playernamediv">
+	    	<canvas id="playername" width="50" height="50">
+			<p>Unfortunately, your browser is currently unsupported by our
+				web application. We are sorry for the inconvenience. Please use one
+				of the supported browsers listed below, or draw the image you want
+				using an offline tool.</p>
+			<p>
+				Supported browsers: <a href="http://www.opera.com">Opera</a>, <a
+					href="http://www.mozilla.com">Firefox</a>, <a
+					href="http://www.apple.com/safari">Safari</a>, and <a
+					href="http://www.konqueror.org">Konqueror</a>.
+			</p>
+			</canvas>
+	    </div>
+	    <div id="missiondiv">
+	    	Mission: <span id="mission"></span>
+	    </div>
+	    <br/>
+		<div id="canvas">
 			<canvas id="view" width="900" height="700">
-			<p>Unfortunately, your browser is currently unsupported by our web
-        application.  We are sorry for the inconvenience. Please use one of the
-        supported browsers listed below, or draw the image you want using an
-        offline tool.</p>
-        <p>Supported browsers: <a href="http://www.opera.com">Opera</a>, <a
-          href="http://www.mozilla.com">Firefox</a>, <a
-          href="http://www.apple.com/safari">Safari</a>, and <a
-          href="http://www.konqueror.org">Konqueror</a>.</p>
+			<p>Unfortunately, your browser is currently unsupported by our
+				web application. We are sorry for the inconvenience. Please use one
+				of the supported browsers listed below, or draw the image you want
+				using an offline tool.</p>
+			<p>
+				Supported browsers: <a href="http://www.opera.com">Opera</a>, <a
+					href="http://www.mozilla.com">Firefox</a>, <a
+					href="http://www.apple.com/safari">Safari</a>, and <a
+					href="http://www.konqueror.org">Konqueror</a>.
+			</p>
 			</canvas>
 		</div>
-		<div style="float: right; display: inline;">
-			<textarea id="log" rows="10" cols="50"></textarea>
+		<div id="buttonsdiv">
+			<div id="passButton">
+				<button
+					class="button-enabled ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only "
+					role="button" aria-disabled="false" onclick="javascript: pass()">
+					<span class="ui-button-text">Pass</span>
+				</button>
+			</div>
+			<div id="tradeButton">
+				<button
+					class="button-enabled ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+					role="button" aria-disabled="false" onclick="javascript: trade()">
+					<span class="ui-button-text">Trade</span>
+				</button>
+			</div>
+		</div>
+		<div style="display: inline;">
+			<textarea id="log" rows="60" cols="50"></textarea>
 		</div>
 	</div>
 </body>
